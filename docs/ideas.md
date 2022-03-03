@@ -1,7 +1,7 @@
 **teamthree - todo: application name**
 
 <ins>**Team Overview**</ins>  <br> 
-Emily Torok (@user)  <br> 
+Emily Torok (@zeldagirl113)  <br> 
 Lucas Bertoni (@user)  <br> 
 Youmna Alnasrallah (@user)  <br> 
 Yuri Kim (@flffamlln)
