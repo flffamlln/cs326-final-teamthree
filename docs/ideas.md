@@ -1,4 +1,4 @@
-**teamthree - todo: application name**
+**teamthree - petstagram**
 
 <ins>**Team Overview**</ins>  <br> 
 Emily Torok (@zeldagirl113)  <br> 
