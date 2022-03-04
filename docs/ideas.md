@@ -2,7 +2,7 @@
 
 <ins>**Team Overview**</ins>  <br> 
 Emily Torok (@zeldagirl113)  <br> 
-Lucas Bertoni (@user)  <br> 
+Lucas Bertoni (@lucas-bertoni)  <br> 
 Youmna Alnasrallah (@user)  <br> 
 Yuri Kim (@flffamlln)
 
