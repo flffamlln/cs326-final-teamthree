@@ -10,4 +10,8 @@ Yuri Kim (@flffamlln)
 Our application is an image-sharing application, similar to Instagram, but exclusively for users to share pictures of their pets. Users can like and comment on posted photos, as well as add descriptions to their images when they upload them. Users can also select tags for their photos from a predetermined list, and posts can then be sorted by their tags.
 
 <ins>**Important Components**</ins>  <br> 
-todo: provide a brief paragraph or two explaining the functions provided by some of the components of your final projects.
+We would have a feed that shows posts users have posted when users enter our application.
+Users would be able to like and comment on posted photos.
+Users would also be able to upload photos and include a description/caption.
+Users would also be able to select tags for their photos from a predetermined list.
+Then they would be able to search for posts via specific tags.
