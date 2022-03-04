@@ -7,7 +7,7 @@ Youmna Alnasrallah (@user)  <br>
 Yuri Kim (@flffamlln)
 
 <ins>**Innovative Idea**</ins>  <br> 
-todo: provide a brief paragraph or two describing your application and how it relates to other existing applications. If your application does not relate to an existing application then mention that.
+Our application is an image-sharing application, similar to Instagram, but exclusively for users to share pictures of their pets. Users can like and comment on posted photos, as well as add descriptions to their images when they upload them. Users can also select tags for their photos from a predetermined list, and posts can then be sorted by their tags.
 
 <ins>**Important Components**</ins>  <br> 
 todo: provide a brief paragraph or two explaining the functions provided by some of the components of your final projects.
