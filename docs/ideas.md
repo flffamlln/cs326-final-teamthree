@@ -1,4 +1,4 @@
-**teamthree - petstagram**
+**teamthree - Petstagram**
 
 <ins>**Team Overview**</ins>  <br> 
 Emily Torok (@zeldagirl113)  <br> 
