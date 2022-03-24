@@ -4,3 +4,8 @@
 * Users would also be able to upload photos and include a description/caption. <br>
 * Users would also be able to select tags for their photos from a predetermined list. <br>
 * Then they would be able to search for posts via specific tags. <br>
+
+<ins>**Wireframe**</ins> <br>
+https://www.figma.com/file/2iad5iCpA0Q4DytzWSIoW2/CS326-Team-Three-Wireframe?node-id=0%3A1
+
+<ins>**HTML and CSS**</ins> <br>
