@@ -1,0 +1,64 @@
+.banner {
+  border: solid #971B2F;
+  border-width: 0 0 3px 0;
+  color: black;
+  height: 70px;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  text-align: center;
+  padding: 10px;
+  width: 33%
+}
+
+#upload {
+  text-align: left;
+}
+
+#upload-button {
+  background-color: white;
+  border: 2px solid #971B2F;
+  border-radius: 10px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  padding: 10px;
+}
+
+#upload-button:hover {
+  background-color: #971B2F;
+  color: white;
+}
+
+#profile {
+  text-align: right;
+}
+
+#profile-button {
+  background: url(https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg);
+  background-size: cover;
+  border: 2px solid #971B2F;
+  border-radius: 10px;
+  cursor: pointer;
+  height: 50px;
+  padding: 10px;
+  width: 50px;
+}
+
+#profile-button:hover {
+  cursor: pointer;
+}
+
+#footer {
+  border: solid #971B2F;
+  border-width: 3px 0 0 0;
+  bottom: 0;
+  color: black;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+}
