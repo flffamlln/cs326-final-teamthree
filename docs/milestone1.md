@@ -8,7 +8,6 @@
 <ins>**Wireframes**</ins> <br>
 https://www.figma.com/file/2iad5iCpA0Q4DytzWSIoW2/CS326-Team-Three-Wireframe?node-id=0%3A1
 
-<<<<<<< HEAD
 <img src="..\wireframes\feed view.PNG" width="350">
 
 <img src="..\wireframes\login page.PNG" width="350">
@@ -20,8 +19,7 @@ https://www.figma.com/file/2iad5iCpA0Q4DytzWSIoW2/CS326-Team-Three-Wireframe?nod
 <img src="..\wireframes\profile page.PNG" width="350">
 
 <img src="..\wireframes\sign up page.PNG" width="350">
-<ins>**HTML and CSS**</ins> <br>
-=======
+
 <ins>**HTML and CSS**</ins> <br>
 On the profile page, users will be able to see their profile which includes their display name, uasername, email address, and post history. They will also have the option to edit their profile. When editing their profile, users will be able to edit all of the information shown on their profile (users will not be able to see other users email addresses). They will also have the option to change their password if desired.
 ![main_profile](https://user-images.githubusercontent.com/54999612/160256141-b8251fce-7226-424c-8afd-a39156967d6c.png)
@@ -32,6 +30,13 @@ On the profile page, users will be able to see their profile which includes thei
 On the forgot password page, users will be able to reset their password using their email address. The plan is to have an email sent to the email address input by the user (if it exists in the database) that contains a code that is required to reset their password. Once the user has this code, they may input it along with their new password to change their password.
 ![forgot_password](https://user-images.githubusercontent.com/54999612/160256175-ecd37185-af02-40c1-a1cb-49c2e180ee60.png)
 
+On the Post Pop Up View, users can see a post's tags, image, description, likes and comments. In addition, a user can add a comment.
+<img src="..\user interface\image-popup.PNG" width="350">
+
+
+On the Posting Photo Page, users can upload their desired photo, write a photo description and choose specific tags to post.
+<img src="..\user interface\upload-photo.PNG" width="350">
+
 
 
 <ins>**Breakdown of Labor**</ins> <br>
@@ -41,4 +46,8 @@ On the forgot password page, users will be able to reset their password using th
     <li>Created Profile Page as well as Forgot Password Page </li>
   </ul>
 </ul>
->>>>>>> ed7936b03d9f3d92d341459d11dd737a60f1d91c
+
+* Yuri Kim
+  * Created Post Pop Up View and Posting Photo Page
+
+
