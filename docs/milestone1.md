@@ -31,6 +31,7 @@ On the home page, users will be able to scroll through their feed (the pet photo
 <img src="..\user interface\homepage_screenshot1.png" width="800">
 <img src="..\user interface\homepage_screenshot2.png" width="800">
 
+
 On the sign up page, users will be asked to input a username, email, and a password where they will have to repeat their password twice. The page will also have a question that say Already have an account? Login. This is for people who might be on the wrong page. 
 
 <img src="..\user interface\signup.PNG" width="350">
