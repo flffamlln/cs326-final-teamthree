@@ -13,3 +13,7 @@ body {
 .bg-maroon {
     background-color: #971B2F;
 }
+
+#header {
+    border-bottom: 4px solid #971B2F;
+}
