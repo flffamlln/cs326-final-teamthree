@@ -11,3 +11,9 @@ https://www.figma.com/file/2iad5iCpA0Q4DytzWSIoW2/CS326-Team-Three-Wireframe?nod
 <ins>**HTML and CSS**</ins> <br>
 
 <ins>**Breakdown of Labor**</ins> <br>
+<ul> 
+  <li>Lucas Bertoni</li>
+  <ul> 
+    <li>Created Profile Page as well as Forgot Password Page </li>
+  </ul>
+</ul>
