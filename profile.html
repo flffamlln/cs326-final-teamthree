@@ -1,0 +1,136 @@
+<!-- template taken from https://bbbootstrap.com/snippets/individual-user-profile-social-network-94176986 -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Your Profile</title>
+
+    <link rel="stylesheet" href="./profile.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="./profile.js" type="module"></script>
+  </head>
+
+  <body>
+    <div id="header" class="pt-4 pb-4 d-flex align-items-center justify-content-center">
+      <h1 class="noselect">Petagram</h1>
+    </div>
+
+    <div id="main-container" class="row py-4 px-4 pt-3 full-height">
+      <div class="col-md-5 mx-auto">
+        <!-- Change Password Overlay-->
+        <div id="change-password-container" class="d-flex align-items-center justify-content-center w-100 mt-5">
+          <div id="change-password-overlay" class="px-5 pt-4 pb-3 curved-border w-75 noselect">
+            <h3 class="mb-3">Change Password</h3>
+            <div class="curved-border bg-gray p-3">
+              <div id="change-password-form" class="row mt-3 p-2 pb-3">
+                <div class="form-group col-lg-6">
+                  <label for="old-password" class="noselect">Old Password</label>
+                  <input type="password" id="old-password" name="old-password" class="form-control mb-3"/>
+                </div>
+
+                <div class="form-group col-lg-6">
+                  <label for="new-password" class="noselect">New Password</label>
+                  <input type="password" id="new-password" name="old-password" class="form-control mb-3"/>
+                </div>
+
+                <div class="text-center">
+                  <small>An email will be sent to the email linked to your account confirming you password change.</small>
+                </div>
+              </div>
+            </div>
+
+            <a id="save-password-change-button" class="btn btn-outline-dark btn-sm btn-block mt-4 mb-3">Change Password</a>
+                <a id="back-to-edit-button" class="btn btn-outline-dark btn-sm btn-block w-100 mt-4 mb-3">Back to Edit Profile</a>
+          </div>
+        </div>
+
+        <!-- Edit Profile Overlay-->
+        <div id="edit-overlay-container" class="d-flex align-items-center justify-content-center w-100">
+          <div id="edit-profile-overlay" class="px-5 pt-4 pb-3 curved-border w-75">
+            <h3 class="mb-3">Edit Profile</h3>
+            <div class="curved-border bg-gray p-3">
+              <div class="media align-items-end bg-maroon curved-border">
+                <div id="profile-picture-editable" class="profile mr-3">
+                  <img id="picture" src="./img/profile_picture/profile_picture.jpg" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                  <img id="icon" class="middle pointer" src="./img/icons/circle-plus-solid.svg" alt="" width="30">
+                </div>
+                <div class="media-body mb-3 text-white">
+                  <h4 class="mt-0 mb-0 noselect">Lucas Bertoni</h4>
+                  <small>@lucasbertoni <br /> lbertoni@umass.edu</small>
+                </div>
+              </div>
+  
+              <div id="update-profile" class="row mt-3 p-2 pb-3">
+                <div class="form-group col-lg-6">
+                  <label for="displayname" class="noselect">Display Name</label>
+                  <input type="text" id="displayname" name="displayname" class="form-control mb-3" value="Lucas Bertoni"/>
+                </div>
+  
+                <div class="form-group col-lg-6">
+                  <label for="username" class="noselect">Username</label>
+                  <input type="text" id="username" name="username" class="form-control mb-3" value="lucasbertoni"/>
+                </div>
+  
+                <div class="form-group col-lg-6">
+                  <label for="email" class="noselect">Email Address</label>
+                  <input type="email" id="email" name="email" class="form-control mb-3" value="lbertoni@umass.edu"/>
+                </div>
+  
+                <div class="form-group col-lg-6">
+                  <label for="phone" class="noselect">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" class="form-control mb-3"/>
+                </div>
+                
+                <a id="change-password-button" class="btn btn-outline-dark btn-sm btn-block w-50 m-auto">Change Password</a>
+              </div>
+            </div>
+
+            <a id="save-profile-button" class="btn btn-outline-dark btn-sm btn-block mt-4 mb-3">Save Changes</a>
+            <a id="back-to-profile-button" class="btn btn-outline-dark btn-sm btn-block w-100 mt-4 mb-3">Back to Profile / Discard Changes</a>
+          </div>
+        </div>
+
+        <!-- Profile widget -->
+        <div id="profile-container" class="bg-white shadow rounded overflow-hidden noselect">
+
+          <div class="px-4 pt-0 pb-4 cover bg-maroon">
+            <div class="media align-items-end profile-head">
+              <div class="profile mr-3">
+                <img src="./img/profile_picture/profile_picture.jpg" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                <a id="edit-profile-button" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
+              </div>
+              <div class="media-body mb-5 text-white">
+                <span class="mt-0 mb-2"> <b>Lucas Bertoni</b> &nbsp;&nbsp; @lucasbertoni</span>
+                <p>lbertoni@umass.edu</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-light p-4 d-flex justify-content-end text-center">
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <h5 class="font-weight-bold mb-0 d-block">Post Count</h5><small class="text-muted"> <i class="fas fa-image mr-1"></i>Posts</small>
+              </li>
+            </ul>
+          </div>
+
+          <div class="py-4 px-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h5 class="mb-0">Recent Posts</h5><a href="#" class="btn btn-link text-muted">Show all</a>
+            </div>
+            <div class="row">
+              <!-- <div class="col-lg-6 mb-2 pr-lg-1"><img src="" alt="Post 1" class="img-fluid rounded shadow-sm"></div>
+              <div class="col-lg-6 mb-2 pl-lg-1"><img src="" alt="Post 2" class="img-fluid rounded shadow-sm"></div>
+              <div class="col-lg-6 pr-lg-1 mb-2"><img src="" alt="Post 3" class="img-fluid rounded shadow-sm"></div>
+              <div class="col-lg-6 pl-lg-1">     <img src="" alt="Post 4" class="img-fluid rounded shadow-sm"></div> -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+  </div>
+  </body>
+</html>
