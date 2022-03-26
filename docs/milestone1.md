@@ -8,4 +8,15 @@
 <ins>**Wireframe**</ins> <br>
 https://www.figma.com/file/2iad5iCpA0Q4DytzWSIoW2/CS326-Team-Three-Wireframe?node-id=0%3A1
 
+<img src="..\wireframes\feed view.PNG" width="350">
+
+<img src="..\wireframes\login page.PNG" width="350">
+
+<img src="..\wireframes\post pop up.PNG" width="350">
+
+<img src="..\wireframes\posting photo.PNG" width="350">
+
+<img src="..\wireframes\profile page.PNG" width="350">
+
+<img src="..\wireframes\sign up page.PNG" width="350">
 <ins>**HTML and CSS**</ins> <br>
