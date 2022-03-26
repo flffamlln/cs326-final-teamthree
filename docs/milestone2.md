@@ -12,10 +12,6 @@
 <ins>**Breakdown of Labor**</ins> <br>
 
 * Lucas Bertoni
-  *
 * Youmna Alnasrallah
-  * 
 * Yuri Kim
-  * 
 * Emily Torok
-  *
