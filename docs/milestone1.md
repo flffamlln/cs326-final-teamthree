@@ -34,12 +34,12 @@ On the home page, users will be able to scroll through their feed (the pet photo
 
 On the sign up page, users will be asked to input a username, email, and a password where they will have to repeat their password twice. The page will also have a question that say Already have an account? Login. This is for people who might be on the wrong page. 
 
-<img src="..\user interface\signup.PNG" width="350">
+<img src="..\user interface\signup.PNG" width="800">
 
 
 On the Login page, users will have the options of either inputting their email or username then enter their password to get into their account. Similar to the sign up page, the login page will have a question that says Don't have an account? Sign Up for those who don't have an account and are on the wrong page. 
 
-<img src="..\user interface\login.PNG" width="350">
+<img src="..\user interface\login.PNG" width="800">
 
 
 On the profile page, users will be able to see their profile which includes their display name, uasername, email address, and post history. They will also have the option to edit their profile. When editing their profile, users will be able to edit all of the information shown on their profile (users will not be able to see other users email addresses). They will also have the option to change their password if desired.
