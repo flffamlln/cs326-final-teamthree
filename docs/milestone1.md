@@ -25,6 +25,12 @@ https://www.figma.com/file/2iad5iCpA0Q4DytzWSIoW2/CS326-Team-Three-Wireframe?nod
 <br>
 
 <ins>**HTML and CSS**</ins> <br>
+
+On the home page, users will be able to scroll through their feed (the pet photos that other users have uploaded). Users can also upload a photo using the upload button. If users click on "Search Posts", they can choose a specific tag; once they click on that tag, their feed will only contain photos with that tag. This serves as a way for users to search for posts via tags. Finally, on the right-hand side of the page, users will see their profile photo, and if clicked, users will be taken to their profile page. 
+
+<img src="..\user interface\homepage_screenshot1.png" width="500">
+<img src="..\user interface\homepage_screenshot1.png" width="500">
+
 On the sign up page, users will be asked to input a username, email, and a password where they will have to repeat their password twice. The page will also have a question that say Already have an account? Login. This is for people who might be on the wrong page. 
 
 <img src="..\user interface\signup.PNG" width="350">
@@ -68,7 +74,7 @@ On the Posting Photo Page, users can upload their desired photo, write a photo d
 
 * Yuri Kim
   * Created Post Pop Up View and Posting Photo Page
-  
+
 * Emily Torok
   * Created home page/feed view
 
