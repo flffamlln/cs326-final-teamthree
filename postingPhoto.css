@@ -1,0 +1,46 @@
+.umass-red{
+    background-color: #971B2F;
+}
+
+.border-8{
+    border-radius: 8px;
+}
+
+body{
+    margin-right: 25%;
+    margin-left: 25%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    background-color: white;
+    box-shadow: 5px 10px #424141;
+    font-size: 13px;
+}
+
+#image{
+    clear: both;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+#tags{
+    border: #757575 2px solid;
+    background-color: #e4e3e3;
+    margin: 3%;
+    margin-right: 8%;
+    float: right;
+    padding: 1px;
+    font-size: 15px;
+}
+
+img{
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 5%;
+}
+
+.standardBox{
+    border-radius: 8px;
+    margin-left: 12%;
+    margin-right: 12%;
+    margin-bottom: 1%;
+}
