@@ -46,6 +46,12 @@ On the Posting Photo Page, users can upload their desired photo, write a photo d
     <li>Created Profile Page as well as Forgot Password Page </li>
   </ul>
 </ul>
+<ul> 
+  <li>Youmna Alnasrallah</li>
+  <ul> 
+    <li>Created the signup and login pages </li>
+  </ul>
+</ul>
 
 * Yuri Kim
   * Created Post Pop Up View and Posting Photo Page
