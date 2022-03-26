@@ -35,13 +35,13 @@ On the home page, users will be able to scroll through their feed (the pet photo
 
 On the sign up page, users will be asked to input a username, email, and a password where they will have to repeat their password twice. The page will also have a question that say Already have an account? Login. This is for people who might be on the wrong page. 
 
-<img src="..\user interface\signup.PNG" width="800">
+<img src="..\user interface\signup.PNG" width="700">
 
 <br>
 
 On the Login page, users will have the options of either inputting their email or username then enter their password to get into their account. Similar to the sign up page, the login page will have a question that says Don't have an account? Sign Up for those who don't have an account and are on the wrong page. 
 
-<img src="..\user interface\login.PNG" width="800">
+<img src="..\user interface\login.PNG" width="700">
 
 <br>
 
@@ -61,13 +61,13 @@ On the forgot password page, users will be able to reset their password using th
 
 On the Post Pop Up View, users can see a post's tags, image, description, likes and comments. In addition, a user can add a comment.
 
-<img src="..\user interface\image-popup.PNG" width="800">
+<img src="..\user interface\image-popup.PNG" width="700">
 
 <br>
 
 On the Posting Photo Page, users can upload their desired photo, write a photo description and choose specific tags to post.
 
-<img src="..\user interface\upload-photo.PNG" width="800">
+<img src="..\user interface\upload-photo.PNG" width="700">
 
 <br>
 
