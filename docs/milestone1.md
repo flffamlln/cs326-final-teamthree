@@ -62,10 +62,13 @@ On the Posting Photo Page, users can upload their desired photo, write a photo d
 
 * Lucas Bertoni
   * Created Profile Page as well as Forgot Password Page
+
 * Youmna Alnasrallah
   * Created the signup and login pages
+
 * Yuri Kim
   * Created Post Pop Up View and Posting Photo Page
+  
 * Emily Torok
   * Created home page/feed view
 
