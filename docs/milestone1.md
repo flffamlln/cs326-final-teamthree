@@ -21,6 +21,18 @@ https://www.figma.com/file/2iad5iCpA0Q4DytzWSIoW2/CS326-Team-Three-Wireframe?nod
 <img src="..\wireframes\sign up page.PNG" width="350">
 
 <ins>**HTML and CSS**</ins> <br>
+On the sign up page, users will be asked to input a username, email, and a password where they will have to repeat their password twice. The page will also have a question that say Already have an account? Login. This is for people who might be on the wrong page. 
+
+<img src="..\user interface\signup.PNG" width="350">
+
+
+On the Login page, users will have the options of either inputting their email or username then enter their password to get into their account. Similar to the sign up page, the login page will have a question that says Don't have an account? Sign Up for those who don't have an account and are on the wrong page. 
+
+<img src="..\user interface\login.PNG" width="350">
+
+
+
+
 On the profile page, users will be able to see their profile which includes their display name, uasername, email address, and post history. They will also have the option to edit their profile. When editing their profile, users will be able to edit all of the information shown on their profile (users will not be able to see other users email addresses). They will also have the option to change their password if desired.
 ![main_profile](https://user-images.githubusercontent.com/54999612/160256141-b8251fce-7226-424c-8afd-a39156967d6c.png)
 ![edit_profile](https://user-images.githubusercontent.com/54999612/160256140-a83f0865-461a-41be-923d-63f3fefb8453.png)

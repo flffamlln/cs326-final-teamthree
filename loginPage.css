@@ -1,0 +1,19 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+#main-container {
+    width: 100px;
+}
+
+.bg-maroon {
+    background-color: #971B2F;
+}
+
+#header {
+    border-bottom: 4px solid #971B2F;
+}
