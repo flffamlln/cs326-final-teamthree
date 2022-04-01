@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home - Petstagram</title>
+    <link rel="stylesheet" href="styles/universal.css">
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div id="header" class="noselect">
+      <h1>Petstagram</h1>
+    </div>
+
+    <div id="controls" class="py-2 px-4">
+      <div>
+        <a id="upload-button" class="btn d-flex justify-content-center align-items-center rounded-border-8px">Upload</a>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="dropdown">
+          <a id="drop-button" class="btn d-flex justify-content-center align-items-center rounded-border-8px">Filter Posts</a>
+          <div class="tags">
+            <a href="#">#dog</a>
+            <a href="#">#cat</a>
+            <a href="#">#bird</a>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="button" id="profile-button" class="text-end" onclick="location.href='profile.html'"></button>
+      </div>
+    </div>
+
+    <!-- <table class="posts">
+      <tr>
+        <td><img src="./images/07CAT-STRIPES-mediumSquareAt3X-v2.jpg" alt="striped cat" width="300" height="300"></td>
+        <td><img src="./images/golder-retriever-puppy.jpeg" alt="golden retriever puppy" width="300" height="300"></td>
+      </tr>
+      <tr>
+        <td><img src="./images/best-pet-birds-lead-1572839035.jpg" alt="green budgie bird on child's hand" width="300" height="300"></td>
+        <td><img src="./images/popular-small-bird-species-390926-hero-d3d0af7bb6ed4947b0c3c5afb4784456.jpg" alt="yellow cockatiel bird" width="300" height="300"></td>
+      </tr>
+      <tr>
+        <td><img src="./images/smartest-dog-breeds-pembroke-welsh-corgi-1587748916.jpg" alt="corgi dog on beach"width="300" height="300"></td>
+        <td><img src="./images/pork-allergy-caused-by-allergies-to-cats-83180-hero2-2c6099a84f2d4d58a2f627a8008c1552.jpg" alt="black and white cat sitting on bed" width="300" height="300"></td>
+      </tr>
+    </table> -->
+
+    <div class="container mb-5">
+      <div class="py-4 px-4 d-flex justify-content-center">
+        <div id="posts">
+          <div class="post-img-row">
+            <div class="d-flex justify-content-center"><img src="images/bird1.jpg" alt="Post 4" class="img-fluid rounded shadow-sm"></div>
+            <div class="d-flex justify-content-center"><img src="images/bird2.jpg" alt="Post 4" class="img-fluid rounded shadow-sm"></div>
+          </div>
+
+          <div class="post-img-row">
+            <div class="d-flex justify-content-center"><img src="images/dog1.jpeg" alt="Post 4" class="img-fluid rounded shadow-sm"></div>
+            <div class="d-flex justify-content-center"><img src="images/dog2.webp" alt="Post 4" class="img-fluid rounded shadow-sm"></div>
+          </div>
+
+          <div class="post-img-row">
+            <div class="d-flex justify-content-center"><img src="images/cat1.jpg" alt="Post 4" class="img-fluid rounded shadow-sm"></div>
+            <div class="d-flex justify-content-center"><img src="images/cat2.jpg" alt="Post 4" class="img-fluid rounded shadow-sm"></div>
+          </div>
+
+          <div class="post-img-row">
+            <div class="d-flex justify-content-center"><img src="images/bird1.jpg" alt="Post 4" class="img-fluid rounded shadow-sm"></div>
+            <div class="d-flex justify-content-center"><img src="images/bird2.jpg" alt="Post 4" class="img-fluid rounded shadow-sm"></div>
+          </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>By Youmna Alnasrallah, Lucas Bertoni, Yuri Kim, and Emily Torok</p>
+    </footer>
+  </body>
+</html>

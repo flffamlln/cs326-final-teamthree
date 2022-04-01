@@ -1,0 +1,104 @@
+span b { 
+  font-size: 150%;
+  font-weight: bold
+}
+
+.middle {
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.p-6,
+.pt-6,
+.py-6 {
+  padding-top: 6rem !important;
+}
+
+.p-6,
+.pr-6,
+.px-6 {
+  padding-right: 6rem !important;
+}
+
+.p-6,
+.pb-6,
+.py-6 {
+  padding-bottom: 6rem !important;
+}
+
+.p-6,
+.pl-6,
+.px-6 {
+  padding-left: 6rem !important;
+}
+
+.profile-head {
+  transform: translateY(5rem)
+}
+
+
+
+#change-password-container {
+  opacity: 1;
+  position: absolute;
+  transition: 100ms;
+  top: 5%;
+  visibility: hidden;
+  z-index: 20;
+}
+
+#change-password-overlay {
+  background-color: white;
+  border: 4px solid #971B2F;
+  box-shadow: 0 0 3px #aaa;
+  color: black;
+  height: auto;
+  padding-top: 5px;
+}
+
+#edit-overlay-container {
+  opacity: 1;
+  position: absolute;
+  transition: 100ms;
+  top: 5%;
+  visibility: hidden;
+  z-index: 10;
+}
+
+#edit-profile-overlay {
+  background-color: white;
+  border: 4px solid #971B2F;
+  box-shadow: 0 0 3px #aaa;
+  color: black;
+  height: auto;
+  padding-top: 5px;
+}
+
+#profile-container {
+  height: 85%;
+  transition: 100ms;
+}
+
+#profile-picture-editable {
+  margin: 8px 0px 0px 8px;
+  position: relative;
+}
+
+#profile-picture-editable:hover #picture {
+  opacity: 0.6;
+  transition: 0.2s;
+}
+
+#profile-picture-editable:hover #icon {
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
+#icon {
+  opacity: 0;
+}

@@ -1,27 +1,15 @@
-html {
-  margin: 0;
-  padding: 0;
+html, body {
+  overflow: visible;
 }
 
-th {
-  text-align: center;
-  padding: 10px;
-  width: 33%
+body::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 td:hover{
   cursor: pointer;
-}
-
-.banner {
-  border: solid #971B2F;
-  border-width: 0 0 3px 0;
-  color: black;
-  height: 70px;
-}
-
-.buttons {
-  width: 100%;
 }
 
 .upload {
@@ -31,15 +19,6 @@ td:hover{
 .dropdown {
   display: inline-block;
   position: relative;
-}
-
-.drop-button {
-  background-color: white;
-  border: 2px solid #971B2F;
-  border-radius: 10px;
-  cursor: pointer;
-  padding: 10px;
-  transition-duration: 0.4s;
 }
 
 .tags {
@@ -64,25 +43,8 @@ td:hover{
   background-color: #ddd;
 }
 
-.drop-button:hover {
-  background-color: #971B2F;
-  color: white;
-}
-
 .dropdown:hover .tags {
   display: block;
-}
-
-.profile {
-  text-align: right;
-}
-
-.posts {
-  border-collapse: separate;
-  border-spacing: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 45px;
 }
 
 .footer {
@@ -97,13 +59,51 @@ td:hover{
   width: 100%;
 }
 
+.post-img-row {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.post-img-row img {
+  width: 80%;
+  height: auto;
+}
+
+#controls {
+  display: grid;
+  grid-template-columns: 33.333% 33.333% 33.333%;
+  position: sticky;
+  top: 120px;
+  background-color: white;
+  width: 100%;
+  z-index: 100;
+  border-bottom: 2px solid #eeeeee;
+  height: 70px;
+}
+
+#drop-button {
+  border: 2px solid #971B2F;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  width: 120px;
+  height: 100%;
+}
+
+#drop-button:hover {
+  background-color: #971B2F;
+}
+
 #upload-button {
   background-color: white;
   border: 2px solid #971B2F;
-  border-radius: 10px;
   cursor: pointer;
-  padding: 10px;
-  transition-duration: 0.4s;
+  transition-duration: 0.2s;
+  width: 80px;
+  height: 100%;
 }
 
 #upload-button:hover {
@@ -116,12 +116,15 @@ td:hover{
   background-size: cover;
   border: 2px solid #971B2F;
   border-radius: 10px;
-  cursor: pointer;
   height: 50px;
   padding: 10px;
   width: 50px;
 }
 
-#profile-button:hover {
-  cursor: pointer;
+#posts {
+  width: 80%;
+  display: grid;
+  grid-template-columns: 100%;
+  justify-content: center;
+  align-items: center;
 }
