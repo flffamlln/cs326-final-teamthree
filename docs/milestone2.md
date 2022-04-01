@@ -2,6 +2,12 @@
 
 <ins>**Project API Planning**</ins>  <br>
 *API documentation or API flowchart here* 
+- createPost
+- createUser
+- updateUser
+- deletePost
+- updateLike
+- updatePost
 
 <ins>**Front-end Implementation**</ins> <br>
 *screenshots go here*
