@@ -3,7 +3,9 @@
 <ins>**Project API Planning**</ins>  <br>
 API Documentation <br>
 <img src="..\api planning\JSON objects.PNG" width="350">
+
 <img src="..\api planning\POSTS.PNG" width="350">
+
 <img src="..\api planning\USER.PNG" width="350">
 
 <ins>**Front-end Implementation**</ins> <br>
