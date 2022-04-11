@@ -11,37 +11,38 @@ const __dirname = path.resolve();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/client', express.static('client'));
+app.use('/client', express.static(path.join(__dirname, 'client')));
 
 
 
-app.post('/create', async (req, res) => {
-  const options = request.body;
+app.post('/create', (req, res) => {
+  console.log("Create");
+  const options = req.body;
   console.log(options);
 });
 
-app.get('/read', async (req, res) => {
-  const options = request.query;
+app.get('/get_posts', (req, res) => {
+  console.log("Get Posts");
+  const options = req.query;
+  console.log(options);
+  res.sendStatus(200);
+});
+
+app.put('/update_user', (req, res) => {
+  console.log("Update User");
+  const options = req.query;
+  res.sendStatus(200);
+});
+
+app.delete('/delete', (req, res) => {
+  console.log("Delete");
+  const options = req.query;
   console.log(options);
 });
 
-app.put('/update',async (req, res) => {
-  const options = request.query;
-  console.log(options);
-});
-
-app.delete('/delete', async (req, res) => {
-  const options = request.query;
-  console.log(options);
-});
-
-app.get('*', async (req, res) => {
-  res.redirect('localhost:3000/client/login.html');
-});
-
-app.get('/client/login.html', async (req, res) => {
-  res.render(__dirname + '/client/login.html');
-});
+app.get('*', (req, res) => {
+  res.redirect('/client/login.html');
+})
 
 
 

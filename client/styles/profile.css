@@ -43,6 +43,23 @@ span b {
 
 
 
+#change-profile-picture-container {
+  opacity: 1;
+  position: absolute;
+  transition: 100ms;
+  visibility: hidden;
+  z-index: 10;
+}
+
+#change-profile-picture-overlay {
+  background-color: white;
+  border: 4px solid #971B2F;
+  box-shadow: 0 0 3px #aaa;
+  color: black;
+  height: auto;
+  padding-top: 5px;
+}
+
 #change-password-container {
   opacity: 1;
   position: absolute;
@@ -89,16 +106,11 @@ span b {
   position: relative;
 }
 
-#profile-picture-editable:hover #picture {
+#profile-picture-editable:hover .profile-picture {
+  transition: opacity 0.2s, visibility 0s;
   opacity: 0.6;
-  transition: 0.2s;
 }
 
-#profile-picture-editable:hover #icon {
-  opacity: 0.8;
-  transition: 0.2s;
-}
-
-#icon {
-  opacity: 0;
+#show-all-posts:hover {
+  color: black !important;
 }
