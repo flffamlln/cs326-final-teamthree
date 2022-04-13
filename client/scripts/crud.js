@@ -45,12 +45,13 @@ export async function createComment(post_id, user_id, comment_text) {
 /**
  * Return the num_posts most recent posts for a user
  * @param {string} user_id 
- * @param {number} num_posts 
+ * @param {number} num_posts_requested 
+ * @param {number} num_posts_present 
  * @returns An array of posts
  */
-export async function getUserPosts(user_id, num_posts) {
+export async function getUserPosts(user_id, num_posts_requested, num_posts_present) {
   try {
-    const response = await fetch(`/get_user_posts?user_id=${user_id}&num_posts=${num_posts}`, {
+    const response = await fetch(`/get_user_posts?user_id=${user_id}&num_posts_requested=${num_posts_requested}&num_posts_present=${num_posts_present}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

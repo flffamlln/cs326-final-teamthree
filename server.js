@@ -4,6 +4,17 @@ import morgan from 'morgan';
 import logger from 'morgan';
 
 
+// This is not how this is going to be implemented, this is just for testing.
+  // The actual implementation will have images stored in a database.
+  const posts = [
+    {url: "./img/test1.jpg", description: "This is a description"},
+    {url: "./img/test2.jpg", description: "This is a description"},
+    {url: "./img/test3.jpg", description: "This is a description"},
+    {url: "./img/test4.jpg", description: "This is a description"},
+    {url: "./img/test5.jpg", description: "This is a description"},
+    {url: "./img/test6.jpg", description: "This is a description"},
+  ];
+
 
 const app = express();
 const port = 3000;
@@ -23,15 +34,13 @@ app.post('/create', (req, res) => {
 
 app.get('/get_user_posts', (req, res) => {
   const options = req.query;
-  
-  // This is not how this is going to be implemented, this is just for testing.
-  // The actual implementation will have images stored in a database.
-  const posts = [
-    {url: "./img/test1.jpg", description: "This is a description"},
-    {url: "./img/test2.jpg", description: "This is a description"},
-    {url: "./img/test3.jpg", description: "This is a description"}
-  ];
-  res.status(200).send(posts);
+  console.log("Present:");
+  console.log(options.num_posts_present);
+  console.log("Requested:");
+  console.log(options.num_posts_requested);
+  const selected_posts = posts.slice(options.num_posts_present, options.num_posts_requested);
+  console.log(selected_posts);
+  res.status(200).send(selected_posts);
 });
 
 app.put('/update_user', (req, res) => {
