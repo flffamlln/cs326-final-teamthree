@@ -13,7 +13,7 @@ Array.from(pfps).forEach(pfp => {
 
 const posts_div = document.getElementById("recent-posts");
 window.onload = async function () {
-  const res = await getPosts(session_info.user_id, 4);
+  const res = await getUserPosts(session_info.user_id, 4);
   if (res.status === 200) {
     posts_div.appendChild(document.createElement("p").appendChild(document.createTextNode("Initial posts go here")));
     posts_div.appendChild(document.createElement("br"));

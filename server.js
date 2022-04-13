@@ -21,9 +21,9 @@ app.post('/create', (req, res) => {
   console.log(options);
 });
 
-app.get('/get_posts', (req, res) => {
+app.get('/get_user_posts', (req, res) => {
   console.log("Get Posts");
-  const options = req.query;
+  const options = req.body;
   console.log(options);
   res.sendStatus(200);
 });
