@@ -1,6 +1,6 @@
 import { updateUser, getUserPosts } from './crud.js';
 
-
+const NUM_INIT_POSTS = 2;
 const session_info = {
   user_id: 0,
   profile_picture: "./img/mike.jpg",
@@ -16,31 +16,10 @@ Array.from(pfps).forEach(pfp => {
 const posts_div = document.getElementById("recent-posts");
 window.onload = async function () {
   num_posts_displayed = 0;
-  const res = await getUserPosts(session_info.user_id, 4, 0);
+  const res = await getUserPosts(session_info.user_id, NUM_INIT_POSTS, 0);
   if (res.status === 200 && res.ok) {
     res.posts_arr.forEach(post => {
-      const post_container = document.createElement("div");
-      post_container.classList.add("col-lg-6");
-      post_container.classList.add("pr-lg-1");
-      post_container.classList.add("d-flex");
-      post_container.classList.add("align-items-center");
-      post_container.classList.add("justify-content-center");
-      post_container.classList.add("mb-2");
-
-      const post_img = document.createElement("img");
-      post_img.classList.add("img-fluid");
-      post_img.classList.add("rounded");
-      post_img.classList.add("shadow-sm");
-      post_img.src = post.url;
-      post_img.alt = "Oops, this image couldn't be found";
-      post_img.addEventListener("click", () => {
-        console.log("Post Clicked");
-      });
-
-      post_container.appendChild(post_img);
-      posts_div.appendChild(post_container);
-
-      ++num_posts_displayed;
+      renderPost(post);
     });
   } else {
     posts_div.appendChild(document.createElement("p").appendChild(document.createTextNode("There was an error getting the initial posts")));
@@ -126,30 +105,37 @@ show_all_posts.addEventListener("click", async () => {
   const res = await getUserPosts(session_info.user_id, 1000, num_posts_displayed);
   if (res.status === 200 && res.ok) {
     res.posts_arr.forEach(post => {
-      const post_container = document.createElement("div");
-      post_container.classList.add("col-lg-6");
-      post_container.classList.add("mb-2");
-      post_container.classList.add("pr-lg-1");
-      post_container.classList.add("d-flex");
-      post_container.classList.add("align-items-center");
-      post_container.classList.add("justify-content-center");
-
-      const post_img = document.createElement("img");
-      post_img.classList.add("img-fluid");
-      post_img.classList.add("rounded");
-      post_img.classList.add("shadow-sm");
-      post_img.src = post.url;
-      post_img.alt = "Oops, this image couldn't be found";
-      post_img.addEventListener("click", () => {
-        console.log("Post Clicked");
-      });
-
-      post_container.appendChild(post_img);
-      posts_div.appendChild(post_container);
-
-      ++num_posts_displayed;
+      renderPost(post);
     });
   } else {
     alert("There was an error getting more posts");
   }
 });
+
+
+
+
+function renderPost(post) {
+  const post_container = document.createElement("div");
+  post_container.classList.add("col-lg-6");
+  post_container.classList.add("pr-lg-1");
+  post_container.classList.add("mb-2");
+  post_container.classList.add("h-50");
+  post_container.classList.add("post-container");
+
+  const post_img = document.createElement("img");
+  post_img.classList.add("img-fluid");
+  post_img.classList.add("rounded");
+  post_img.classList.add("shadow-sm");
+  post_img.src = post.url;
+  post_img.alt = "Oops, this image couldn't be found";
+  post_img.width = 350;
+  post_img.addEventListener("click", () => {
+    console.log("Post Clicked");
+  });
+
+  post_container.appendChild(post_img);
+  posts_div.appendChild(post_container);
+
+  ++num_posts_displayed;
+}

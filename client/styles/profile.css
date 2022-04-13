@@ -13,6 +13,13 @@ span b {
   text-align: center;
 }
 
+.post-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px !important;
+}
+
 .p-6,
 .pt-6,
 .py-6 {
@@ -113,7 +120,8 @@ span b {
 
 #recent-posts {
   overflow-y: scroll;
-  height: 650px;
+  position: relative;
+  height: 550px;
 }
 
 #recent-posts::-webkit-scrollbar {
