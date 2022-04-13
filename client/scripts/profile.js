@@ -8,6 +8,8 @@ const session_info = {
 
 let num_posts_displayed = 0;
 
+const posts_div = document.getElementById("recent-posts");
+
 const pfps = document.getElementsByClassName("profile-picture");
 Array.from(pfps).forEach(pfp => {
   pfp.src = session_info.profile_picture;
@@ -119,12 +121,16 @@ show_all_posts.addEventListener("click", async () => {
 
 
 
-const posts_div = document.getElementById("posts-container");
+
 function renderPost(post) {
   const post_container = document.createElement("div");
   post_container.classList.add("col-lg-6");
-  post_container.classList.add("mb-4");
-  post_container.classList.add("h-50");
+  post_container.classList.add("my-2");
+  // if (num_posts_displayed % 2 === 0) {
+  //   post_container.classList.add("pl-0");
+  // } else {
+  //   post_container.classList.add("pr-0");
+  // }
   post_container.classList.add("post-container");
 
   const post_img = document.createElement("img");
