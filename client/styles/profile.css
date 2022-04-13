@@ -20,6 +20,12 @@ span b {
   padding: 10px !important;
 }
 
+.post-img {
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+}
+
 .p-6,
 .pt-6,
 .py-6 {
@@ -104,7 +110,7 @@ span b {
 }
 
 #profile-container {
-  max-height: 85%;
+  height: 87% !important;
   transition: 100ms;
 }
 
@@ -121,7 +127,7 @@ span b {
 #recent-posts {
   overflow-y: scroll;
   position: relative;
-  height: 550px;
+  height: 600px;
 }
 
 #recent-posts::-webkit-scrollbar {
