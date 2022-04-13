@@ -127,10 +127,13 @@ function renderPost(post) {
   post_container.classList.add("h-50");
   post_container.classList.add("post-container");
 
-  const post_img = document.createElement("div");
-  post_img.style.background = "url(" + post.url + ")";
-  post_img.style.backgroundSize = "cover";
-  post_img.classList.add("post-img");
+  const post_img = document.createElement("img");
+  post_img.classList.add("img-fluid");
+  post_img.classList.add("rounded");
+  post_img.classList.add("shadow-sm");
+  post_img.src = post.url;
+  post_img.alt = "Oops, this image couldn't be found";
+  post_img.width = 350;
   post_img.addEventListener("click", () => {
     console.log("Post Clicked");
   });

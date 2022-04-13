@@ -112,7 +112,7 @@ span b {
 }
 
 #profile-container {
-  height: 87% !important;
+  max-height: 85%;
   transition: 100ms;
 }
 
@@ -124,6 +124,12 @@ span b {
 #profile-picture-editable:hover .profile-picture {
   transition: opacity 0.2s, visibility 0s;
   opacity: 0.6;
+}
+
+#recent-posts {
+  overflow-y: scroll;
+  position: relative;
+  height: 550px;
 }
 
 #recent-posts::-webkit-scrollbar {
