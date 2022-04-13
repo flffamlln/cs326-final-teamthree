@@ -34,10 +34,6 @@ app.post('/create', (req, res) => {
 
 app.get('/get_user_posts', (req, res) => {
   const options = req.query;
-  console.log("Present:");
-  console.log(options.num_posts_present);
-  console.log("Requested:");
-  console.log(options.num_posts_requested);
   const selected_posts = posts.slice(options.num_posts_present, options.num_posts_requested);
   console.log(selected_posts);
   res.status(200).send(selected_posts);

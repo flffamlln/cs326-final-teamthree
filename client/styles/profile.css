@@ -14,15 +14,17 @@ span b {
 }
 
 .post-container {
+  min-height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px !important;
+  padding-left: 3% !important;
+  padding-right: 3% !important;
 }
 
 .post-img {
-  height: 100%;
-  width: 100%;
+  min-height: 150px !important;
+  min-width: 100% !important;
   border-radius: 8px;
 }
 
@@ -122,12 +124,6 @@ span b {
 #profile-picture-editable:hover .profile-picture {
   transition: opacity 0.2s, visibility 0s;
   opacity: 0.6;
-}
-
-#recent-posts {
-  overflow-y: scroll;
-  position: relative;
-  height: 600px;
 }
 
 #recent-posts::-webkit-scrollbar {

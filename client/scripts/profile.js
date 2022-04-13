@@ -1,6 +1,6 @@
 import { updateUser, getUserPosts } from './crud.js';
 
-const NUM_INIT_POSTS = 2;
+const NUM_INIT_POSTS = 4;
 const session_info = {
   user_id: 0,
   profile_picture: "./img/mike.jpg",
@@ -13,8 +13,9 @@ Array.from(pfps).forEach(pfp => {
   pfp.src = session_info.profile_picture;
 });
 
-const posts_div = document.getElementById("recent-posts");
 window.onload = async function () {
+  // document.getElementById("recent-posts").height = document.getElementById("");
+
   num_posts_displayed = 0;
   const res = await getUserPosts(session_info.user_id, NUM_INIT_POSTS, 0);
   if (res.status === 200 && res.ok) {
@@ -107,6 +108,10 @@ show_all_posts.addEventListener("click", async () => {
     res.posts_arr.forEach(post => {
       renderPost(post);
     });
+
+    if (res.posts_arr.length > 0) {
+      document.getElementById("recent-posts").style.overflowY = "scroll";
+    }
   } else {
     alert("There was an error getting more posts");
   }
@@ -114,15 +119,13 @@ show_all_posts.addEventListener("click", async () => {
 
 
 
-
+const posts_div = document.getElementById("posts-container");
 function renderPost(post) {
   const post_container = document.createElement("div");
   post_container.classList.add("col-lg-6");
-  post_container.classList.add("pr-lg-1");
-  post_container.classList.add("mb-2");
+  post_container.classList.add("mb-4");
   post_container.classList.add("h-50");
   post_container.classList.add("post-container");
-  // post_container.style.marginRight = "5px";
 
   const post_img = document.createElement("div");
   post_img.style.background = "url(" + post.url + ")";
