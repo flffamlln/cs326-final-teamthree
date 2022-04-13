@@ -56,7 +56,7 @@ export async function getUserPosts(user_id, num_posts) {
         'Content-Type': 'application/json'
       },
     });
-    const data = { status: response.status, arr: await response.json() };
+    const data = { status: response.status, ok: response.ok, posts_arr: await response.json() };
     return data;
   } catch (err) {
     console.log(err);

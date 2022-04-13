@@ -14,12 +14,23 @@ Array.from(pfps).forEach(pfp => {
 const posts_div = document.getElementById("recent-posts");
 window.onload = async function () {
   const res = await getUserPosts(session_info.user_id, 4);
-  if (res.status === 200) {
-    res.arr.forEach(post => {
-      console.log(post);
+  if (res.status === 200 && res.ok) {
+    res.posts_arr.forEach(post => {
+      const post_container = document.createElement("div");
+      post_container.classList.add("col-lg-6");
+      post_container.classList.add("mb-2");
+      post_container.classList.add("pr-lg-1");
+
+      const post_img = document.createElement("img");
+      post_img.classList.add("img-fluid");
+      post_img.classList.add("rounded");
+      post_img.classList.add("shadow-sm");
+      post_img.src = post.url;
+      post_img.alt = "Oops";
+
+      post_container.appendChild(post_img);
+      posts_div.appendChild(post_container);
     });
-    posts_div.appendChild(document.createElement("p").appendChild(document.createTextNode("Initial posts go here")));
-    posts_div.appendChild(document.createElement("br"));
   } else {
     posts_div.appendChild(document.createElement("p").appendChild(document.createTextNode("There was an error getting the initial posts")));
     posts_div.appendChild(document.createElement("br"));

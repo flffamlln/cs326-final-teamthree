@@ -22,11 +22,15 @@ app.post('/create', (req, res) => {
 });
 
 app.get('/get_user_posts', (req, res) => {
-  //console.log("Get User Posts");
   const options = req.query;
-  // console.log("Options:");
-  // console.log(options);
-  const posts = ["post1", "post2", "post3"];
+  
+  // This is not how this is going to be implemented, this is just for testing.
+  // The actual implementation will have images stored in a database.
+  const posts = [
+    {url: "./img/test1.jpg", description: "This is a description"},
+    {url: "./img/test2.jpg", description: "This is a description"},
+    {url: "./img/test3.jpg", description: "This is a description"}
+  ];
   res.status(200).send(posts);
 });
 
