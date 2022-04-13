@@ -1,4 +1,4 @@
-import { updateUser, getPosts } from './crud.js';
+import { updateUser, getUserPosts } from './crud.js';
 
 
 const session_info = {

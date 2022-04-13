@@ -22,10 +22,11 @@ app.post('/create', (req, res) => {
 });
 
 app.get('/get_user_posts', (req, res) => {
-  console.log("Get Posts");
-  const options = req.body;
-  console.log(options);
-  res.sendStatus(200);
+  //console.log("Get User Posts");
+  const options = req.query;
+  // console.log("Options:");
+  // console.log(options);
+  res.status(200).json({ posts: [] }).end();
 });
 
 app.put('/update_user', (req, res) => {

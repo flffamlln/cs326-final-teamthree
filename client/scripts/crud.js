@@ -1,5 +1,6 @@
 
 // Use this as an example if you need it
+
 /**
  * Create a new user in the database
  * @param {string} first_name the user's first name
@@ -41,9 +42,23 @@ export async function createComment(post_id, user_id, comment_text) {
 }
 
 
-
+/**
+ * Return the num_posts most recent posts for a user
+ * @param {string} user_id 
+ * @param {number} num_posts 
+ * @returns An array of posts
+ */
 export async function getUserPosts(user_id, num_posts) {
-  
+  try {
+    const response = await fetch(`/get_posts?user_id=${user_id}&num_posts=${num_posts}`, {
+      method: 'GET',
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 
