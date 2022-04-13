@@ -32,6 +32,12 @@ app.post('/create', (req, res) => {
   console.log(options);
 });
 
+app.post('/create_post', (req, res) => {
+  console.log("Create post");
+  const options = req.body;
+  console.log(options);
+});
+
 app.get('/get_user_posts', (req, res) => {
   const options = req.query;
   const selected_posts = posts.slice(options.num_posts_present, options.num_posts_requested);

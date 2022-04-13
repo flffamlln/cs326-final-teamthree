@@ -33,8 +33,34 @@ export async function createUser(first_name, last_name, username, email, passwor
   }
 }
 
-export async function createPost(user_id, picture, desciption) {
+/**
+ * Create a new post in the database
+ * @param {string} user_id the user's id
+ * @param {string} picture post photo
+ * @param {string} description   the post description
+ * @param {string} tag the post tag
+ * @returns 200 if the post was successfully created, 400 otherwise
+ */
+export async function createPost(user_id, picture, desciption, tag) {
+  try {
+    const post_data = {
+      user_id: user_id,
+      picture: picture,
+      description: description,
+      tag: tag,
+    };
+    const response = await fetch(`/create_post`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(post_data)
+    });
   
+    return response.status;
+  } catch(err) {
+    console.log(err);
+  }
 }
 
 export async function createComment(post_id, user_id, comment_text) {
