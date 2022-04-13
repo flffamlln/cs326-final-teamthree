@@ -50,11 +50,13 @@ export async function createComment(post_id, user_id, comment_text) {
  */
 export async function getUserPosts(user_id, num_posts) {
   try {
-    const response = await fetch(`/get_posts?user_id=${user_id}&num_posts=${num_posts}`, {
+    const response = await fetch(`/get_user_posts?user_id=${user_id}&num_posts=${num_posts}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
     });
-    const data = await response.json();
-    console.log(data);
+    const data = { status: response.status, arr: await response.json() };
     return data;
   } catch (err) {
     console.log(err);

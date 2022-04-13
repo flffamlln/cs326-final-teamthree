@@ -26,7 +26,8 @@ app.get('/get_user_posts', (req, res) => {
   const options = req.query;
   // console.log("Options:");
   // console.log(options);
-  res.status(200).json({ posts: [] }).end();
+  const posts = ["post1", "post2", "post3"];
+  res.status(200).send(posts);
 });
 
 app.put('/update_user', (req, res) => {
@@ -42,7 +43,7 @@ app.delete('/delete', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.redirect('/client/login.html');
+  res.redirect("/client/login.html");
 })
 
 
