@@ -1,6 +1,19 @@
+
+// Use this as an example
 export async function createUser(first_name, last_name, username, email, password) {
-  const response = await fetch(`/create_user?first_name=${first_name}&last_name=${last_name}&username=${username}&email=${first_name}&password=${first_name}`, {
+  const userData = {
+    first_name: first_name,
+    last_name: last_name,
+    username: username,
+    email: email,
+    password: password
+  };
+  const response = await fetch(`/create_user`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userData)
   });
   const data = await response.json();
   return data;
