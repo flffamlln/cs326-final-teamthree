@@ -1,32 +1,35 @@
 
-// Use this as an example
+// Use this as an example if you need it
 /**
  * Create a new user in the database
- * @param {String} first_name 
- * @param {String} last_name 
- * @param {String} username 
- * @param {String} email 
- * @param {String} password 
- * @returns A success if the user was successfully created, a failure otherwise
+ * @param {string} first_name the user's first name
+ * @param {string} last_name  the user's last name
+ * @param {string} username   the user's username
+ * @param {string} email      the user's email
+ * @param {string} password   the user's password
+ * @returns 200 if the user was successfully created, 400 otherwise
  */
 export async function createUser(first_name, last_name, username, email, password) {
-  const user_data = {
-    first_name: first_name,
-    last_name: last_name,
-    username: username,
-    email: email,
-    password: password
-  };
-  const response = await fetch(`/create_user`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user_data)
-  });
-
-  const data = await response.json();
-  return data;
+  try {
+    const user_data = {
+      first_name: first_name,
+      last_name: last_name,
+      username: username,
+      email: email,
+      password: password
+    };
+    const response = await fetch(`/create_user`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user_data)
+    });
+  
+    return response.status;
+  } catch(err) {
+    console.log(err);
+  }
 }
 
 export async function createPost(user_id, picture, desciption) {
@@ -44,7 +47,15 @@ export async function getUserPosts(user_id, num_posts) {
 }
 
 
-
+/**
+ * 
+ * @param {string} user_id              the user's id
+ * @param {string} new_first_name       may or may not be changed from its current state
+ * @param {string} new_last_name        may or may not be changed from its current state
+ * @param {string} new_username         may or may not be changed from its current state
+ * @param {string} new_profile_picture  may or may not be changed from its current state
+ * @returns 200 if the user was successfully updated, 400 otherwise
+ */
 export async function updateUser(user_id, new_first_name, new_last_name, new_username, new_profile_picture) {
   try {
     const new_data = {
@@ -67,21 +78,27 @@ export async function updateUser(user_id, new_first_name, new_last_name, new_use
   }
 }
 
+/**
+ * Update the description for a post
+ * @param {string} post_id  the post id
+ * @param {string} new_desc the new description for the post
+ * @returns 200 if the post was successfully updated, 400 otherwise
+ */
 export async function updatePost(post_id, new_desc) {
   try {
     const new_data = {
       post_id: post_id,
       new_desc: new_desc
     };
-    const response = await fetch(`/update_post?post_id=${post_id}&new_desc=${new_desc}`, {
+    const response = await fetch(`/update_post`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(new_data)
     });
-    const data = await response.json();
-    return data;
+
+    return response.data;
   } catch (err) {
     console.log(err);
   }
@@ -90,6 +107,7 @@ export async function updatePost(post_id, new_desc) {
 export async function updateLike(post_id, add) {
   
 }
+
 
 
 export async function deletePost(post_id) {
