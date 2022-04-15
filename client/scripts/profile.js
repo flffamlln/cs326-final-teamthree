@@ -21,9 +21,18 @@ window.onload = async function () {
   num_posts_displayed = 0;
   const res = await getUserPosts(session_info.user_id, NUM_INIT_POSTS, 0);
   if (res.status === 200 && res.ok) {
-    res.posts_arr.forEach(post => {
-      renderPost(post);
-    });
+    if (res.posts_arr.length === 0) {
+      const div = document.createElement("div");
+      div.classList.add("w-100");
+      div.classList.add("mt-5");
+      div.classList.add("text-center");
+      div.appendChild(document.createTextNode("You don't have any posts!"));
+      posts_div.appendChild(div);
+    } else {
+      res.posts_arr.forEach(post => {
+        renderPost(post);
+      });
+    }
   } else {
     posts_div.appendChild(document.createElement("p").appendChild(document.createTextNode("There was an error getting the initial posts")));
     posts_div.appendChild(document.createElement("br"));

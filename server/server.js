@@ -2,17 +2,18 @@ import express from 'express';
 import path from 'path';
 import morgan from 'morgan';
 import logger from 'morgan';
+import * as db from './database.js';
 
 
-// This is not how this is going to be implemented, this is just for testing.
+  // This is not how this is going to be implemented, this is just for testing.
   // The actual implementation will have images stored in a database.
   const posts = [
-    {url: "./img/test1.jpg", description: "This is a description"},
-    {url: "./img/test2.jpg", description: "This is a description"},
-    {url: "./img/test3.jpg", description: "This is a description"},
-    {url: "./img/test4.jpg", description: "This is a description"},
-    {url: "./img/test5.jpg", description: "This is a description"},
-    {url: "./img/test6.jpg", description: "This is a description"},
+    // {url: "./img/test1.jpg", description: "This is a description"},
+    // {url: "./img/test2.jpg", description: "This is a description"},
+    // {url: "./img/test3.jpg", description: "This is a description"},
+    // {url: "./img/test4.jpg", description: "This is a description"},
+    // {url: "./img/test5.jpg", description: "This is a description"},
+    // {url: "./img/test6.jpg", description: "This is a description"},
   ];
 
 
@@ -28,12 +29,6 @@ app.use('/client', express.static(path.join(__dirname, 'client')));
 
 app.post('/create', (req, res) => {
   console.log("Create");
-  const options = req.body;
-  console.log(options);
-});
-
-app.post('/create_post', (req, res) => {
-  console.log("Create post");
   const options = req.body;
   console.log(options);
 });
