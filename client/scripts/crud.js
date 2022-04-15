@@ -41,7 +41,7 @@ export async function createUser(first_name, last_name, username, email, passwor
  * @param {string} tag the post tag
  * @returns 200 if the post was successfully created, 400 otherwise
  */
-export async function createPost(user_id, picture, desciption, tag) {
+export async function createPost(user_id, picture, description, tag) {
   try {
     const post_data = {
       user_id: user_id,
@@ -69,7 +69,7 @@ export async function createComment(post_id, user_id, comment_text) {
 
 
 /**
- * Return the num_posts most recent posts for a user
+ * Return the 'num_posts' most recent posts for a user
  * @param {string} user_id 
  * @param {number} num_posts_requested 
  * @param {number} num_posts_present 
@@ -84,6 +84,26 @@ export async function getUserPosts(user_id, num_posts_requested, num_posts_prese
       },
     });
     const data = { status: response.status, ok: response.ok, posts_arr: await response.json() };
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+/**
+ * Return the number of posts a user has uploaded
+ * @param {string} user_id 
+ * @returns {number} A number representing the amount of posts a user has uploaded
+ */
+ export async function getPostCount(user_id, num_posts_requested, num_posts_present) {
+  try {
+    const response = await fetch(`/get_post_count?user_id=${user_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const data = { status: response.status, ok: response.ok, post_count: await response.json() };
     return data;
   } catch (err) {
     console.log(err);

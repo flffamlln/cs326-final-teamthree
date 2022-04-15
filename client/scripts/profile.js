@@ -1,4 +1,4 @@
-import { updateUser, getUserPosts } from './crud.js';
+import * as crud from './crud.js';
 
 const NUM_INIT_POSTS = 4;
 const session_info = {
@@ -18,8 +18,18 @@ Array.from(pfps).forEach(pfp => {
 window.onload = async function () {
   // document.getElementById("recent-posts").height = document.getElementById("");
 
+  const num_posts = await crud.getPostCount(session_info.user_id);
+  const num_posts_text = document.getElementById("num-posts");
+  if (num_posts.status === 200 && num_posts.ok) {
+    num_posts_text.innerHTML = '';
+    num_posts_text.appendChild(document.createTextNode(num_posts.post_count));
+  } else {
+    num_posts_text.innerHTML = '';
+    num_posts_text.appendTextNode("error");
+  }
+
   num_posts_displayed = 0;
-  const res = await getUserPosts(session_info.user_id, NUM_INIT_POSTS, 0);
+  const res = await crud.getUserPosts(session_info.user_id, NUM_INIT_POSTS, 0);
   if (res.status === 200 && res.ok) {
     if (res.posts_arr.length === 0) {
       const div = document.createElement("div");
@@ -114,7 +124,7 @@ save_profile.addEventListener("click", async () => {
 const show_all_posts = document.getElementById("show-all-posts");
 show_all_posts.addEventListener("click", async () => {
   // Get 1000 posts (if there are that many), this should be more than enough
-  const res = await getUserPosts(session_info.user_id, 1000, num_posts_displayed);
+  const res = await crud.getUserPosts(session_info.user_id, 1000, num_posts_displayed);
   if (res.status === 200 && res.ok) {
     res.posts_arr.forEach(post => {
       renderPost(post);
