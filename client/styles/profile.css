@@ -13,6 +13,21 @@ span b {
   text-align: center;
 }
 
+.post-container {
+  min-height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 3% !important;
+  padding-right: 3% !important;
+}
+
+.post-img {
+  min-height: 150px !important;
+  min-width: 100% !important;
+  border-radius: 8px;
+}
+
 .p-6,
 .pt-6,
 .py-6 {
@@ -97,7 +112,7 @@ span b {
 }
 
 #profile-container {
-  height: 85%;
+  max-height: 85%;
   transition: 100ms;
 }
 
@@ -109,6 +124,16 @@ span b {
 #profile-picture-editable:hover .profile-picture {
   transition: opacity 0.2s, visibility 0s;
   opacity: 0.6;
+}
+
+#recent-posts {
+  overflow-y: scroll;
+  position: relative;
+  height: 550px;
+}
+
+#recent-posts::-webkit-scrollbar {
+  display: none;
 }
 
 #show-all-posts:hover {

@@ -1,22 +1,48 @@
-import { updateUser, getPosts } from './crud.js';
+import * as crud from './crud.js';
 
-
+const NUM_INIT_POSTS = 4;
 const session_info = {
   user_id: 0,
   profile_picture: "./img/mike.jpg",
 };
+
+let num_posts_displayed = 0;
+
+const posts_div = document.getElementById("recent-posts");
 
 const pfps = document.getElementsByClassName("profile-picture");
 Array.from(pfps).forEach(pfp => {
   pfp.src = session_info.profile_picture;
 });
 
-const posts_div = document.getElementById("recent-posts");
 window.onload = async function () {
-  const res = await getPosts(session_info.user_id, 4);
-  if (res.status === 200) {
-    posts_div.appendChild(document.createElement("p").appendChild(document.createTextNode("Initial posts go here")));
-    posts_div.appendChild(document.createElement("br"));
+  // document.getElementById("recent-posts").height = document.getElementById("");
+
+  const num_posts = await crud.getPostCount(session_info.user_id);
+  const num_posts_text = document.getElementById("num-posts");
+  if (num_posts.status === 200 && num_posts.ok) {
+    num_posts_text.innerHTML = '';
+    num_posts_text.appendChild(document.createTextNode(num_posts.post_count));
+  } else {
+    num_posts_text.innerHTML = '';
+    num_posts_text.appendTextNode("error");
+  }
+
+  num_posts_displayed = 0;
+  const res = await crud.getUserPosts(session_info.user_id, NUM_INIT_POSTS, 0);
+  if (res.status === 200 && res.ok) {
+    if (res.posts_arr.length === 0) {
+      const div = document.createElement("div");
+      div.classList.add("w-100");
+      div.classList.add("mt-5");
+      div.classList.add("text-center");
+      div.appendChild(document.createTextNode("You don't have any posts!"));
+      posts_div.appendChild(div);
+    } else {
+      res.posts_arr.forEach(post => {
+        renderPost(post);
+      });
+    }
   } else {
     posts_div.appendChild(document.createElement("p").appendChild(document.createTextNode("There was an error getting the initial posts")));
     posts_div.appendChild(document.createElement("br"));
@@ -98,12 +124,47 @@ save_profile.addEventListener("click", async () => {
 const show_all_posts = document.getElementById("show-all-posts");
 show_all_posts.addEventListener("click", async () => {
   // Get 1000 posts (if there are that many), this should be more than enough
-  const res = await getPosts(session_info.user_id, 1000);
-  if (res.status === 200) {
-    posts_div.appendChild(document.createElement("p").appendChild(document.createTextNode("New posts go here")));
-    posts_div.appendChild(document.createElement("br"));
+  const res = await crud.getUserPosts(session_info.user_id, 1000, num_posts_displayed);
+  if (res.status === 200 && res.ok) {
+    res.posts_arr.forEach(post => {
+      renderPost(post);
+    });
+
+    if (res.posts_arr.length > 0) {
+      document.getElementById("recent-posts").style.overflowY = "scroll";
+    }
   } else {
-    posts_div.appendChild(document.createElement("p").appendChild(document.createTextNode("There was an error getting more posts")));
-    posts_div.appendChild(document.createElement("br"));
+    alert("There was an error getting more posts");
   }
 });
+
+
+
+
+function renderPost(post) {
+  const post_container = document.createElement("div");
+  post_container.classList.add("col-lg-6");
+  post_container.classList.add("my-2");
+  // if (num_posts_displayed % 2 === 0) {
+  //   post_container.classList.add("pl-0");
+  // } else {
+  //   post_container.classList.add("pr-0");
+  // }
+  post_container.classList.add("post-container");
+
+  const post_img = document.createElement("img");
+  post_img.classList.add("img-fluid");
+  post_img.classList.add("rounded");
+  post_img.classList.add("shadow-sm");
+  post_img.src = post.url;
+  post_img.alt = "Oops, this image couldn't be found";
+  post_img.width = 350;
+  post_img.addEventListener("click", () => {
+    console.log("Post Clicked");
+  });
+
+  post_container.appendChild(post_img);
+  posts_div.appendChild(post_container);
+
+  ++num_posts_displayed;
+}
