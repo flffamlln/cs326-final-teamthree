@@ -56,13 +56,30 @@ span b {
   transform: translateY(5rem)
 }
 
+.overlay-container {
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  opacity: 1;
+  transition: 100ms;
+  top: 5%;
+  visibility: hidden;
+  width: 100% !important;
+}
 
 
 #change-profile-picture-container {
-  opacity: 1;
   position: absolute;
-  transition: 100ms;
-  visibility: hidden;
+  z-index: 30;
+}
+
+#change-password-container {
+  position: absolute;
+  z-index: 20;
+}
+
+#edit-profile-container {
+  position: absolute;
   z-index: 10;
 }
 
@@ -75,15 +92,6 @@ span b {
   padding-top: 5px;
 }
 
-#change-password-container {
-  opacity: 1;
-  position: absolute;
-  transition: 100ms;
-  top: 5%;
-  visibility: hidden;
-  z-index: 20;
-}
-
 #change-password-overlay {
   background-color: white;
   border: 4px solid #971B2F;
@@ -93,15 +101,6 @@ span b {
   padding-top: 5px;
 }
 
-#edit-overlay-container {
-  opacity: 1;
-  position: absolute;
-  transition: 100ms;
-  top: 5%;
-  visibility: hidden;
-  z-index: 10;
-}
-
 #edit-profile-overlay {
   background-color: white;
   border: 4px solid #971B2F;
@@ -109,11 +108,6 @@ span b {
   color: black;
   height: auto;
   padding-top: 5px;
-}
-
-#profile-container {
-  max-height: 85%;
-  transition: 100ms;
 }
 
 #profile-picture-editable {
