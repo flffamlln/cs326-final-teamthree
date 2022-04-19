@@ -136,6 +136,14 @@ span b {
   display: none;
 }
 
-#show-all-posts:hover {
+#show-all-posts:hover, #back-to-home:hover {
   color: black !important;
+}
+
+#back-to-home {
+  position: absolute;
+  top: 10px;
+  left: 25px;
+  text-decoration: none;
+  color: white;
 }
