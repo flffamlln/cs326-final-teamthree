@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import morgan from 'morgan';
 import logger from 'morgan';
+import * as db from './database.js';
 
 
 // This is not how this is going to be implemented, this is just for testing.
@@ -49,6 +50,12 @@ app.get('/get_user_posts', (req, res) => {
   const selected_posts = posts.slice(options.num_posts_present, options.num_posts_requested);
   console.log(selected_posts);
   res.status(200).send(selected_posts);
+});
+
+app.get('/get_post_count', (req, res) => {
+  const options = req.query;
+  const count = posts.length;
+  res.status(200).send(count.toString());
 });
 
 app.put('/update_user', (req, res) => {
