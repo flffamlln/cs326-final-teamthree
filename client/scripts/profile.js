@@ -7,6 +7,7 @@ const session_info = {
 };
 
 let num_posts_displayed = 0;
+let pp_url = "";
 
 const posts_div = document.getElementById("recent-posts");
 
@@ -111,7 +112,8 @@ save_profile.addEventListener("click", async () => {
   const last_name       = document.getElementById("last-name").value;
   const username        = document.getElementById("username").value;
   const email           = document.getElementById("email").value;
-  const profile_picture = "some picture";
+  const profile_picture = pp_url === "" ? session_info.profile_picture : pp_url;
+  console.log(profile_picture);
   const res = await crud.updateUser(session_info.user_id, first_name, last_name, username, email, profile_picture);
   if (res === 200) {
     alert("Profile Successfully Updated");
@@ -119,6 +121,12 @@ save_profile.addEventListener("click", async () => {
   } else {
     alert("There was an error updating your profile");
   }
+});
+
+const upload_profile_picture = document.getElementById("save-profile-picture-button");
+upload_profile_picture.addEventListener("click", async () => {
+  pp_url = document.getElementById("new-profile-picture").value;
+  document.getElementById("profile-picture-editable").src = pp_url;
 });
 
 const show_all_posts = document.getElementById("show-all-posts");
@@ -145,11 +153,6 @@ function renderPost(post) {
   const post_container = document.createElement("div");
   post_container.classList.add("col-lg-6");
   post_container.classList.add("my-2");
-  // if (num_posts_displayed % 2 === 0) {
-  //   post_container.classList.add("pl-0");
-  // } else {
-  //   post_container.classList.add("pr-0");
-  // }
   post_container.classList.add("post-container");
 
   const post_img = document.createElement("img");

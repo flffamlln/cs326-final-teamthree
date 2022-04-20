@@ -3,6 +3,7 @@ import path from 'path';
 import morgan from 'morgan';
 import logger from 'morgan';
 import * as db from './database.js';
+import { user } from 'pg/lib/defaults';
 
 
 // This is not how this is going to be implemented, this is just for testing.
@@ -16,7 +17,6 @@ const posts = [
   {url: "./img/test6.jpg", description: "This is a description"},
 ];
 
-
 const app = express();
 const port = 3000;
 const __dirname = path.resolve();
@@ -27,7 +27,7 @@ app.use('/client', express.static(path.join(__dirname, 'client')));
 
 
 
-app.post('/create', (req, res) => {
+app.post('/create_user', (req, res) => {
   console.log("Create");
   const options = req.body;
   console.log(options);

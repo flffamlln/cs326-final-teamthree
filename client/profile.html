@@ -29,9 +29,11 @@
             <div class="rounded-border-8px bg-gray p-3">
               <div class="row mt-3 p-2 pb-3">
 
-                <div class="form-group col-lg-6">
-                  <label for="new-profile-picture">Upload Picture (JPG or PNG)</label>
-                  <input type="file" id="new-profile-picture" name="new-profile-picture" class="form-control mb-3" accept=".jpg, .jpeg, .png"/>
+                <div class="form-group col-xl">
+                  <form id="upload-profile-picture-form" enctype="multipart/form-data" method="post">
+                    <label for="new-profile-picture">Upload Picture (JPG or PNG)</label>
+                    <input type="file" id="new-profile-picture" name="new-profile-picture" class="form-control mb-3" accept=".jpg, .jpeg, .png"/>
+                  </form>
                 </div>
 
               </div>
@@ -75,8 +77,8 @@
             <h2 class="py-2">Edit Profile</h2>
             <div class="rounded-border-8px bg-gray p-3">
               <div class="media align-items-end bg-maroon rounded-border-8px">
-                <div id="profile-picture-editable" class="profile mr-3">
-                  <img alt="..." width="130" class="rounded mb-2 img-thumbnail pointer profile-picture">
+                <div id="profile-picture-cover" class="profile mr-3">
+                  <img alt="..." width="130" id="profile-picture-editable" class="rounded mb-2 img-thumbnail pointer profile-picture">
                 </div>
                 <div class="media-body mb-3 text-white">
                   <h4 class="mt-0 mb-0 noselect">Mike Wazowski</h4>
@@ -115,11 +117,11 @@
         </div>
 
         <!-- Profile widget -->
-        <div id="profile-container" class="bg-white shadow noselect container px-0">
+        <div id="profile-container" class="bg-white shadow noselect container px-0 rounded">
 
           <a href="./home.html" id="back-to-home" class="btn btn-link">Back to Home</a>
 
-          <div class="px-4 pt-0 pb-4 cover bg-maroon">
+          <div class="px-4 pt-0 pb-4 cover bg-maroon rounded">
             <div class="media align-items-end profile-head">
               <div class="profile mr-3">
                 <img alt="..." width="150" class="rounded mb-2 img-thumbnail profile-picture">

@@ -110,12 +110,12 @@ span b {
   padding-top: 5px;
 }
 
-#profile-picture-editable {
+#profile-picture-cover {
   margin: 8px 0px 0px 8px;
   position: relative;
 }
 
-#profile-picture-editable:hover .profile-picture {
+#profile-picture-cover:hover .profile-picture {
   transition: opacity 0.2s, visibility 0s;
   opacity: 0.6;
 }
@@ -140,4 +140,12 @@ span b {
   left: 25px;
   text-decoration: none;
   color: white;
+}
+
+#profile-container {
+  overflow-y: hidden;
+}
+
+#new-profile-picture {
+  width: 80%;
 }
