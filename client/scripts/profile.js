@@ -150,6 +150,13 @@ show_all_posts.addEventListener("click", async () => {
 
 
 function renderPost(post) {
+  if (num_posts_displayed % 2 === 0) {
+    const row = document.createElement("div");
+    row.classList.add("row");
+    row.id = `row${num_posts_displayed / 2 + 1}`;
+    posts_div.appendChild(row);
+  }
+
   const post_container = document.createElement("div");
   post_container.classList.add("col-lg-6");
   post_container.classList.add("my-2");
@@ -167,7 +174,7 @@ function renderPost(post) {
   });
 
   post_container.appendChild(post_img);
-  posts_div.appendChild(post_container);
+  document.getElementById(`row${Math.floor(num_posts_displayed / 2 + 1)}`).appendChild(post_container);
 
   ++num_posts_displayed;
 }
