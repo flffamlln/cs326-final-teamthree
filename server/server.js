@@ -10,12 +10,12 @@ const headerFields = { 'Content-Type': 'application/json' };
 // This is not how this is going to be implemented, this is just for testing.
 // The actual implementation will have images stored in a database.
 const posts = [
-  {user_id: 0, url: "./img/test1.jpg", description: "This is a description", tag: "Puppy", post_id: 0, likes: [0, 1, 2], comments: [{from: 1, message: 'Adorable'}, {from: 2, message:'I love this!'}]},
-  {user_id: 1, url: "./img/test2.jpg", description: "This is a description", tag: "Cat", post_id: 1, likes: [1, 2], comments: [{from: 2, message: 'Lorem ipsum!'}, {from:2, message:'Amazong!'}]},
-  {user_id: 2, url: "./img/test3.jpg", description: "This is a description", tag: "Reptile", post_id: 2, likes: [0, 1, 2], comments: [{from:2, message: 'Ipsum dolor sit.'}, {from:2, message:'Spectacular'}]},
-  {user_id: 3, url: "./img/test4.jpg", description: "This is a description", tag: "Puppy", post_id: 3, likes: [0], comments: [{from:3, message:'Thumbs up'}]},
-  {user_id: 4, url: "./img/test5.jpg", description: "This is a description", tag: "Cat", post_id: 4, likes: [4, 3], comments: [{from:5, message: 'Lorem ipsum dolor!!'}]},
-  {user_id: 5, url: "./img/test6.jpg", description: "This is a description", tag: "Cat", post_id: 5, likes: [2, 1], comments: []},
+  {"user_id": 0, "url": "./img/test1.jpg", "description": "This is a description", "tag": "Puppy", "post_id": 0, "likes": [0, 1, 2], "comments": [{"from": 1, "message": 'Adorable'}, {"from": 2, "message":'I love this!'}]},
+  {"user_id": 1, "url": "./img/test2.jpg", "description": "This is a description", "tag": "Cat", "post_id": 1, "likes": [1, 2], "comments": [{"from": 2, "message": 'Lorem ipsum!'}, {"from":2, "message":'Amazong!'}]},
+  {"user_id": 2, "url": "./img/test3.jpg", "description": "This is a description", "tag": "Reptile", "post_id": 2, "likes": [0, 1, 2], "comments": [{"from":2, "message": 'Ipsum dolor sit.'}, {"from":2, "message":'Spectacular'}]},
+  {"user_id": 3, "url": "./img/test4.jpg", "description": "This is a description", "tag": "Puppy", "post_id": 3, "likes": [0], "comments": [{"from":3, "message":'Thumbs up'}]},
+  {"user_id": 4, "url": "./img/test5.jpg", "description": "This is a description", "tag": "Cat", "post_id": 4, "likes": [4, 3], "comments": [{"from":5, "message": 'Lorem ipsum dolor!!'}]},
+  {"user_id": 5, "url": "./img/test6.jpg", "description": "This is a description", "tag": "Cat", "post_id": 5, "likes": [2, 1], "comments": []},
 ];
 
 
@@ -57,13 +57,17 @@ app.post('/create_comment', (req, res) => {
   obj["from"] = options.user_id;
   obj["message"] = options.comment;
 
+  let commented = false;
   for(let i = 0; i < posts.length; i++){
     if(posts[i]["post_id"] === options.post_id){
       posts[i]["comments"].push(obj);
-      res.writeHead(200, headerFields);
-      res.end();
+      commented = true;
     }
   }
+  if(commented){
+    res.writeHead(200, headerFields);
+  }
+  res.end();
 });
 
 app.get('/get_post', (req, res) => {
@@ -90,11 +94,18 @@ app.get('/get_post_count', (req, res) => {
 
 app.get('/get_likes', (req, res) => {
   const options = req.query;
+
+  let likes = null;
   for(let i = 0; i < posts.length; i++){
     if(posts[i]["post_id"] === options.post_id){
-      res.status(200).send(posts[i]["likes"].length);
+      likes = posts[i]["likes"].length;
+      res.status(200).send(likes.toString());
+        res.end();
+      break;
     }
   }
+  res.status(400);
+  res.end();
 });
 
 app.put('/update_user', (req, res) => {
