@@ -44,10 +44,10 @@ export async function createUser(first_name, last_name, username, email, passwor
 export async function createPost(user_id, picture, description, tag) {
   try {
     const post_data = {
-      user_id: user_id,
-      picture: picture,
-      description: description,
-      tag: tag,
+      "user_id": user_id,
+      "picture": picture,
+      "description": description,
+      "tag": tag,
     };
     const response = await fetch(`/create_post`, {
       method: 'POST',
@@ -63,10 +63,53 @@ export async function createPost(user_id, picture, description, tag) {
   }
 }
 
-export async function createComment(post_id, user_id, comment_text) {
+/**
+ * Create a new comment in the database
+ * @param {string} post_id the post's id
+ * @param {string} user_id the user's id
+ * @param {string} comment   the comment text
+ * @returns 200 if the comment was successfully created, 400 otherwise
+ */
+export async function createComment(post_id, user_id, comment) {
+  try {
+    const comment_data = {
+      "post_id": post_id,
+      "user_id": user_id,
+      "comment": comment,
+    };
+    const response = await fetch(`/create_comment`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(comment_data)
+    });
   
+    return response.status;
+  } catch(err) {
+    console.log(err);
+  }
 }
 
+/**
+ * Return the 'num_posts' most recent posts for a user
+ * @param {string} post_id 
+ * @returns Post information
+ */
+ export async function getPost(post_id) {
+  try {
+    const response = await fetch(`/get_post?post_id=${post_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const data = { status: response.status, ok: response.ok, post: await response.json() };
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 /**
  * Return the 'num_posts' most recent posts for a user
@@ -104,6 +147,26 @@ export async function getUserPosts(user_id, num_posts_requested, num_posts_prese
       },
     });
     const data = { status: response.status, ok: response.ok, post_count: await response.json() };
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+/**
+ * Return the number of likes a post has
+ * @param {string} post_id 
+ * @returns {number} A number representing the amount of likes the post has
+ */
+ export async function getLikes(post_id) {
+  try {
+    const response = await fetch(`/get_likes?post_id=${post_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const data = { status: response.status, ok: response.ok, likes: await response.json() };
     return data;
   } catch (err) {
     console.log(err);
@@ -168,11 +231,31 @@ export async function updatePost(post_id, new_desc) {
   }
 }
 
-export async function updateLike(post_id, add) {
-  
+/**
+ * Update the description for a post
+ * @param {string} post_id  the post id of post being liked
+ * @param {string} user_id the user id of liker
+ * @returns 200 if the post was successfully updated, 400 otherwise
+ */
+export async function updateLike(post_id, user_id) {
+  try {
+    const new_data = {
+      "post_id": post_id,
+      "user_id": user_id
+    };
+    const response = await fetch(`/update_likes`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(new_data)
+    });
+
+    return response.status;
+  } catch (err) {
+    console.log(err);
+  }
 }
-
-
 
 export async function deletePost(post_id) {
   

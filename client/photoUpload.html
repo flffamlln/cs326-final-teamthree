@@ -14,36 +14,46 @@
   </head>
 
   <body class="bg-white">
-    <!-- Upload a Photo Container -->
-    <div class="p-5">
-      <div class="m-3">
-        <h1 class="my-5 text-center">Upload a Photo!</h1>
-      </div>
+    <div class="container">
+      <!-- Upload a Photo Container -->
+      <div class="p-5">
+        <div class="m-3">
+          <h1 class="my-5 text-center text-white">Upload a Photo!</h1>
+        </div>
 
-      <!-- Select photo file-->
-      <div class="mx-5 my-2">
-        <input class="form-control form-control-lg my-2" id="formFileLg" type="file">
-      </div>
+        <!-- Select photo file-->
+        <!--
+        <div class="mx-5 my-2">
+          <input class="form-control form-control-lg my-2 " id="formFileLg" type="file">
+        </div>
+        -->
 
-      <!-- Textbox for description -->
-      <div class="mx-5">
-        <label for="photoDescription" class="form-label my-2">Enter your photo description:</label>
-        <textarea class="form-control" id="photoDescription" rows="3"></textarea>
-      </div>
+        <!-- Textbox for photo url -->
+        <div class="mx-5">
+          <label for="formFileLg" class="form-label my-2 text-white">Enter your photo URL:</label>
+          <textarea class="form-control" id="formFileLg" rows="2"></textarea>
+        </div>
 
-      <!-- Tag dropdown select -->
-      <div class="mx-5 my-2">
-        <select class="form-select form-select-lg mb-3 my-4" aria-label=".form-select-lg example">
-          <option selected>Select a tag</option>
-          <option value="1">Puppy</option>
-          <option value="2">Cat</option>
-          <option value="3">Reptile</option>
-        </select>
-      </div>
+        <!-- Textbox for description -->
+        <div class="mx-5">
+          <label for="photoDescription" class="form-label my-2 text-white">Enter your photo description:</label>
+          <textarea class="form-control" id="photoDescription" rows="3"></textarea>
+        </div>
 
-      <!-- Upload button -->
-      <div class="text-center">
-        <button type="button" class="btn btn-primary btn-lg">Post</button>
+        <!-- Tag dropdown select -->
+        <div class="mx-5 my-2">
+          <select id="tag" class="form-select form-select-lg mb-3 my-4" aria-label=".form-select-lg example">
+            <option selected>Select a tag</option>
+            <option value="1">Puppy</option>
+            <option value="2">Cat</option>
+            <option value="3">Reptile</option>
+          </select>
+        </div>
+
+        <!-- Upload button -->
+        <div class="text-center">
+          <button type="button" id="submit" class="btn btn-primary btn-lg">Post</button>
+        </div>
       </div>
     </div>
   </body>

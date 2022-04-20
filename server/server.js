@@ -3,18 +3,20 @@ import path from 'path';
 import morgan from 'morgan';
 import logger from 'morgan';
 import * as db from './database.js';
-import { user } from 'pg/lib/defaults';
+import * as pg from 'pg';
+
+const headerFields = { 'Content-Type': 'application/json' };
 
 
 // This is not how this is going to be implemented, this is just for testing.
 // The actual implementation will have images stored in a database.
 const posts = [
-  {url: "./img/test1.jpg", description: "This is a description"},
-  {url: "./img/test2.jpg", description: "This is a description"},
-  {url: "./img/test3.jpg", description: "This is a description"},
-  {url: "./img/test4.jpg", description: "This is a description"},
-  {url: "./img/test5.jpg", description: "This is a description"},
-  {url: "./img/test6.jpg", description: "This is a description"},
+    { "user_id": 0, "url": "./img/test1.jpg", "description": "This is a description", "tag": "Puppy", "post_id": 0, "likes": [0, 1, 2], "comments": [{ "from": 1, "message": 'Adorable' }, { "from": 2, "message": 'I love this!' }] },
+    { "user_id": 1, "url": "./img/test2.jpg", "description": "This is a description", "tag": "Cat", "post_id": 1, "likes": [1, 2], "comments": [{ "from": 2, "message": 'Lorem ipsum!' }, { "from": 2, "message": 'Amazong!' }] },
+    { "user_id": 2, "url": "./img/test3.jpg", "description": "This is a description", "tag": "Reptile", "post_id": 2, "likes": [0, 1, 2], "comments": [{ "from": 2, "message": 'Ipsum dolor sit.' }, { "from": 2, "message": 'Spectacular' }] },
+    { "user_id": 3, "url": "./img/test4.jpg", "description": "This is a description", "tag": "Puppy", "post_id": 3, "likes": [0], "comments": [{ "from": 3, "message": 'Thumbs up' }] },
+    { "user_id": 4, "url": "./img/test5.jpg", "description": "This is a description", "tag": "Cat", "post_id": 4, "likes": [4, 3], "comments": [{ "from": 5, "message": 'Lorem ipsum dolor!!' }] },
+    { "user_id": 5, "url": "./img/test6.jpg", "description": "This is a description", "tag": "Cat", "post_id": 5, "likes": [2, 1], "comments": [] },
 ];
 
 const app = express();
@@ -27,10 +29,50 @@ app.use('/client', express.static(path.join(__dirname, 'client')));
 
 
 
-app.post('/create_user', (req, res) => {
-  console.log("Create");
+app.post('/create_post', (req, res) => {
   const options = req.body;
-  console.log(options);
+
+  let post = {};
+  post["user_id"] = options.user_id;
+  post["url"] = options.picture;
+  post["description"] = options.description;
+  post["tag"] = options.tag;
+  post["post_id"] = posts.length;
+  post["likes"] = 0;
+  post["comments"] = [];
+
+  posts.push(post);
+  res.writeHead(200, headerFields);
+  res.end();
+});
+
+app.post('/create_comment', (req, res) => {
+  const options = req.body;
+
+  let obj = {};
+  obj["from"] = options.user_id;
+  obj["message"] = options.comment;
+
+  let commented = false;
+  for (let i = 0; i < posts.length; i++) {
+    if (posts[i]["post_id"] === options.post_id) {
+      posts[i]["comments"].push(obj);
+      commented = true;
+    }
+  }
+  if (commented) {
+    res.writeHead(200, headerFields);
+  }
+    res.end();
+});
+
+app.get('/get_post', (req, res) => {
+  const options = req.query;
+  for (let i = 0; i < posts.length; i++) {
+    if (posts[i]["post_id"] === options.post_id) {
+      res.status(200).send(posts[i]);
+    }
+  }
 });
 
 app.get('/get_user_posts', (req, res) => {
@@ -46,11 +88,40 @@ app.get('/get_post_count', (req, res) => {
   res.status(200).send(count.toString());
 });
 
-app.put('/update_user', (req, res) => {
-  console.log("Update User");
+app.get('/get_likes', (req, res) => {
   const options = req.query;
-  res.sendStatus(200);
+
+  let likes = null;
+  for (let i = 0; i < posts.length; i++) {
+    if (posts[i]["post_id"] === options.post_id) {
+      likes = posts[i]["likes"].length;
+      res.status(200).send(likes.toString());
+      res.end();
+      break;
+    }
+  }
+  res.status(400);
+  res.end();
 });
+
+app.put('/update_user', (req, res) => {
+    console.log("Update User");
+    const options = req.query;
+    res.sendStatus(200);
+});
+
+app.put('/update_likes', (req, res) => {
+  const options = req.body;
+  for (let i = 0; i < posts.length; i++) {
+    if (posts[i]["post_id"] === options.post_id) {
+      if (!posts[i]["likes"].includes(options.user_id)) {
+        posts[i]["likes"].push(options.user_id);
+      }
+    }
+  }
+  res.writeHead(200, headerFields);
+  res.end();
+})
 
 app.delete('/delete', (req, res) => {
   console.log("Delete");
@@ -60,8 +131,14 @@ app.delete('/delete', (req, res) => {
 
 app.get('*', (req, res) => {
   res.redirect("/client/login.html");
-})
+});
 
+app.post('/login', (req, res) => {
+  console.log("Login");
+  const options = req.body;
+  console.log(options);
+  res.sendStatus(200);
+});
 
 
 app.listen(port, () => {

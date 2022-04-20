@@ -2,6 +2,13 @@ html, body {
   overflow-y: visible;
 }
 
+.container{
+    background-color: #971B2F;
+    border-radius: 12px;
+    margin: 5%;
+    box-shadow: 5px 10px #424141;
+}
+
 #image{
     clear: both;
     margin-left: 20%;
@@ -9,8 +16,8 @@ html, body {
 }
 
 #tags{
-    border: #757575 2px solid;
-    background-color: #e4e3e3;
+    border: #3d3d3d 2px solid;
+    background-color: #ffffff;
     margin: 3%;
     margin-right: 8%;
     float: right;
