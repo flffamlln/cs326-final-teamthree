@@ -1,8 +1,7 @@
 import { createPost } from "./crud";
 
 const session_info = {
-    user_id: 0,
-    profile_picture: "./img/mike.jpg",
+    user_id: 0
 };
 
 let submit = document.getElementById("submit");
