@@ -81,30 +81,30 @@
                   <img alt="..." width="130" id="profile-picture-editable" class="rounded mb-2 img-thumbnail pointer profile-picture">
                 </div>
                 <div class="media-body mb-3 text-white">
-                  <h4 class="mt-0 mb-0 noselect">Mike Wazowski</h4>
-                  <small>@mikewazowski <br /> mwazowski@monster.edu</small>
+                  <h4 class="mt-0 mb-0 noselect display-full-name"></h4>
+                  <small>@<span class="display-username"></span> <br /> <span class="display-email"></span></small>
                 </div>
               </div>
   
               <div id="update-profile" class="row mt-3 p-2 pb-3">
                 <div class="form-group col-lg-6">
                   <label for="first-name" class="noselect">First Name</label>
-                  <input type="text" id="first-name" name="first-name" class="form-control mb-3" value="Mike"/>
+                  <input type="text" id="first-name" name="first-name" class="form-control mb-3 display-first-name"/>
                 </div>
   
                 <div class="form-group col-lg-6">
                   <label for="last-name" class="noselect">Last Name</label>
-                  <input type="text" id="last-name" name="last-name" class="form-control mb-3" value="Wazowski"/>
+                  <input type="text" id="last-name" name="last-name" class="form-control mb-3 display-last-name"/>
                 </div>
   
                 <div class="form-group col-lg-6">
                   <label for="username" class="noselect">Username</label>
-                  <input type="text" id="username" name="username" class="form-control mb-3" value="mikewazowski"/>
+                  <input type="text" id="username" name="username" class="form-control mb-3 display-username"/>
                 </div>
   
                 <div class="form-group col-lg-6">
                   <label for="email" class="noselect">Email Address</label>
-                  <input type="email" id="email" name="email" class="form-control mb-3" value="mwazowski@monster.edu"/>
+                  <input type="email" id="email" name="email" class="form-control mb-3 display-email"/>
                 </div>
                 
                 <a id="change-password-button" class="btn btn-outline-dark btn-sm btn-block w-50 m-auto">Change Password</a>
@@ -128,8 +128,8 @@
                 <a id="edit-profile-button" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>
               </div>
               <div class="media-body mb-5 text-white">
-                <span class="mt-0 mb-2"> <b>Mike Wazowski</b> &nbsp;&nbsp; @mikewazowski</span>
-                <p>mwazowski@monster.edu</p>
+                <span class="mt-0 mb-2"> <b><span class="display-full-name"></span></b> &nbsp;&nbsp; @<span class="display-username"></span></span>
+                <p class="display-email"></p>
               </div>
             </div>
           </div>
