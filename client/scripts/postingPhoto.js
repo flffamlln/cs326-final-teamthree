@@ -1,4 +1,4 @@
-import { createComment, getPost, updateLike, getLikes } from "./crud";
+import { createComment, getPost, updateLike, getLikes } from './crud.js';
 
 const session_info = {
     user_id: 0,

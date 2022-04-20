@@ -4,6 +4,8 @@ import morgan from 'morgan';
 import logger from 'morgan';
 import * as db from './database.js';
 
+const headerFields = { 'Content-Type': 'application/json' };
+
 
 // This is not how this is going to be implemented, this is just for testing.
 // The actual implementation will have images stored in a database.
@@ -35,28 +37,30 @@ app.post('/create_post', (req, res) => {
   const options = req.body;
 
   let post = {};
-  post[user_id] = options.user_id;
-  post[url] = options.picture;
-  post[description] = options.description;
-  post[tag] = options.tag;
-  post[post_id] = posts.length;
-  post[likes] = 0;
-  post[comments] = [];
+  post["user_id"] = options.user_id;
+  post["url"] = options.picture;
+  post["description"] = options.description;
+  post["tag"] = options.tag;
+  post["post_id"] = posts.length;
+  post["likes"] = 0;
+  post["comments"] = [];
 
   posts.push(post);
-  res.sendStatus(200);
+  console.log(posts);
+  res.writeHead(200, headerFields);
+  res.end();
 });
 
 app.post('/create_comment', (req, res) => {
   const options = req.body;
 
   let obj = {};
-  obj[from] = options.user_id;
-  obj[message] = options.comment;
+  obj["from"] = options.user_id;
+  obj["message"] = options.comment;
 
   for(let i = 0; i < posts.length; i++){
-    if(posts[i][post_id] === options.post_id){
-      posts[i][comments].push(obj);
+    if(posts[i]["post_id"] === options.post_id){
+      posts[i]["comments"].push(obj);
       res.sendStatus(200);
     }
   }
@@ -65,7 +69,7 @@ app.post('/create_comment', (req, res) => {
 app.get('/get_post', (req, res) => {
   const options = req.query;
   for(let i = 0; i < posts.length; i++){
-    if(posts[i][post_id] === options.post_id){
+    if(posts[i]["post_id"] === options.post_id){
       res.status(200).send(posts[i]);
     }
   }
@@ -87,7 +91,7 @@ app.get('/get_post_count', (req, res) => {
 app.get('/get_likes', (req, res) => {
   const options = req.query;
   for(let i = 0; i < posts.length; i++){
-    if(posts[i][post_id] === options.post_id){
+    if(posts[i]["post_id"] === options.post_id){
       res.status(200).send(posts[i][likes].length);
     }
   }
@@ -102,9 +106,9 @@ app.put('/update_user', (req, res) => {
 app.put('/update_likes', (req, res) => {
   const options = req.body;
   for(let i = 0; i < posts.length; i++){
-    if(posts[i][post_id] === options.post_id){
-      if(!posts[i][likes].includes(options.user_id)){
-        posts[i][likes].push(options.user_id);
+    if(posts[i]["post_id"] === options.post_id){
+      if(!posts[i]["likes"].includes(options.user_id)){
+        posts[i]["likes"].push(options.user_id);
       }
     }
   }

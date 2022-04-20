@@ -44,10 +44,10 @@ export async function createUser(first_name, last_name, username, email, passwor
 export async function createPost(user_id, picture, description, tag) {
   try {
     const post_data = {
-      user_id: user_id,
-      picture: picture,
-      description: description,
-      tag: tag,
+      "user_id": user_id,
+      "picture": picture,
+      "description": description,
+      "tag": tag,
     };
     const response = await fetch(`/create_post`, {
       method: 'POST',
@@ -73,9 +73,9 @@ export async function createPost(user_id, picture, description, tag) {
 export async function createComment(post_id, user_id, comment) {
   try {
     const comment_data = {
-      post_id: post_id,
-      user_id: user_id,
-      comment: comment,
+      "post_id": post_id,
+      "user_id": user_id,
+      "comment": comment,
     };
     const response = await fetch(`/create_comment`, {
       method: 'POST',
