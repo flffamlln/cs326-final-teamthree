@@ -46,7 +46,6 @@ app.post('/create_post', (req, res) => {
   post["comments"] = [];
 
   posts.push(post);
-  console.log(posts);
   res.writeHead(200, headerFields);
   res.end();
 });
@@ -61,7 +60,8 @@ app.post('/create_comment', (req, res) => {
   for(let i = 0; i < posts.length; i++){
     if(posts[i]["post_id"] === options.post_id){
       posts[i]["comments"].push(obj);
-      res.sendStatus(200);
+      res.writeHead(200, headerFields);
+      res.end();
     }
   }
 });
@@ -92,7 +92,7 @@ app.get('/get_likes', (req, res) => {
   const options = req.query;
   for(let i = 0; i < posts.length; i++){
     if(posts[i]["post_id"] === options.post_id){
-      res.status(200).send(posts[i][likes].length);
+      res.status(200).send(posts[i]["likes"].length);
     }
   }
 });
@@ -112,7 +112,8 @@ app.put('/update_likes', (req, res) => {
       }
     }
   }
-  res.sendStatus(200);
+  res.writeHead(200, headerFields);
+  res.end();
 })
 
 app.delete('/delete', (req, res) => {

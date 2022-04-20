@@ -240,8 +240,8 @@ export async function updatePost(post_id, new_desc) {
 export async function updateLike(post_id, user_id) {
   try {
     const new_data = {
-      post_id: post_id,
-      user_id: user_id
+      "post_id": post_id,
+      "user_id": user_id
     };
     const response = await fetch(`/update_likes`, {
       method: 'PUT',
@@ -251,7 +251,7 @@ export async function updateLike(post_id, user_id) {
       body: JSON.stringify(new_data)
     });
 
-    return response.data;
+    return response.status;
   } catch (err) {
     console.log(err);
   }

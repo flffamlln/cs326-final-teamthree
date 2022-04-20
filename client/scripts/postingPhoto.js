@@ -7,7 +7,7 @@ const session_info = {
 
 window.onload = async function () {
     const post_info = await getPost(session_info.post_id);
-    const post = JSON.parse(post_info[post]);
+    const post = JSON.parse(post_info["post"]);
 
     const tag = document.getElementById('tags');
     const image = document.getElementById('image');
@@ -36,19 +36,19 @@ window.onload = async function () {
 
         description.appendTextNode(post.description);
 
-        for(let i = 0; i < post[comments].length; i++){
-            let curComment = post[comments][i];
+        for(let i = 0; i < post["comments"].length; i++){
+            let curComment = post["comments"][i];
 
             let comment = document.createElement('div');
             comment.classList.add('mb-1');
 
             let commenter = document.createElement('span');
             let bold = document.createElement('b');
-            bold.appendTextNode(curComment[from]);
+            bold.appendTextNode(curComment["from"]);
             commenter.appendChild(bold);
 
             let message = document.createElement('span');
-            message.appendTextNode(curComment[message]);
+            message.appendTextNode(curComment["message"]);
             
             comment.appendChild(commenter);
             comment.appendChild(message);
@@ -81,11 +81,11 @@ comment.addEventListener("click", async () => {
 
         let commenter = document.createElement('span');
         let bold = document.createElement('b');
-        bold.appendTextNode(curComment[from]);
+        bold.appendTextNode(curComment["from"]);
         commenter.appendChild(bold);
 
         let message = document.createElement('span');
-        message.appendTextNode(curComment[message]);
+        message.appendTextNode(curComment["message"]);
             
         com.appendChild(commenter);
         com.appendChild(message);
@@ -102,6 +102,7 @@ like.addEventListener("click", async () => {
     const post_id = session_info.post_id; 
     const user_id = session_info.user_id;
     const res = await updateLike(post_id, user_id);
+    console.log(res);
     if(res === 200){
         alert("Like went through");
     } else{
