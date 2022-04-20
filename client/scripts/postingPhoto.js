@@ -70,7 +70,7 @@ let comment = document.getElementById("button-addon2");
 comment.addEventListener("click", async () => {
     const post_id = session_info.post_id; 
     const user_id = session_info.user_id;
-    const comment = document.getElementById("comment_text").value;
+    const comment = document.getElementById("comment_text");
     const res = await createComment(post_id, user_id, comment);
     if(res === 200){
         alert("Comment successfully created");
@@ -112,10 +112,15 @@ like.addEventListener("click", async () => {
     const num_likes = await getLikes(session_info.post_id);
 
     const likes = document.getElementById('likes');
+    let curLikes = likes.innerHTML;
     likes.innerHTML = '';
 
+    likes.appendTextNode(curLikes + ' likes');
+    console.log(curLikes);
+    console.log(curLikes + 1);
+
     if(num_likes.status === 200 && num_likes.ok){
-        likes.appendTextNode(num_likes.likes + ' likes');
+        //likes.appendTextNode(num_likes.likes + ' likes');
     } else{
         likes.appendTextNode("error");
     }
