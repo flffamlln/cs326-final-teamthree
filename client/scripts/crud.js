@@ -63,8 +63,32 @@ export async function createPost(user_id, picture, desciption, tag) {
   }
 }
 
+/**
+ * Create a new comment in the database
+ * @param {string} post_id the post's id
+ * @param {string} user_id the user's id
+ * @param {string} comment_text   the comment text
+ * @returns 200 if the comment was successfully created, 400 otherwise
+ */
 export async function createComment(post_id, user_id, comment_text) {
+  try {
+    const comment_data = {
+      post_id: post_id,
+      user_id: user_id,
+      comment_text: comment_text,
+    };
+    const response = await fetch(`/create_comment`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(comment_data)
+    });
   
+    return response.status;
+  } catch(err) {
+    console.log(err);
+  }
 }
 
 

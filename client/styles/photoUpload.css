@@ -1,0 +1,10 @@
+.container{
+    background-color: #971B2F;
+    border-radius: 12px;
+    margin: 5%;
+    box-shadow: 5px 10px #424141;
+}
+
+button{
+    text-align: center;
+} 
