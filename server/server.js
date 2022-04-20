@@ -144,6 +144,12 @@ app.post('/login', (req, res) => {
     res.sendStatus(200);
 });
 
+app.post('/signup', (req, res) => {
+    console.log("signup");
+    const options = req.body;
+    console.log(options);
+    res.sendStatus(200);
+});
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
