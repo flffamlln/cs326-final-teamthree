@@ -14,7 +14,7 @@ span b {
 }
 
 .post-container {
-  min-height: 150px;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,13 +56,30 @@ span b {
   transform: translateY(5rem)
 }
 
+.overlay-container {
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  opacity: 1;
+  transition: 100ms;
+  top: 5%;
+  visibility: hidden;
+  width: 100% !important;
+}
 
 
 #change-profile-picture-container {
-  opacity: 1;
   position: absolute;
-  transition: 100ms;
-  visibility: hidden;
+  z-index: 30;
+}
+
+#change-password-container {
+  position: absolute;
+  z-index: 20;
+}
+
+#edit-profile-container {
+  position: absolute;
   z-index: 10;
 }
 
@@ -75,15 +92,6 @@ span b {
   padding-top: 5px;
 }
 
-#change-password-container {
-  opacity: 1;
-  position: absolute;
-  transition: 100ms;
-  top: 5%;
-  visibility: hidden;
-  z-index: 20;
-}
-
 #change-password-overlay {
   background-color: white;
   border: 4px solid #971B2F;
@@ -91,15 +99,6 @@ span b {
   color: black;
   height: auto;
   padding-top: 5px;
-}
-
-#edit-overlay-container {
-  opacity: 1;
-  position: absolute;
-  transition: 100ms;
-  top: 5%;
-  visibility: hidden;
-  z-index: 10;
 }
 
 #edit-profile-overlay {
@@ -111,17 +110,12 @@ span b {
   padding-top: 5px;
 }
 
-#profile-container {
-  max-height: 85%;
-  transition: 100ms;
-}
-
-#profile-picture-editable {
+#profile-picture-cover {
   margin: 8px 0px 0px 8px;
   position: relative;
 }
 
-#profile-picture-editable:hover .profile-picture {
+#profile-picture-cover:hover .profile-picture {
   transition: opacity 0.2s, visibility 0s;
   opacity: 0.6;
 }
@@ -146,4 +140,12 @@ span b {
   left: 25px;
   text-decoration: none;
   color: white;
+}
+
+#profile-container {
+  overflow-y: hidden;
+}
+
+#new-profile-picture {
+  width: 80%;
 }

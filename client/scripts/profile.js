@@ -3,54 +3,24 @@ import * as crud from './crud.js';
 const NUM_INIT_POSTS = 4;
 const session_info = {
   user_id: 0,
-  profile_picture: "./img/mike.jpg",
+  profile_picture: "./img/profile_pictures/mike.jpg",
 };
 
 let num_posts_displayed = 0;
+let pp_url = "";
 
-const posts_div = document.getElementById("recent-posts");
 
-const pfps = document.getElementsByClassName("profile-picture");
-Array.from(pfps).forEach(pfp => {
-  pfp.src = session_info.profile_picture;
-});
 
 window.onload = async function () {
-  // document.getElementById("recent-posts").height = document.getElementById("");
-
-  const num_posts = await crud.getPostCount(session_info.user_id);
-  const num_posts_text = document.getElementById("num-posts");
-  if (num_posts.status === 200 && num_posts.ok) {
-    num_posts_text.innerHTML = '';
-    num_posts_text.appendChild(document.createTextNode(num_posts.post_count));
-  } else {
-    num_posts_text.innerHTML = '';
-    num_posts_text.appendTextNode("error");
-  }
-
-  num_posts_displayed = 0;
-  const res = await crud.getUserPosts(session_info.user_id, NUM_INIT_POSTS, 0);
-  if (res.status === 200 && res.ok) {
-    if (res.posts_arr.length === 0) {
-      const div = document.createElement("div");
-      div.classList.add("w-100");
-      div.classList.add("mt-5");
-      div.classList.add("text-center");
-      div.appendChild(document.createTextNode("You don't have any posts!"));
-      posts_div.appendChild(div);
-    } else {
-      res.posts_arr.forEach(post => {
-        renderPost(post);
-      });
-    }
-  } else {
-    posts_div.appendChild(document.createElement("p").appendChild(document.createTextNode("There was an error getting the initial posts")));
-    posts_div.appendChild(document.createElement("br"));
-  }
+  loadProfilePictures();
+  loadUserInfo();
+  loadPostCount();
+  loadInitPosts();
 }
 
 
 
+const posts_div = document.getElementById("recent-posts");
 const change_profile_picture_overlay = document.getElementById("change-profile-picture-overlay");
 const change_password_overlay = document.getElementById("change-password-overlay");
 const edit_profile_overlay = document.getElementById("edit-profile-overlay");
@@ -111,14 +81,20 @@ save_profile.addEventListener("click", async () => {
   const last_name       = document.getElementById("last-name").value;
   const username        = document.getElementById("username").value;
   const email           = document.getElementById("email").value;
-  const profile_picture = "some picture";
-  const res = await updateUser(session_info.user_id, first_name, last_name, username, email, profile_picture);
+  const profile_picture = pp_url === "" ? session_info.profile_picture : pp_url;
+  const res = await crud.updateUser(session_info.user_id, first_name, last_name, username, email, profile_picture);
   if (res === 200) {
     alert("Profile Successfully Updated");
     location.reload();
   } else {
     alert("There was an error updating your profile");
   }
+});
+
+const upload_profile_picture = document.getElementById("save-profile-picture-button");
+upload_profile_picture.addEventListener("click", async () => {
+  pp_url = document.getElementById("new-profile-picture").value;
+  document.getElementById("profile-picture-editable").src = pp_url;
 });
 
 const show_all_posts = document.getElementById("show-all-posts");
@@ -142,20 +118,23 @@ show_all_posts.addEventListener("click", async () => {
 
 
 function renderPost(post) {
+  if (num_posts_displayed % 2 === 0) {
+    const row = document.createElement("div");
+    row.classList.add("row");
+    row.id = `row${num_posts_displayed / 2 + 1}`;
+    posts_div.appendChild(row);
+  }
+
   const post_container = document.createElement("div");
   post_container.classList.add("col-lg-6");
   post_container.classList.add("my-2");
-  // if (num_posts_displayed % 2 === 0) {
-  //   post_container.classList.add("pl-0");
-  // } else {
-  //   post_container.classList.add("pr-0");
-  // }
   post_container.classList.add("post-container");
 
   const post_img = document.createElement("img");
   post_img.classList.add("img-fluid");
   post_img.classList.add("rounded");
   post_img.classList.add("shadow-sm");
+  post_img.classList.add("pointer");
   post_img.src = post.url;
   post_img.alt = "Oops, this image couldn't be found";
   post_img.width = 350;
@@ -164,7 +143,95 @@ function renderPost(post) {
   });
 
   post_container.appendChild(post_img);
-  posts_div.appendChild(post_container);
+  document.getElementById(`row${Math.floor(num_posts_displayed / 2 + 1)}`).appendChild(post_container);
 
   ++num_posts_displayed;
+}
+
+
+
+async function loadProfilePictures() {
+  const pfps = document.getElementsByClassName("profile-picture");
+  Array.from(pfps).forEach(pfp => {
+    pfp.src = session_info.profile_picture;
+  });
+}
+
+async function loadUserInfo() {
+  // const first_name = await crud.getFirstName(session_info.user_id);
+  // const last_name  = await crud.getLastName(session_info.user_id);
+  // const username   = await crud.getUsername(session_info.user_id);
+  // const email      = await crud.getEmail(session_info.user_id);
+  const first_name  = "Mike";
+  const last_name   = "Wazowski";
+  const username    = "mikewazowski";
+  const email       = "mwazowski@monster.edu";
+
+  const first_names = document.getElementsByClassName("display-last-name");
+  Array.from(first_names).forEach(node => {
+    node.value = first_name;
+  });
+
+  const last_names = document.getElementsByClassName("display-first-name");
+  Array.from(last_names).forEach(node => {
+    node.value = last_name;
+  });
+
+  const full_names = document.getElementsByClassName("display-full-name");
+  Array.from(full_names).forEach(node => {
+    node.innerHTML = first_name + " " + last_name;
+  });
+
+  const usernames = document.getElementsByClassName("display-username");
+  Array.from(usernames).forEach(node => {
+    if (node.tagName === "INPUT") {
+      node.value = username;
+    } else {
+      node.innerHTML = username;
+    }
+  });
+
+  const emails = document.getElementsByClassName("display-email");
+  Array.from(emails).forEach(node => {
+    if (node.tagName === "INPUT") {
+      node.value = email;
+    } else {
+      node.innerHTML = email;;
+    }
+  });
+
+}
+
+async function loadPostCount() {
+  const num_posts = await crud.getPostCount(session_info.user_id);
+  const num_posts_text = document.getElementById("num-posts");
+  if (num_posts.status === 200 && num_posts.ok) {
+    num_posts_text.innerHTML = '';
+    num_posts_text.appendChild(document.createTextNode(num_posts.post_count));
+  } else {
+    num_posts_text.innerHTML = '';
+    num_posts_text.appendTextNode("error");
+  }
+}
+
+async function loadInitPosts() {
+  num_posts_displayed = 0;
+  const res = await crud.getUserPosts(session_info.user_id, NUM_INIT_POSTS, 0);
+  if (res.status === 200 && res.ok) {
+    if (res.posts_arr.length === 0) {
+      const div = document.createElement("div");
+      div.classList.add("w-100");
+      div.classList.add("mt-5");
+      div.classList.add("text-center");
+      div.appendChild(document.createTextNode("You don't have any posts!"));
+      posts_div.appendChild(div);
+    } else {
+      res.posts_arr.forEach(post => {
+        renderPost(post);
+      });
+    }
+  } else {
+    posts_div.appendChild(document.createElement("p").appendChild(document.createTextNode("There was an error getting the initial posts")));
+    posts_div.appendChild(document.createElement("br"));
+  }
 }

@@ -3,7 +3,7 @@ html {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 #header {
@@ -15,6 +15,7 @@ html {
     width: 100%;
     border-bottom: 4px solid #971B2F;
     position: sticky;
+    position: -webkit-sticky;
     top: 0px;
     z-index: 100;
 }
