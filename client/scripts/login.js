@@ -15,6 +15,14 @@ const loginErrorMsg = document.getElementById("login-error-msg");
 
 login.addEventListener("click", (e) => {
     e.preventDefault();
-    const username = loginForm.email.value;
+    const email = loginForm.email.value;
     const password = loginForm.password.value;
-})
+
+    const res = await crud.login(email, password);
+    if (res === 200) {
+        alert("Successfully Logged in");
+        location.reload();
+    } else {
+        alert("There was an error logging into your profile");
+    }
+});

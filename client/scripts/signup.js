@@ -1,10 +1,13 @@
-const username = document.getElementById("username").value;
-const email = document.getElementById("email").value;
-const password = document.getElementById("password").value;
-const confirmPassword = document.getElementById("confirmPassword").value;
+// used https://dev.to/keshavs759/how-to-make-a-responsive-sign-up-form-in-html-css-with-javascript-password-validation-2k86 for refrence
 
-// The password should contain around 8-15 alhpanumeric character
 
+const username_input = document.getElementById("username");
+const email_input = document.getElementById("email");
+const password_input = document.getElementById("password");
+const confirmPassword_input = document.getElementById("confirmPassword");
+const sign_up = document.getElementById("signup");
+
+// The password should contain around 8-15 alhpanumeric characters
 const passwordPattern = /^[a-zA-Z0-9]{8,15}$/
 
 password.addEventListener('focusin', () => {
@@ -22,38 +25,27 @@ password.addEventListener('focusin', () => {
     })
 })
 
-password.addEventListener('focusout', () => {
-    pwd_format.style.display = 'none';
-})
-
-confirmPassword.addEventListener('focusin', () => {
-    pwd_format.style.display = 'block';
-    confirmPassword.addEventListener('keyup', () => {
-        if (passwordPattern.test(confirmPassword.value) && password.value === confirmPassword.value) {
-            confirmPassword.style.borderColor = 'green' // if password pattern matches the border of password input will ne green
-            pwd_format.style.color = 'green'
-        } else {
-            confirmPassword.style.borderColor = 'red'
-            pwd_format.style.color = 'red'
-        }
-    })
-})
-
-confirmPassword.addEventListener('focusout', () => {
-    pwd_format.style.display = 'none';
-})
-
-// termCond.addEventListener('change', () => {
-//     if (termCond.checked === true) {
-//         signup.disabled = false;
-//     } else if (termCond.checked === false) {
-//         signup.disabled = true;
-//     }
-// })
+confirmPassword.addEventListener('keyup', () => {
+    if (password.value !== confirmPassword.value) {
+        password.style.backgroundColor = 'red';
+        confirmPassword.style.backgroundColor = 'red';
+    }
+});
 
 
+sign_up.addEventListener("click", (e) => {
+    e.preventDefault();
+    const username = username_input.value;
+    const email = email_input.value;
+    const password = password_input.value;
+    const confirmPassword = confirmPassword_input.value;
 
 
-
-
-Resources
+    const res = await crud.login(username, email, password, confirmPassword);
+    if (res === 200) {
+        alert("Successfully Signed up");
+        location.reload();
+    } else {
+        alert("There was an error signing you up");
+    }
+});
