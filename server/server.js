@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import logger from 'morgan';
 import * as db from './database.js';
 import * as pg from 'pg';
+import { readFile } from 'fs';
 
 const headerFields = { 'Content-Type': 'application/json' };
 
@@ -22,6 +23,17 @@ const posts = [
 const post_likes = {
 
 };
+
+const feed = [
+    "./server/img/posts/bird1.jpg",
+    "./server/img/posts/bird2.jpg",
+    "./server/img/posts/dog1.jpeg",
+    "./server/img/posts/dog2.webp",
+    "./server/img/posts/cat1.jpg",
+    "./server/img/posts/cat2.jpg",
+    "./server/img/posts/bird1.jpg",
+    "./server/img/posts/bird2.jpg"
+];
 
 
 const app = express();
@@ -129,6 +141,11 @@ app.delete('/delete', (req, res) => {
     console.log("Delete");
     const options = req.query;
     console.log(options);
+});
+
+app.get('/get_feed', (req, res) => {
+    res.status(200).send(feed);
+    res.end();
 });
 
 app.get('*', (req, res) => {
