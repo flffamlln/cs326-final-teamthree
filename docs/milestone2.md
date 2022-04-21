@@ -18,7 +18,7 @@ Update like when like button clicked on post detail view.
 <img src="..\CRUD\comment_put.PNG" width="350"><br>
 Send comment text when submit button clicked on post detail view.
 
-<img src="..\CRUD\update_profile.PNG" width="350"><br>
+<img src="..\CRUD\image.PNG" width="350"><br>
 Profile updated successfully when clicking save changes in update profile view.
 
 
