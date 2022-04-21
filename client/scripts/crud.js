@@ -259,6 +259,26 @@ export async function updateLike(post_id, user_id) {
   }
 }
 
+/**
+ * Return the 'num_posts' most recent posts for a user
+ * @param {string} post_id 
+ * @returns Post information
+ */
+ export async function getFeed(post_id) {
+  try {
+    const response = await fetch(`/get_feed`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const data = { status: response.status, ok: response.ok, post: await response.json() };
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export async function deletePost(post_id) {
   
 }
