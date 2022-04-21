@@ -27,7 +27,7 @@ Profile updated successfully when clicking save changes in update profile view.
 
 <ins>**Breakdown of Labor**</ins> <br>
 
-* Lucas Bertoni - Implemented all CRUD operations for the user profile page set up the server initially.
+* Lucas Bertoni - Implemented all server + CRUD operations for the user profile page set up the server initially.
 * Youmna Alnasrallah
 * Yuri Kim - Implemented server + CRUD operations for posting a photo page and details of post pop up page with likes/comments
 * Emily Torok
