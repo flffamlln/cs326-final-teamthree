@@ -16,7 +16,7 @@ API Documentation <br>
 
 <ins>**Breakdown of Labor**</ins> <br>
 
-* Lucas Bertoni
+* Lucas Bertoni - Implemented all CRUD operations for the user profile page set up the server initially.
 * Youmna Alnasrallah
 * Yuri Kim
 * Emily Torok
