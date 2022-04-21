@@ -167,12 +167,12 @@ async function loadUserInfo() {
   const username    = "mikewazowski";
   const email       = "mwazowski@monster.edu";
 
-  const first_names = document.getElementsByClassName("display-last-name");
+  const first_names = document.getElementsByClassName("display-first-name");
   Array.from(first_names).forEach(node => {
     node.value = first_name;
   });
 
-  const last_names = document.getElementsByClassName("display-first-name");
+  const last_names = document.getElementsByClassName("display-last-name");
   Array.from(last_names).forEach(node => {
     node.value = last_name;
   });
