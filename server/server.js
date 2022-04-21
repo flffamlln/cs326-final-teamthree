@@ -155,7 +155,7 @@ function readSignupFile(path) {
         try {
             const infoFile = await readFile(path, 'utf8');
             const info = JSON.parse(infoFile);
-            return infp;
+            return info;
         } catch (error) {
             // Likely the file doesn't exist
             return [];
