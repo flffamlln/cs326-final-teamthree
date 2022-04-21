@@ -23,7 +23,7 @@ Profile updated successfully when clicking save changes in update profile view.
 
 
 <ins>**Deployment**</ins> <br>
-https://cs326-final-team-three.herokuapp.com/
+https://teamthree-petstagram.herokuapp.com/client/login.html
 
 <ins>**Breakdown of Labor**</ins> <br>
 
