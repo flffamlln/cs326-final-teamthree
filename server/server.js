@@ -81,7 +81,7 @@ class Server {
      */
     this.app.post('/upload_profile_picture', async (req, res) => {
       if (!req.files) {
-        res.status(400).send("No files were uploaded.");
+        res.status(400).send('No files were uploaded.');
       }
 
       // const dir = __dirname + '/client/img/temp/';
@@ -94,16 +94,25 @@ class Server {
       // }
       
       const file = req.files.temp_pp;
-      const path = __dirname + `/client/img/temp/` + file.name;
+      const file_path = __dirname + '/client/img/temp/' + file.name;
     
-      file.mv(path, (err) => {
+      file.mv(file_path, (err) => {
         if (err) {
           res.status(500).send(err);
         }
       });
 
-      console.log(path);
-      res.sendFile(path);
+      const options = {
+        root: __dirname + '/client/img/temp/'
+      };
+
+      res.sendFile(file.name, options, function (err) {
+        if (err) {
+          next(err)
+        } else {
+          console.log('Sent:', file.name)
+        }
+      })
     });
 
     /**

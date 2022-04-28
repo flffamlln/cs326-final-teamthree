@@ -96,6 +96,8 @@ export async function uploadTempPP(newpp) {
       method: 'POST',
       body: picture
     });
+    const data = await response.blob();
+    return data;
   } catch (err) {
     console.log(err);
   }
