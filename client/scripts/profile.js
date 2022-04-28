@@ -5,6 +5,8 @@ const session_info = {
   user_id: 1
 };
 
+let path_to_pp = '';
+
 let num_posts_displayed = 0;
 
 window.onload = async function () {
@@ -76,8 +78,7 @@ save_profile.addEventListener("click", async () => {
   const last_name       = document.getElementById("last-name").value;
   const username        = document.getElementById("username").value;
   const email           = document.getElementById("email").value;
-  const profile_picture = document.getElementById("profile-picture-editable").src;
-  console.log(profile_picture);
+  const profile_picture = path_to_pp;
   const res = await crud.updateUser(session_info.user_id, first_name, last_name, username, email, profile_picture);
   if (res === 200) {
     alert("Profile Successfully Updated");
@@ -92,15 +93,16 @@ const upload_profile_picture = document.getElementById("save-profile-picture-but
 upload_profile_picture.addEventListener("click", async () => {
   const newpp = document.getElementById("newpp").files[0];
   if (newpp) {
-    const uploadRes = await crud.uploadTempPP(newpp);
+    const uploadRes = await crud.uploadPP(newpp);
     if (!uploadRes.status === 200 || !uploadRes.ok) {
       alert("There was an error uploading your new profile picture");
     } else {
       const newpp_path = (await uploadRes.json()).newpp_path;
-      const downloadBlob = await crud.downloadTempPP(newpp_path);
+      const downloadBlob = await crud.downloadPP(newpp_path);
       const imgURL = URL.createObjectURL(downloadBlob);
       document.getElementById('profile-picture-editable').src = imgURL;
       document.getElementById("bfpp").click();
+      path_to_pp = newpp_path;
     }
   }
 });
@@ -202,7 +204,15 @@ async function loadUserInfo() {
 
   const pfps = document.getElementsByClassName("profile-picture");
   Array.from(pfps).forEach(pfp => {
-    pfp.src = profile_picture;
+    if (profile_picture) {
+      pfp.src = profile_picture.slice(profile_picture.indexOf('/client'));
+      pfp.onerror = function () {
+        this.onerror = null;
+        this.src='/client/img/profile_pictures/default.jpg';
+      };
+    } else {
+      pfp.src = '/client/img/profile_pictures/default.jpg';
+    }
   });
 }
 

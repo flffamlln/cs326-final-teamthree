@@ -88,11 +88,11 @@ export async function createComment(post_id, user_id, comment) {
   }
 }
 
-export async function uploadTempPP(newpp) {
+export async function uploadPP(newpp) {
   try {
     const picture = new FormData();
-    picture.append('temp_pp', newpp);
-    const response = await fetch('/upload_temp_pp', {
+    picture.append('pp', newpp);
+    const response = await fetch('/upload_pp', {
       method: 'POST',
       body: picture
     });
@@ -103,9 +103,9 @@ export async function uploadTempPP(newpp) {
   }
 }
 
-export async function downloadTempPP(newpp_path) {
+export async function downloadPP(newpp_path) {
   try {
-    const response = await fetch(`/download_temp_pp?&newpp_path=${newpp_path}`, {
+    const response = await fetch(`/download_pp?&newpp_path=${newpp_path}`, {
       method: 'GET',
     });
 

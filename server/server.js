@@ -79,13 +79,13 @@ class Server {
     /**
      * 
      */
-    this.app.post('/upload_temp_pp', async (req, res) => {
+    this.app.post('/upload_pp', async (req, res) => {
       if (!req.files) {
         res.status(400).send('No files were uploaded.');
       }
  
-      const file = req.files.temp_pp;
-      const file_path = __dirname + '/client/img/temp/' + file.name;
+      const file = req.files.pp;
+      const file_path = __dirname + '/client/img/profile_pictures/' + file.name;
     
       file.mv(file_path, (err) => {
         if (err) {
@@ -191,7 +191,7 @@ class Server {
     /**
      * 
      */
-    this.app.get('/download_temp_pp', async (req, res) => {
+    this.app.get('/download_pp', async (req, res) => {
       res.status(200).sendFile( req.query.newpp_path);
     });
 
