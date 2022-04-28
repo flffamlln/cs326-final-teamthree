@@ -91,8 +91,14 @@ const upload_profile_picture = document.getElementById("save-profile-picture-but
 upload_profile_picture.addEventListener("click", async () => {
   const newpp = document.getElementById("newpp").files[0];
   if (newpp) {
-    const res = await crud.uploadTempPP(newpp);
-    console.log(res);
+    const uploadRes = await crud.uploadTempPP(newpp);
+    if (!uploadRes.status === 200 || !uploadRes.ok) {
+      alert("There was an error uploading your new profile picture");
+    } else {
+      const newpp_path = (await uploadRes.json()).newpp_path;
+      const downloadRes = await crud.downloadTempPP(newpp_path);
+      console.log(downloadRes);
+    }
   }
   
   // document.getElementById("bfpp").click();

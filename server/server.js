@@ -79,20 +79,11 @@ class Server {
     /**
      * 
      */
-    this.app.post('/upload_profile_picture', async (req, res) => {
+    this.app.post('/upload_temp_pp', async (req, res) => {
       if (!req.files) {
         res.status(400).send('No files were uploaded.');
       }
-
-      // const dir = __dirname + '/client/img/temp/';
-      // if (fs.existsSync(dir)) {
-      //   fs.rmdir(dir, { recursive: true }, (err) => {
-      //     if (err) {
-      //       throw err;
-      //     }
-      //   });
-      // }
-      
+ 
       const file = req.files.temp_pp;
       const file_path = __dirname + '/client/img/temp/' + file.name;
     
@@ -102,17 +93,7 @@ class Server {
         }
       });
 
-      const options = {
-        root: __dirname + '/client/img/temp/'
-      };
-
-      res.sendFile(file.name, options, function (err) {
-        if (err) {
-          next(err)
-        } else {
-          console.log('Sent:', file.name)
-        }
-      })
+      res.status(200).send({ newpp_path: file_path });
     });
 
     /**
@@ -205,6 +186,13 @@ class Server {
       
       res.writeHead(200, headerFields);
       res.end();
+    });
+
+    /**
+     * 
+     */
+    this.app.get('/download_temp_pp', async (req, res) => {
+      res.status(200).sendFile( req.query.newpp_path);
     });
 
     /**

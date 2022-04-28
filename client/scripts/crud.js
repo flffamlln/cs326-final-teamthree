@@ -92,17 +92,30 @@ export async function uploadTempPP(newpp) {
   try {
     const picture = new FormData();
     picture.append('temp_pp', newpp);
-    const response = await fetch('/upload_profile_picture', {
+    const response = await fetch('/upload_temp_pp', {
       method: 'POST',
       body: picture
     });
-    const data = await response.blob();
-    return data;
+
+    return response;
   } catch (err) {
     console.log(err);
   }
 }
 
+export async function downloadTempPP(newpp_path) {
+  try {
+    const response = await fetch(`/download_temp_pp?&newpp_path=${newpp_path}`, {
+      method: 'GET',
+    });
+
+    if (response.status === 200 && response.ok) {
+      return response.blob();
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 /**
  * Return the 'num_posts' most recent posts for a user
