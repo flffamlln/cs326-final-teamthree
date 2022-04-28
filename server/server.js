@@ -141,11 +141,8 @@ class Server {
       
       const query = 'SELECT * FROM posts WHERE user_id = $1;';
       const result = await this.db.generalQuery(query, [options.user_id]);
-      console.log("User Posts:");
-      console.log(result.rows);
 
-      res.writeHead(200, headerFields);
-      res.end();
+      res.status(200).json(result.rows);
     });
 
     /**
@@ -155,13 +152,11 @@ class Server {
       const options = req.query;
       
       // Query database here
-      const query = 'SELECT COUNT FROM posts WHERE user_id = $1;';
+      const query = 'SELECT COUNT(*) FROM posts WHERE user_id = $1;';
       const result = await this.db.generalQuery(query, [options.user_id]);
-      console.log("User Posts Count:");
-      console.log(result.rows);
+      const count = result.rows[0].count;
 
-      res.writeHead(200, headerFields);
-      res.end();
+      res.status(200).json(count);
     });
 
     /**
@@ -240,11 +235,11 @@ class Server {
 
   // Start the server
   start() {
+    this.initializeDatabase();
     this.initPostRoutes();
     this.initGetRoutes();
     this.initPutRoutes();
     this.initDeleteRoutes();
-    this.initializeDatabase();
     this.app.listen(this.port, () => {
       console.log('Server Started');
     });
