@@ -1,5 +1,8 @@
 {
   "type": "module",
+  "engines": {
+    "node": "16.13.2"
+  },
   "scripts": {
     "deploy": "copyfiles client/* server/* .env package*.json deploy",
     "start": "node server/server.js",

@@ -5,7 +5,6 @@ import morgan from 'morgan';
 import logger from 'morgan';
 import DatabaseConnection from './database.js';
 import 'path';
-import * as fs from 'fs';
 
 const headerFields = { 'Content-Type': 'application/json' };
 const __dirname = path.resolve();
@@ -79,22 +78,13 @@ class Server {
     /**
      * 
      */
-    this.app.post('/upload_profile_picture', async (req, res) => {
+    this.app.post('/upload_pp', async (req, res) => {
       if (!req.files) {
         res.status(400).send('No files were uploaded.');
       }
-
-      // const dir = __dirname + '/client/img/temp/';
-      // if (fs.existsSync(dir)) {
-      //   fs.rmdir(dir, { recursive: true }, (err) => {
-      //     if (err) {
-      //       throw err;
-      //     }
-      //   });
-      // }
-      
-      const file = req.files.temp_pp;
-      const file_path = __dirname + '/client/img/temp/' + file.name;
+ 
+      const file = req.files.pp;
+      const file_path = __dirname + '/client/img/profile_pictures/' + file.name;
     
       file.mv(file_path, (err) => {
         if (err) {
@@ -102,17 +92,7 @@ class Server {
         }
       });
 
-      const options = {
-        root: __dirname + '/client/img/temp/'
-      };
-
-      res.sendFile(file.name, options, function (err) {
-        if (err) {
-          next(err)
-        } else {
-          console.log('Sent:', file.name)
-        }
-      })
+      res.status(200).send({ newpp_path: file_path });
     });
 
     /**
@@ -208,6 +188,13 @@ class Server {
     });
 
     /**
+     * 
+     */
+    this.app.get('/download_pp', async (req, res) => {
+      res.status(200).sendFile( req.query.newpp_path);
+    });
+
+    /**
      * *****************************************
      * CHANGE WHEN AUTHENTICATION IS IMPLEMENTED
      * *****************************************
@@ -224,8 +211,6 @@ class Server {
      */
     this.app.put('/update_user', async (req, res) => {
       const options = req.body;
-      const files = req.files;
-      console.log(files);
 
       const query = `
         UPDATE users
@@ -237,7 +222,7 @@ class Server {
         WHERE user_id = $1
         RETURNING *
       ;`;
-      const values = [options.user_id, options.new_first_name, options.new_last_name, options.new_username, options.new_email, options.new_pp_path];
+      const values = [options.user_id, options.new_first_name, options.new_last_name, options.new_username, options.new_email, options.newpp_path];
 
       try {
         await this.db.generalQuery(query, values);

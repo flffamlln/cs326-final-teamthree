@@ -5,7 +5,6 @@ import morgan from 'morgan';
 import logger from 'morgan';
 import DatabaseConnection from './database.js';
 import 'path';
-import * as fs from 'fs';
 
 const headerFields = { 'Content-Type': 'application/json' };
 const __dirname = path.resolve();
