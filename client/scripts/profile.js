@@ -93,8 +93,8 @@ save_profile.addEventListener("click", async () => {
 
 const upload_profile_picture = document.getElementById("save-profile-picture-button");
 upload_profile_picture.addEventListener("click", async () => {
-  pp_url = document.getElementById("new-profile-picture").value;
-  document.getElementById("profile-picture-editable").src = pp_url;
+  const pp = document.getElementById("new-profile-picture");
+  console.log(pp);
 });
 
 const show_all_posts = document.getElementById("show-all-posts");

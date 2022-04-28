@@ -1,4 +1,5 @@
 import express from 'express';
+import fileUpload from 'express-fileupload';
 import path from 'path';
 import morgan from 'morgan';
 import logger from 'morgan';
@@ -39,6 +40,9 @@ class Server {
     this.app.use(express.urlencoded({ extended: true }));
     const __dirname = path.resolve();
     this.app.use('/client', express.static(path.join(__dirname, 'client')));
+    this.app.use(fileUpload({
+      createParentPath: true
+    }));
 
     // Temporary
     // this.app.use(logger('dev'));
@@ -90,6 +94,12 @@ class Server {
 
       // Query database here
     
+      res.writeHead(200, headerFields);
+      res.end();
+    });
+
+    this.app.post('/upload_profile_picture', async (req, res) => {
+      console.log(req.files);
       res.writeHead(200, headerFields);
       res.end();
     });
@@ -203,6 +213,8 @@ class Server {
      */
     this.app.put('/update_user', async (req, res) => {
       const options = req.body;
+      const files = req.files;
+      console.log(files);
 
       const query = `
         UPDATE users
