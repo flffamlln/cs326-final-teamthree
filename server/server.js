@@ -2,12 +2,9 @@ import express from 'express';
 import path from 'path';
 import morgan from 'morgan';
 import logger from 'morgan';
-import * as db from './database.js';
-import * as pg from 'pg';
-import { readFile } from 'fs';
+import * as DB from './database.js';
 
 const headerFields = { 'Content-Type': 'application/json' };
-
 
 // This is not how this is going to be implemented, this is just for testing.
 // The actual implementation will have images stored in a database.
@@ -19,10 +16,6 @@ const posts = [
     { user_id: 4, url: "./img/posts/test5.jpg", description: "This is a description", tag: "Cat", post_id: 4, likes: [4, 3], comments: [{ from: 5, message: 'Lorem ipsum dolor!!' }] },
     { user_id: 5, url: "./img/posts/test6.jpg", description: "This is a description", tag: "Cat", post_id: 5, likes: [2, 1], comments: [] },
 ];
-
-const post_likes = {
-
-};
 
 const feed = [
     "./server/img/posts/bird1.jpg",
@@ -36,177 +29,201 @@ const feed = [
 ];
 
 
-const app = express();
-const port = process.env.PORT || 3000;
-const __dirname = path.resolve();
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use('/client', express.static(path.join(__dirname, 'client')));
+class Server {
+  constructor(dburl) {
+    this.dburl = dburl;
+    this.app = express();
+    this.port = process.env.PORT || 8080;
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use('/client', express.static(path.join(__dirname, 'client')));
 
+    // Temporary
+    this.app.user(logger(dev));
+  }
 
+  // Initialize all of the routes for creating stuff (and logging in)
+  initPostRoutes() {
+    /**
+     * 
+     */
+    this.app.post('/create_user', async (req, res) => {
 
-app.post('/create_post', (req, res) => {
-    const options = req.body;
+    });
 
-    let post = {};
-    post["user_id"] = options.user_id;
-    post["url"] = options.picture;
-    post["description"] = options.description;
-    post["tag"] = options.tag;
-    post["post_id"] = posts.length;
-    post["likes"] = 0;
-    post["comments"] = [];
+    /**
+     * 
+     */
+    this.app.post('/create_post', async (req, res) => {
+      const options = req.body;
+      const post = {
+        post_id: options.post_id,
+        user_id: options.user_id,
+        url: options.url,
+        description: options.description,
+        tag: options.tag,
+      };
 
-    posts.push(post);
-    res.writeHead(200, headerFields);
-    res.end();
-});
+      res.writeHead(200, headerFields);
+      res.end();
+    });
 
-app.post('/create_comment', (req, res) => {
-    const options = req.body;
+    /**
+     * 
+     */
+    this.app.post('/create_comment', async (req, res) => {
+      const options = req.body;
+    
+      const comment = {
+        from: options.user_id,
+        message: options.message
+      };
+    
+      res.writeHead(200, headerFields);
+      res.end();
+    });
 
-    let obj = {};
-    obj["from"] = options.user_id;
-    obj["message"] = options.comment;
-
-    let commented = false;
-    for (let i = 0; i < posts.length; i++) {
-        if (posts[i]["post_id"] === options.post_id) {
-            posts[i]["comments"].push(obj);
-            commented = true;
-        }
-    }
-    if (commented) {
+    /**
+     * 
+     */
+    this.app.post('/login', (req, res) => {
+        console.log("Login");
+        const options = req.body;
+        console.log(options);
         res.writeHead(200, headerFields);
-    }
-    res.end();
-});
+    });
+    
+    /**
+     * 
+     */
+    this.app.post('/signup', (req, res) => {
+        console.log("signup");
+        const options = req.body;
+        saveSignupInfo(options.username, options.email, options.password);
+        res.writeHead(200, headerFields);
+    });
+  }
 
-app.get('/get_post', (req, res) => {
-    const options = req.query;
-    for (let i = 0; i < posts.length; i++) {
+  // Initialize all of the routes for getting stuff
+  initGetRoutes() {
+    /**
+     * 
+     */
+    this.app.get('/get_post', async (req, res) => {
+      const options = req.query;
+      for (let i = 0; i < posts.length; i++) {
         if (posts[i]["post_id"] === options.post_id) {
-            res.status(200).send(posts[i]);
+          res.status(200).send(posts[i]);
         }
-    }
-});
+      }
+    });
 
-app.get('/get_user_posts', (req, res) => {
-    const options = req.query;
-    const selected_posts = posts.slice(options.num_posts_present, options.num_posts_requested);
-    res.status(200).send(selected_posts);
-});
+    /**
+     * 
+     */
+    this.app.get('/get_user_posts', async (req, res) => {
+      const options = req.query;
+      
+      // Query database here
 
-app.get('/get_post_count', (req, res) => {
-    const options = req.query;
-    const count = posts.length;
-    res.status(200).send(count.toString());
-});
+      res.writeHead(200, headerFields);
+      res.end();
+    });
 
-app.get('/get_likes', (req, res) => {
-    const options = req.query;
+    /**
+     * 
+     */
+    this.app.get('/get_user_post_count', (req, res) => {
+      const options = req.query;
+      
+      // Query database here
 
-    let likes = null;
-    for (let i = 0; i < posts.length; i++) {
-        if (posts[i]["post_id"] === options.post_id) {
-            likes = posts[i]["likes"].length;
-            res.status(200).send(likes.toString());
-            res.end();
-        }
-    }
-    res.status(200).send(likes.toString());
-});
+      res.writeHead(200, headerFields);
+      res.end();
+    });
 
-app.put('/update_user', (req, res) => {
-    console.log("Update User");
-    const options = req.query;
-    res.sendStatus(200);
-});
+    /**
+     * 
+     */
+    this.app.get('/get_likes', (req, res) => {
+      const options = req.query;
 
-app.put('/update_likes', (req, res) => {
-    const options = req.body;
-    for (let i = 0; i < posts.length; i++) {
-        if (posts[i]["post_id"] === options.post_id) {
-            if (!posts[i]["likes"].includes(options.user_id)) {
-                posts[i]["likes"].push(options.user_id);
-            }
-        }
-    }
-    res.writeHead(200, headerFields);
-    res.end();
-})
+      // Query database here
+      
+      res.writeHead(200, headerFields);
+      res.end();
+    });
 
-app.delete('/delete', (req, res) => {
-    console.log("Delete");
-    const options = req.query;
-    console.log(options);
-});
+    /**
+     * *****************************************
+     * CHANGE WHEN AUTHENTICATION IS IMPLEMENTED
+     * *****************************************
+     */
+    this.app.get('*', (req, res) => {
+      res.redirect("/client/login.html");
+    });
+  }
 
-app.get('/get_feed', (req, res) => {
-    res.status(200).send(feed);
-    res.end();
-});
+  // Initialize all of the routes for updating stuff
+  initPutRoutes() {
+    /**
+     * 
+     */
+    this.app.put('/update_user', (req, res) => {
+      const options = req.query;
 
-app.get('*', (req, res) => {
-    res.redirect("/client/login.html");
-});
+      // Query database here
 
+      res.writeHead(200, headerFields);
+      res.end();
+    });
 
+    /**
+     * 
+     */
+    this.app.put('/like_post', async (req, res) => {
+      const options = req.body;
+      const like = {
+        post_id: options.post_id,
+        user_id: options.user_id
+      };
 
-const USER_FILE = 'user-info.json';
+      // Query database here
 
-// Returns a function that will save a user sign up info to an info file.
-function saveToUserFlie(path) {
-    return async(username, email, password) => {
-        const data = { username, email, password };
-        const info = await readUserInfo();
-        scores.push(data);
-        writeFile(path, JSON.stringify(info), 'utf8');
-    };
+      res.writeHead(200, headerFields);
+      res.end();
+    });
+  }
+
+  // Initialize all of the routes for deleting stuff
+  initDeleteRoutes() {
+    /**
+     * Change to delete post, comment, etc.
+     */
+    this.app.delete('/delete', (req, res) => {
+      console.log("Delete");
+      const options = req.query;
+      console.log(options);
+    });
+  }
+
+  async initializeDatabase() {
+    this.db = new DB(this.dburl);
+    await this.db.connect();
+  }
+
+  // Start the server
+  start() {
+    this.initPostRoutes();
+    this.initGetRoutes();
+    this.initPutRoutes();
+    this.initDeleteRoutes();
+    this.initializeDatabase();
+    this.app.listen(port, () => {
+      console.log(`Server started`);
+    });
+  }
 }
 
-// Returns a function that will read a info file.
-function readSignupFile(path) {
-    return async() => {
-        try {
-            const infoFile = await readFile(path, 'utf8');
-            const info = JSON.parse(infoFile);
-            return info;
-        } catch (error) {
-            // Likely the file doesn't exist
-            return [];
-        }
-    };
-}
-
-async function saveData(dataObject, id) {
-    // Save the current scores in a file 
-    try {
-        const data = JSON.stringify(dataObject);
-        await writeFile(USER_FILE, data, { encoding: 'utf8' });
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-const readUserInfo = readSignupFile(USER_FILE);
-const saveSignupInfo = saveToUserFlie(USER_FILE);
-
-app.post('/login', (req, res) => {
-    console.log("Login");
-    const options = req.body;
-    console.log(options);
-    res.writeHead(200, headerFields);
-});
-
-app.post('/signup', (req, res) => {
-    console.log("signup");
-    const options = req.body;
-    saveSignupInfo(options.username, options.email, options.password);
-    res.writeHead(200, headerFields);
-});
-
-app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
-});
+const server = new Server(process.env.DATABASE_URL);
+server.start();
