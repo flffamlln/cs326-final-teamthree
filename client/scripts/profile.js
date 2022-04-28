@@ -2,8 +2,7 @@ import * as crud from './crud.js';
 
 const NUM_INIT_POSTS = 4;
 const session_info = {
-  user_id: 0,
-  profile_picture: "./img/profile_pictures/mike.jpg",
+  user_id: 1
 };
 
 let num_posts_displayed = 0;
@@ -12,7 +11,6 @@ let pp_url = "";
 
 
 window.onload = async function () {
-  loadProfilePictures();
   loadUserInfo();
   loadPostCount();
   loadInitPosts();
@@ -81,7 +79,7 @@ save_profile.addEventListener("click", async () => {
   const last_name       = document.getElementById("last-name").value;
   const username        = document.getElementById("username").value;
   const email           = document.getElementById("email").value;
-  const profile_picture = pp_url === "" ? session_info.profile_picture : pp_url;
+  // const profile_picture = pp_url === "" ? session_info.profile_picture : pp_url;
   const res = await crud.updateUser(session_info.user_id, first_name, last_name, username, email, profile_picture);
   if (res === 200) {
     alert("Profile Successfully Updated");
@@ -150,22 +148,14 @@ function renderPost(post) {
 
 
 
-async function loadProfilePictures() {
-  const pfps = document.getElementsByClassName("profile-picture");
-  Array.from(pfps).forEach(pfp => {
-    pfp.src = session_info.profile_picture;
-  });
-}
 
 async function loadUserInfo() {
-  // const first_name = await crud.getFirstName(session_info.user_id);
-  // const last_name  = await crud.getLastName(session_info.user_id);
-  // const username   = await crud.getUsername(session_info.user_id);
-  // const email      = await crud.getEmail(session_info.user_id);
-  const first_name  = "Mike";
-  const last_name   = "Wazowski";
-  const username    = "mikewazowski";
-  const email       = "mwazowski@monster.edu";
+  const user_info = await crud.getUserInfo(session_info.user_id);
+  const first_name      = user_info.first_name;
+  const last_name       = user_info.last_name;
+  const username        = user_info.username;
+  const email           = user_info.email;
+  const profile_picture = user_info.pp_path;
 
   const first_names = document.getElementsByClassName("display-first-name");
   Array.from(first_names).forEach(node => {
@@ -200,6 +190,10 @@ async function loadUserInfo() {
     }
   });
 
+  const pfps = document.getElementsByClassName("profile-picture");
+  Array.from(pfps).forEach(pfp => {
+    pfp.src = profile_picture;
+  });
 }
 
 async function loadPostCount() {

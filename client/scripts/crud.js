@@ -113,6 +113,27 @@ export async function createComment(post_id, user_id, comment) {
 /**
  * Return the 'num_posts' most recent posts for a user
  * @param {string} user_id 
+ * @returns The first name, last name, username, and email for a user
+ */
+ export async function getUserInfo(user_id) {
+  try {
+    const response = await fetch(`/get_user_info?user_id=${user_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+    return { status: 500, ok: false };
+  }
+}
+
+/**
+ * Return the 'num_posts' most recent posts for a user
+ * @param {string} user_id 
  * @param {number} num_posts_requested 
  * @param {number} num_posts_present 
  * @returns An array of posts

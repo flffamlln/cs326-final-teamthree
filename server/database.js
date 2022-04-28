@@ -29,6 +29,7 @@ export default class DatabaseConnection {
       first_name VARCHAR(100) NOT NULL,
       last_name VARCHAR(100) NOT NULL,
       username VARCHAR(20) UNIQUE NOT NULL,
+      pp_path VARCHAR(100) UNIQUE,
       created_on TIMESTAMP NOT NULL
     );
     
