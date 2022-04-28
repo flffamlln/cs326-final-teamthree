@@ -89,8 +89,14 @@ save_profile.addEventListener("click", async () => {
 
 const upload_profile_picture = document.getElementById("save-profile-picture-button");
 upload_profile_picture.addEventListener("click", async () => {
-  document.getElementById("bfpp").click();
-  profile_picture_editable.src = '/img/temp/msScrabbleGame.jpg';
+  const newpp = document.getElementById("newpp").files[0];
+  if (newpp) {
+    const res = await crud.uploadTempPP(newpp);
+    console.log(res);
+  }
+  
+  // document.getElementById("bfpp").click();
+  // profile_picture_editable.src = '/img/temp/msScrabbleGame.jpg';
 });
 
 const show_all_posts = document.getElementById("show-all-posts");
@@ -139,7 +145,7 @@ function renderPost(post) {
   });
 
   post_container.appendChild(post_img);
-  document.getElementById(`row${Math.floor(num_posts_displayed / 2 + 1)}`).appendChild(post_container);
+  $(`.row${Math.floor(num_posts_displayed / 2 + 1)}`).appendChild(post_container);
 
   ++num_posts_displayed;
 }

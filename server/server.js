@@ -84,25 +84,26 @@ class Server {
         res.status(400).send("No files were uploaded.");
       }
 
-      const dir = __dirname + '/client/img/temp/';
-      if (fs.existsSync(dir)) {
-        fs.rmdir(dir, { recursive: true }, (err) => {
-          if (err) {
-            throw err;
-          }
-        });
-      }
+      // const dir = __dirname + '/client/img/temp/';
+      // if (fs.existsSync(dir)) {
+      //   fs.rmdir(dir, { recursive: true }, (err) => {
+      //     if (err) {
+      //       throw err;
+      //     }
+      //   });
+      // }
       
-      const file = req.files.newpp;
+      const file = req.files.temp_pp;
       const path = __dirname + `/client/img/temp/` + file.name;
     
       file.mv(path, (err) => {
         if (err) {
           res.status(500).send(err);
         }
-
-        res.send({ status: "success", path: path });
       });
+
+      console.log(path);
+      res.sendFile(path);
     });
 
     /**

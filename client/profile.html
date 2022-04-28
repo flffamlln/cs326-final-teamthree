@@ -16,7 +16,6 @@
   </head>
 
   <body>
-    <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 
     <div id="main-container" class="row py-4 px-4 pt-3 full-height">
       <div class="col-md-5 mx-auto px-0">
@@ -24,17 +23,15 @@
         <div id="change-profile-picture-container" class="col-xl overlay-container">
           <div id="change-profile-picture-overlay" class="px-5 pt-4 pb-3 rounded-border-8px w-75 noselect w-100">
             <h3 class="mb-3">Change Profile Picture</h3>
-            <form id="upload-profile-picture-form" action="/upload_profile_picture" enctype="multipart/form-data" method="post" target="dummyframe">
-              <div class="rounded-border-8px bg-gray p-3">
-                <div class="row mt-3 p-2 pb-3">
-                  <div class="form-group col-xl">
-                    <label for="newpp">Upload Picture (JPG or PNG)</label>
-                    <input type="file" id="newpp" name="newpp" class="form-control mb-3" accept=".jpg, .jpeg, .png"/>
-                  </div>
+            <div class="rounded-border-8px bg-gray p-3">
+              <div class="row mt-3 p-2 pb-3">
+                <div class="form-group col-xl">
+                  <label for="newpp">Upload Picture (JPG or PNG)</label>
+                  <input type="file" id="newpp" name="newpp" class="form-control mb-3" accept=".jpg, .jpeg, .png"/>
                 </div>
               </div>
-              <button type="submit"><a id="save-profile-picture-button" class="btn btn-outline-dark btn-sm btn-block mt-4 mb-3">Upload New Profile Picture</a></button>
-            </form>
+            </div>
+            <a id="save-profile-picture-button" class="btn btn-outline-dark btn-sm btn-block mt-4 mb-3">Upload New Profile Picture</a>
             <a id="bfpp" class="back-to-edit-profile-button btn btn-outline-dark btn-sm btn-block w-100 mt-4 mb-3">Back to Edit Profile</a>
           </div>
         </div>

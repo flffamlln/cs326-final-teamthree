@@ -88,6 +88,18 @@ export async function createComment(post_id, user_id, comment) {
   }
 }
 
+export async function uploadTempPP(newpp) {
+  try {
+    const picture = new FormData();
+    picture.append('temp_pp', newpp);
+    const response = await fetch('/upload_profile_picture', {
+      method: 'POST',
+      body: picture
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 
 /**
@@ -173,24 +185,6 @@ export async function getUserPosts(user_id, num_posts_requested, num_posts_prese
     console.log(err);
   }
 }
-
-/**
- * 
- */
-// export async function getTempPP(user_id) {
-//   try {
-//     const response = await fetch(`/get_temp_pp?user_id=${user_id}`, {
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//     });
-
-//     const data = await response.json();
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
 
 /**
  * Return the number of likes a post has
