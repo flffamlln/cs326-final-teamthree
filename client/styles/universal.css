@@ -37,10 +37,6 @@ html {
     color: white !important;
 }
 
-.full-height {
-    min-height: 100vh;
-}
-
 .noselect {
     -webkit-touch-callout: none;
     /* iOS Safari */

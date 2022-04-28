@@ -12,7 +12,7 @@ let num_posts_displayed = 0;
 window.onload = async function () {
   loadUserInfo();
   loadPostCount();
-  loadInitPosts();
+  loadPosts();
 }
 
 
@@ -107,57 +107,22 @@ upload_profile_picture.addEventListener("click", async () => {
   }
 });
 
-const show_all_posts = document.getElementById("show-all-posts");
-show_all_posts.addEventListener("click", async () => {
-  // Get 1000 posts (if there are that many), this should be more than enough
-  const res = await crud.getUserPosts(session_info.user_id, 1000, num_posts_displayed);
-  if (res.status === 200 && res.ok) {
-    res.posts_arr.forEach(post => {
-      renderPost(post);
-    });
+// const show_all_posts = document.getElementById("show-all-posts");
+// show_all_posts.addEventListener("click", async () => {
+//   // Get 1000 posts (if there are that many), this should be more than enough
+//   const res = await crud.getUserPosts(session_info.user_id);
+//   if (res.status === 200 && res.ok) {
+//     res.posts_arr.forEach(post => {
+//       renderPost(post);
+//     });
 
-    if (res.posts_arr.length > 0) {
-      document.getElementById("recent-posts").style.overflowY = "scroll";
-    }
-  } else {
-    alert("There was an error getting more posts");
-  }
-});
-
-
-
-
-function renderPost(post) {
-  if (num_posts_displayed % 2 === 0) {
-    const row = document.createElement("div");
-    row.classList.add("row");
-    row.id = `row${num_posts_displayed / 2 + 1}`;
-    posts_div.appendChild(row);
-  }
-
-  const post_container = document.createElement("div");
-  post_container.classList.add("col-lg-6");
-  post_container.classList.add("my-2");
-  post_container.classList.add("post-container");
-
-  const post_img = document.createElement("img");
-  post_img.classList.add("img-fluid");
-  post_img.classList.add("rounded");
-  post_img.classList.add("shadow-sm");
-  post_img.classList.add("pointer");
-  post_img.src = post.url;
-  post_img.alt = "Oops, this image couldn't be found";
-  post_img.width = 350;
-  post_img.addEventListener("click", () => {
-    console.log("Post Clicked");
-  });
-
-  post_container.appendChild(post_img);
-  document.getElementById(`row${Math.floor(num_posts_displayed / 2 + 1)}`).appendChild(post_container);
-
-  ++num_posts_displayed;
-}
-
+//     if (res.posts_arr.length > 0) {
+//       document.getElementById("recent-posts").style.overflowY = "scroll";
+//     }
+//   } else {
+//     alert("There was an error getting more posts");
+//   }
+// });
 
 
 
@@ -228,9 +193,9 @@ async function loadPostCount() {
   }
 }
 
-async function loadInitPosts() {
+async function loadPosts() {
   num_posts_displayed = 0;
-  const res = await crud.getUserPosts(session_info.user_id, NUM_INIT_POSTS, 0);
+  const res = await crud.getUserPosts(session_info.user_id);
   if (res.status === 200 && res.ok) {
     if (res.posts_arr.length === 0) {
       const div = document.createElement("div");
@@ -248,4 +213,38 @@ async function loadInitPosts() {
     posts_div.appendChild(document.createElement("p").appendChild(document.createTextNode("There was an error getting the initial posts")));
     posts_div.appendChild(document.createElement("br"));
   }
+}
+
+
+
+function renderPost(post) {
+  if (num_posts_displayed % 2 === 0) {
+    const row = document.createElement("div");
+    row.classList.add("row");
+    row.id = `row${num_posts_displayed / 2 + 1}`;
+    posts_div.appendChild(row);
+  }
+
+  const post_container = document.createElement("div");
+  post_container.classList.add("col-lg-6");
+  post_container.classList.add("my-2");
+  post_container.classList.add("post-container");
+
+  const post_img = document.createElement("img");
+  post_img.classList.add("img-fluid");
+  post_img.classList.add("rounded");
+  post_img.classList.add("shadow-sm");
+  post_img.classList.add("pointer");
+  post_img.src = '/client/img/posts' + post.picture_path;
+  post_img.alt = "Oops, this image couldn't be found";
+  post_img.width = 350;
+  post_img.addEventListener("click", async () => {
+    const post_display = await crud.getPost(post.post_id);
+    console.log(post_display);
+  });
+
+  post_container.appendChild(post_img);
+  document.getElementById(`row${Math.floor(num_posts_displayed / 2 + 1)}`).appendChild(post_container);
+
+  ++num_posts_displayed;
 }

@@ -86,6 +86,7 @@ class Server {
       }
  
       const file = req.files.pp;
+      console.log(file);
       const file_path = __dirname + '/client/img/profile_pictures/' + file.name;
       let extention = '';
       if (file.name.endsWith('.jpg')) {
@@ -96,19 +97,20 @@ class Server {
         extention = '.png';
       }
     
+      // NEED TO WAIT FOR THIS
       await file.mv(file_path, (err) => {
         if (err) {
           res.status(500).send(err);
         }
       });
+      console.log(r);
 
       const d = new Date();
       const new_name = d.getDate().toString() + (d.getMonth()+1).toString() + d.getFullYear().toString() + d.getHours().toString() + d.getMinutes().toString() + d.getSeconds().toString() + d.getMilliseconds().toString();
-      console.log(new_name);
       const new_path = __dirname + '/client/img/profile_pictures/' + new_name.toString() + extention;
-      fs.rename(file_path, new_path, () => {});
+      fs.rename(file_path, new_path, () => { console.log("changed"); });
 
-      res.status(200).send({ newpp_path: new_path });
+      res.status(200).send({ newpp_path: (new_name.toString() + extention) });
     });
 
     /**
@@ -144,10 +146,12 @@ class Server {
     this.app.get('/get_post', async (req, res) => {
       const options = req.query;
       
-      // Query database here
-
-      res.writeHead(200, headerFields);
-      res.end();
+      try {
+        const post = await this.db.getPost(options.post_id);
+        res.status(200).send(post.rows[0]);
+      } catch (err) {
+        res.status(500).send({ error: 'There was an error retreiving the post' });
+      }
     });
 
     /**
@@ -155,7 +159,7 @@ class Server {
      */
      this.app.get('/get_user_info', async (req, res) => {
       const options = req.query;
-      
+
       const query = 'SELECT first_name, last_name, username, email, pp_path FROM users WHERE user_id = $1;';
       const values = [options.user_id];
       const result = await this.db.generalQuery(query, values);
@@ -168,12 +172,12 @@ class Server {
      */
     this.app.get('/get_user_posts', async (req, res) => {
       const options = req.query;
-      
+
       const query = 'SELECT * FROM posts WHERE user_id = $1;';
       const values = [options.user_id];
       const result = await this.db.generalQuery(query, values);
 
-      res.status(200).json(result.rows);
+      res.status(200).send(result.rows);
     });
 
     /**
@@ -207,7 +211,8 @@ class Server {
      * 
      */
     this.app.get('/download_pp', async (req, res) => {
-      res.status(200).sendFile( req.query.newpp_path);
+      const pp_path = __dirname + 'client/img/profile_pictures/' + req.query.newpp_path;
+      res.status(200).sendFile(pp_path);
     });
 
     /**
@@ -242,9 +247,9 @@ class Server {
 
       try {
         await this.db.generalQuery(query, values);
-        res.writeHead(200, headerFields);
+        res.sendStatus(200);
       } catch (err) {
-        res.writeHead(500, headerFields);
+        res.sendStatus(500);
       }
 
       res.end();

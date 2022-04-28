@@ -165,9 +165,9 @@ export async function downloadPP(newpp_path) {
  * @param {number} num_posts_present 
  * @returns An array of posts
  */
-export async function getUserPosts(user_id, num_posts_requested, num_posts_present) {
+export async function getUserPosts(user_id) {
   try {
-    const response = await fetch(`/get_user_posts?user_id=${user_id}&num_posts_requested=${num_posts_requested}&num_posts_present=${num_posts_present}`, {
+    const response = await fetch(`/get_user_posts?user_id=${user_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

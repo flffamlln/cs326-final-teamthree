@@ -139,7 +139,7 @@ span b {
 
 #back-to-home {
   position: absolute;
-  top: 10px;
+  top: 30px;
   left: 25px;
   text-decoration: none;
   color: white;
@@ -147,8 +147,15 @@ span b {
 
 #profile-container {
   overflow-y: hidden;
+  max-height: 90% !important;
+  padding-bottom: 2%;
+  margin-top: 2%;
 }
 
 #new-profile-picture {
   width: 80%;
+}
+
+#main-container {
+  padding-top: 0px !important;
 }

@@ -72,6 +72,16 @@ export default class DatabaseConnection {
     return result;
   }
 
+  /**
+   * 
+   */
+  async getPost(post_id) {
+    const query = 'SELECT * FROM posts WHERE post_id = $1;';
+    const values = [post_id];
+    const result = await this.client.query(query, values);
+    return result;
+  }
+
   async close() {
     await this.client.release();
   }
