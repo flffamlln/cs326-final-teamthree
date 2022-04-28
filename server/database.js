@@ -3,7 +3,7 @@ import pg from 'pg';
 
 const { Pool } = pg;
 
-export default class Database {
+export default class DatabaseConnection {
   constructor (dburl) {
     this.dburl = dburl;
   }
@@ -21,19 +21,21 @@ export default class Database {
   }
   
   async init() {
-    const queryText = `
-    CREATE TABLE users (
-      id int(11) NOT NULL AUTO_INCREMENT,
-      email varchar(100) NOT NULL,
-      password varchar(100) NOT NULL,
-      first_name varchar(100) NOT NULL,
-      last_name varchar(100) NOT NULL,
-      PRIMARY KEY (id),
-      UNIQUE KEY email_UNIQUE (email),
-      UNIQUE KEY id_UNIQUE (id)
-    )`;
+    // const queryText = `
+    // CREATE TABLE users (
+    //   id int(11) NOT NULL AUTO_INCREMENT,
+    //   email varchar(100) NOT NULL,
+    //   password varchar(100) NOT NULL,
+    //   first_name varchar(100) NOT NULL,
+    //   last_name varchar(100) NOT NULL,
+    //   PRIMARY KEY (id),
+    //   UNIQUE KEY email_UNIQUE (email),
+    //   UNIQUE KEY id_UNIQUE (id)
+    // )`;
 
-    const result = await this.client.query(queryText);
+    // const result = await this.client.query(queryText);
+
+    return true;
   }
 
   async close() {

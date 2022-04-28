@@ -2,7 +2,8 @@ import express from 'express';
 import path from 'path';
 import morgan from 'morgan';
 import logger from 'morgan';
-import * as DB from './database.js';
+import DatabaseConnection from './database.js';
+import 'path';
 
 const headerFields = { 'Content-Type': 'application/json' };
 
@@ -36,10 +37,11 @@ class Server {
     this.port = process.env.PORT || 8080;
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    const __dirname = path.resolve();
     this.app.use('/client', express.static(path.join(__dirname, 'client')));
 
     // Temporary
-    this.app.user(logger(dev));
+    this.app.use(logger('dev'));
   }
 
   // Initialize all of the routes for creating stuff (and logging in)
@@ -213,7 +215,7 @@ class Server {
   }
 
   async initializeDatabase() {
-    this.db = new DB(this.dburl);
+    this.db = new DatabaseConnection(this.dburl);
     await this.db.connect();
   }
 
@@ -224,8 +226,8 @@ class Server {
     this.initPutRoutes();
     this.initDeleteRoutes();
     this.initializeDatabase();
-    this.app.listen(port, () => {
-      console.log(`Server started`);
+    this.app.listen(this.port, () => {
+      console.log('Server Started!');
     });
   }
 }
