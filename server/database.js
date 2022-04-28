@@ -15,27 +15,50 @@ export default class DatabaseConnection {
     });
 
     this.client = await this.pool.connect();
-    console.log("Database Connected!");
+    console.log("Database Connected");
 
     await this.init();
   }
   
   async init() {
-    // const queryText = `
-    // CREATE TABLE users (
-    //   id int(11) NOT NULL AUTO_INCREMENT,
-    //   email varchar(100) NOT NULL,
-    //   password varchar(100) NOT NULL,
-    //   first_name varchar(100) NOT NULL,
-    //   last_name varchar(100) NOT NULL,
-    //   PRIMARY KEY (id),
-    //   UNIQUE KEY email_UNIQUE (email),
-    //   UNIQUE KEY id_UNIQUE (id)
-    // )`;
+    const queryText = `
+      CREATE TABLE IF NOT EXISTS users (
+      user_id SERIAL PRIMARY KEY,
+      email VARCHAR(100) UNIQUE NOT NULL,
+      password VARCHAR(100) NOT NULL,
+      first_name VARCHAR(100) NOT NULL,
+      last_name VARCHAR(100) NOT NULL,
+      username VARCHAR(20) UNIQUE NOT NULL,
+      created_on TIMESTAMP NOT NULL
+    );
+    
+    CREATE TABLE IF NOT EXISTS posts (
+      post_id SERIAL PRIMARY KEY,
+      user_id INT NOT NULL,
+      picture_path VARCHAR(100) UNIQUE NOT NULL,
+      description VARCHAR(1000),
+      tag VARCHAR(20)
+    );
 
-    // const result = await this.client.query(queryText);
+    CREATE TABLE IF NOT EXISTS comments (
+      comment_id SERIAL PRIMARY KEY,
+      post_id INT NOT NULL,
+      user_id INT NOT NULL,
+      comment VARCHAR(500) NOT NULL
+    );
 
-    return true;
+    CREATE TABLE IF NOT EXISTS likes (
+      like_id SERIAL PRIMARY KEY,
+      post_id INT NOT NULL,
+      user_id INT NOT NULL
+    );
+    `;
+
+    await this.client.query(queryText);
+
+    console.log("Database Initialized");
+
+    return;
   }
 
   async close() {

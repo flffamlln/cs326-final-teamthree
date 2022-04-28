@@ -227,7 +227,7 @@ class Server {
     this.initDeleteRoutes();
     this.initializeDatabase();
     this.app.listen(this.port, () => {
-      console.log('Server Started!');
+      console.log('Server Started');
     });
   }
 }
