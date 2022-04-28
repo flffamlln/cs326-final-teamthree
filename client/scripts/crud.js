@@ -202,18 +202,18 @@ export async function getUserPosts(user_id, num_posts_requested, num_posts_prese
  * @param {string} new_last_name        may or may not be changed from its current state
  * @param {string} new_username         may or may not be changed from its current state
  * @param {string} new_profile_picture  may or may not be changed from its current state
- * @returns 200 if the user was successfully updated, 400 otherwise
+ * @returns 200 if the user was successfully updated, 500 otherwise
  */
-export async function updateUser(user_id, new_first_name, new_last_name, new_username, new_profile_picture) {
+export async function updateUser(user_id, new_first_name, new_last_name, new_username, new_email, new_pp_path) {
   try {
     const new_data = {
       user_id: user_id,
       new_first_name: new_first_name,
       new_last_name: new_last_name,
       new_username: new_username,
-      new_profile_picture: new_profile_picture
+      new_email: new_email,
+      new_pp_path: new_pp_path
     };
-    console.log(new_data);
     const response = await fetch(`/update_user`, {
       method: 'PUT',
       headers: {

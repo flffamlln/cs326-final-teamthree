@@ -140,8 +140,9 @@ class Server {
       const options = req.query;
       
       const query = 'SELECT first_name, last_name, username, email, pp_path FROM users WHERE user_id = $1;';
-      const result = await this.db.generalQuery(query, [options.user_id]);
-      
+      const values = [options.user_id];
+      const result = await this.db.generalQuery(query, values);
+
       res.status(200).json(result.rows[0]);
     });
 
@@ -152,7 +153,8 @@ class Server {
       const options = req.query;
       
       const query = 'SELECT * FROM posts WHERE user_id = $1;';
-      const result = await this.db.generalQuery(query, [options.user_id]);
+      const values = [options.user_id];
+      const result = await this.db.generalQuery(query, values);
 
       res.status(200).json(result.rows);
     });
@@ -165,7 +167,8 @@ class Server {
       
       // Query database here
       const query = 'SELECT COUNT(*) FROM posts WHERE user_id = $1;';
-      const result = await this.db.generalQuery(query, [options.user_id]);
+      const values = [options.user_id];
+      const result = await this.db.generalQuery(query, values);
       const count = result.rows[0].count;
 
       res.status(200).json(count);
@@ -199,12 +202,27 @@ class Server {
      * 
      */
     this.app.put('/update_user', async (req, res) => {
-      const options = req.query;
-      console.log(options);
+      const options = req.body;
 
-      // Query database here
+      const query = `
+        UPDATE users
+        SET first_name = $2,
+            last_name = $3,
+            username = $4,
+            email = $5,
+            pp_path = $6
+        WHERE user_id = $1
+        RETURNING *
+      ;`;
+      const values = [options.user_id, options.new_first_name, options.new_last_name, options.new_username, options.new_email, options.new_pp_path];
 
-      res.writeHead(200, headerFields);
+      try {
+        await this.db.generalQuery(query, values);
+        res.writeHead(200, headerFields);
+      } catch (err) {
+        res.writeHead(500, headerFields);
+      }
+
       res.end();
     });
 

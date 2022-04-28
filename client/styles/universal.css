@@ -33,11 +33,9 @@ html {
     cursor: pointer;
 }
 
-
-/* 
 .btn:hover {
     color: white !important;
-} */
+}
 
 .full-height {
     min-height: 100vh;

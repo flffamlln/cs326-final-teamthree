@@ -66,6 +66,8 @@ export default class DatabaseConnection {
    * 
    */
   async generalQuery(query_string, values_arr) {
+    // console.log(query_string);
+    // console.log(values_arr);
     const result = await this.client.query(query_string, values_arr);
     return result;
   }

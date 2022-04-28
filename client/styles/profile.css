@@ -60,11 +60,14 @@ span b {
   visibility: hidden;
   display: flex;
   justify-content: center;
+  align-items: center;
   opacity: 1;
   transition: 100ms;
   top: 5%;
   visibility: hidden;
-  width: 100% !important;
+  min-width: 100% !important;
+  min-height: 70% !important;
+
 }
 
 
