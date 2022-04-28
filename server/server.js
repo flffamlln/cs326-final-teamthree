@@ -41,7 +41,7 @@ class Server {
     this.app.use('/client', express.static(path.join(__dirname, 'client')));
 
     // Temporary
-    this.app.use(logger('dev'));
+    // this.app.use(logger('dev'));
   }
 
   // Initialize all of the routes for creating stuff (and logging in)
@@ -87,29 +87,35 @@ class Server {
         from: options.user_id,
         message: options.message
       };
+
+      // Query database here
     
       res.writeHead(200, headerFields);
       res.end();
     });
 
     /**
-     * 
+     * AUTHENTICATION STUFF GOES HERE
      */
-    this.app.post('/login', (req, res) => {
-      console.log("Login");
+    this.app.post('/login', async (req, res) => {
       const options = req.body;
-      console.log(options);
+
+      // Query database here
+
       res.writeHead(200, headerFields);
+      res.end();
     });
     
     /**
      * 
      */
-    this.app.post('/signup', (req, res) => {
-      console.log("signup");
+    this.app.post('/signup', async (req, res) => {
       const options = req.body;
-      saveSignupInfo(options.username, options.email, options.password);
+      
+      // Query database here
+
       res.writeHead(200, headerFields);
+      res.end();
     });
   }
 
@@ -133,7 +139,10 @@ class Server {
     this.app.get('/get_user_posts', async (req, res) => {
       const options = req.query;
       
-      // Query database here
+      const query = 'SELECT * FROM posts WHERE user_id = $1;';
+      const result = await this.db.generalQuery(query, [options.user_id]);
+      console.log("User Posts:");
+      console.log(result.rows);
 
       res.writeHead(200, headerFields);
       res.end();
@@ -142,10 +151,14 @@ class Server {
     /**
      * 
      */
-    this.app.get('/get_user_post_count', (req, res) => {
+    this.app.get('/get_user_post_count', async (req, res) => {
       const options = req.query;
       
       // Query database here
+      const query = 'SELECT COUNT FROM posts WHERE user_id = $1;';
+      const result = await this.db.generalQuery(query, [options.user_id]);
+      console.log("User Posts Count:");
+      console.log(result.rows);
 
       res.writeHead(200, headerFields);
       res.end();
@@ -154,7 +167,7 @@ class Server {
     /**
      * 
      */
-    this.app.get('/get_likes', (req, res) => {
+    this.app.get('/get_likes', async (req, res) => {
       const options = req.query;
 
       // Query database here
@@ -178,8 +191,9 @@ class Server {
     /**
      * 
      */
-    this.app.put('/update_user', (req, res) => {
+    this.app.put('/update_user', async (req, res) => {
       const options = req.query;
+      console.log(options);
 
       // Query database here
 
@@ -209,7 +223,7 @@ class Server {
     /**
      * Change to delete post, comment, etc.
      */
-    this.app.delete('/delete', (req, res) => {
+    this.app.delete('/delete', async (req, res) => {
       const options = req.query;
 
       // Query database here

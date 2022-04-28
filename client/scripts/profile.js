@@ -203,7 +203,7 @@ async function loadUserInfo() {
 }
 
 async function loadPostCount() {
-  const num_posts = await crud.getPostCount(session_info.user_id);
+  const num_posts = await crud.getUserPostCount(session_info.user_id);
   const num_posts_text = document.getElementById("num-posts");
   if (num_posts.status === 200 && num_posts.ok) {
     num_posts_text.innerHTML = '';

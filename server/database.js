@@ -61,6 +61,14 @@ export default class DatabaseConnection {
     return;
   }
 
+  /**
+   * 
+   */
+  async generalQuery(query_string, values_arr) {
+    const result = await this.client.query(query_string, values_arr);
+    return result;
+  }
+
   async close() {
     await this.client.release();
   }

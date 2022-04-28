@@ -1,6 +1,3 @@
-
-// Use this as an example if you need it
-
 /**
  * Create a new user in the database
  * @param {string} first_name the user's first name
@@ -132,6 +129,7 @@ export async function getUserPosts(user_id, num_posts_requested, num_posts_prese
     return data;
   } catch (err) {
     console.log(err);
+    return { status: 500, ok: false };
   }
 }
 
@@ -140,9 +138,9 @@ export async function getUserPosts(user_id, num_posts_requested, num_posts_prese
  * @param {string} user_id 
  * @returns {number} A number representing the amount of posts a user has uploaded
  */
- export async function getPostCount(user_id, num_posts_requested, num_posts_present) {
+ export async function getUserPostCount(user_id) {
   try {
-    const response = await fetch(`/get_post_count?user_id=${user_id}`, {
+    const response = await fetch(`/get_user_post_count?user_id=${user_id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -194,6 +192,7 @@ export async function updateUser(user_id, new_first_name, new_last_name, new_use
       new_username: new_username,
       new_profile_picture: new_profile_picture
     };
+    console.log(new_data);
     const response = await fetch(`/update_user`, {
       method: 'PUT',
       headers: {
