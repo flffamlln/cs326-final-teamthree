@@ -6,9 +6,6 @@ const session_info = {
 };
 
 let num_posts_displayed = 0;
-let pp_url = "";
-
-
 
 window.onload = async function () {
   loadUserInfo();
@@ -43,8 +40,8 @@ back_to_profile_button.addEventListener("click", () => {
 
 
 
-const change_profile_picture_button = document.getElementById("profile-picture-editable");
-change_profile_picture_button.addEventListener("click", () => {
+const profile_picture_editable = document.getElementById("profile-picture-editable");
+profile_picture_editable.addEventListener("click", () => {
   edit_profile_overlay.style.visibility = "hidden";
   change_profile_picture_overlay.style.visibility = "visible";
 });
@@ -62,7 +59,7 @@ Array.from(back_to_edit_buttons).forEach(button => {
   button.addEventListener("click", () => {
     document.getElementById("current-password").value="";
     document.getElementById("new-password").value="";
-    document.getElementById("new-profile-picture").value="";
+    // document.getElementById("newpp").value="";
 
     edit_profile_overlay.style.visibility = "visible";
     change_password_overlay.style.visibility = "hidden";
@@ -80,7 +77,6 @@ save_profile.addEventListener("click", async () => {
   const username        = document.getElementById("username").value;
   const email           = document.getElementById("email").value;
   const profile_picture = (await crud.getUserInfo(session_info.user_id)).pp_path;
-  // const profile_picture = pp_url === "" ? session_info.profile_picture : pp_url;
   const res = await crud.updateUser(session_info.user_id, first_name, last_name, username, email, profile_picture);
   if (res === 200) {
     alert("Profile Successfully Updated");
@@ -93,8 +89,8 @@ save_profile.addEventListener("click", async () => {
 
 const upload_profile_picture = document.getElementById("save-profile-picture-button");
 upload_profile_picture.addEventListener("click", async () => {
-  const pp = document.getElementById("new-profile-picture");
-  console.log(pp);
+  document.getElementById("bfpp").click();
+  profile_picture_editable.src = '/img/temp/msScrabbleGame.jpg';
 });
 
 const show_all_posts = document.getElementById("show-all-posts");

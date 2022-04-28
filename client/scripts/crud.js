@@ -175,6 +175,24 @@ export async function getUserPosts(user_id, num_posts_requested, num_posts_prese
 }
 
 /**
+ * 
+ */
+// export async function getTempPP(user_id) {
+//   try {
+//     const response = await fetch(`/get_temp_pp?user_id=${user_id}`, {
+//       method: 'GET',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//     });
+
+//     const data = await response.json();
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
+
+/**
  * Return the number of likes a post has
  * @param {string} post_id 
  * @returns {number} A number representing the amount of likes the post has

@@ -5,31 +5,10 @@ import morgan from 'morgan';
 import logger from 'morgan';
 import DatabaseConnection from './database.js';
 import 'path';
+import * as fs from 'fs';
 
 const headerFields = { 'Content-Type': 'application/json' };
-
-// This is not how this is going to be implemented, this is just for testing.
-// The actual implementation will have images stored in a database.
-const posts = [
-    { user_id: 0, "url": "./img/posts/test1.jpg", "description": "This is a description", "tag": "Puppy", "post_id": 0, "likes": [0, 1, 2], "comments": [{ "from": 1, "message": 'Adorable' }, { "from": 2, "message": 'I love this!' }] },
-    { user_id: 1, url: "./img/posts/test2.jpg", description: "This is a description", tag: "Cat", post_id: 1, likes: [1, 2], comments: [{ from: 2, message: 'Lorem ipsum!' }, { from: 2, "message": 'Amazing!' }] },
-    { user_id: 2, url: "./img/posts/test3.jpg", description: "This is a description", tag: "Reptile", post_id: 2, likes: [0, 1, 2], comments: [{ from: 2, message: 'Ipsum dolor sit.' }, { from: 2, "message": 'Spectacular' }] },
-    { user_id: 3, url: "./img/posts/test4.jpg", description: "This is a description", tag: "Puppy", post_id: 3, likes: [0], comments: [{ from: 3, message: 'Thumbs up' }] },
-    { user_id: 4, url: "./img/posts/test5.jpg", description: "This is a description", tag: "Cat", post_id: 4, likes: [4, 3], comments: [{ from: 5, message: 'Lorem ipsum dolor!!' }] },
-    { user_id: 5, url: "./img/posts/test6.jpg", description: "This is a description", tag: "Cat", post_id: 5, likes: [2, 1], comments: [] },
-];
-
-const feed = [
-    "./server/img/posts/bird1.jpg",
-    "./server/img/posts/bird2.jpg",
-    "./server/img/posts/dog1.jpeg",
-    "./server/img/posts/dog2.webp",
-    "./server/img/posts/cat1.jpg",
-    "./server/img/posts/cat2.jpg",
-    "./server/img/posts/bird1.jpg",
-    "./server/img/posts/bird2.jpg"
-];
-
+const __dirname = path.resolve();
 
 class Server {
   constructor(dburl) {
@@ -38,7 +17,6 @@ class Server {
     this.port = process.env.PORT || 8080;
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
-    const __dirname = path.resolve();
     this.app.use('/client', express.static(path.join(__dirname, 'client')));
     this.app.use(fileUpload({
       createParentPath: true
@@ -98,10 +76,33 @@ class Server {
       res.end();
     });
 
+    /**
+     * 
+     */
     this.app.post('/upload_profile_picture', async (req, res) => {
-      console.log(req.files);
-      res.writeHead(200, headerFields);
-      res.end();
+      if (!req.files) {
+        res.status(400).send("No files were uploaded.");
+      }
+
+      const dir = __dirname + '/client/img/temp/';
+      if (fs.existsSync(dir)) {
+        fs.rmdir(dir, { recursive: true }, (err) => {
+          if (err) {
+            throw err;
+          }
+        });
+      }
+      
+      const file = req.files.newpp;
+      const path = __dirname + `/client/img/temp/` + file.name;
+    
+      file.mv(path, (err) => {
+        if (err) {
+          res.status(500).send(err);
+        }
+
+        res.send({ status: "success", path: path });
+      });
     });
 
     /**
