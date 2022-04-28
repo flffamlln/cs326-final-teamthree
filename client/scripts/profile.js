@@ -31,11 +31,12 @@ edit_profile_button.addEventListener("click", () => {
 });
 
 const back_to_profile_button = document.getElementById("back-to-profile-button");
-back_to_profile_button.addEventListener("click", () => {
+back_to_profile_button.addEventListener("click", async () => {
   profile_container.style.filter = "";
   profile_container.style.pointerEvents = "";
   edit_profile_overlay.style.visibility = "hidden";
   change_profile_picture_overlay.style.visibility = "hidden";
+  document.getElementById("profile-picture-editable") = (await crud.getUserInfo(session_info.user_id)).pp_path;
 });
 
 
@@ -59,8 +60,7 @@ Array.from(back_to_edit_buttons).forEach(button => {
   button.addEventListener("click", () => {
     document.getElementById("current-password").value="";
     document.getElementById("new-password").value="";
-    // document.getElementById("newpp").value="";
-
+    
     edit_profile_overlay.style.visibility = "visible";
     change_password_overlay.style.visibility = "hidden";
     change_profile_picture_overlay.style.visibility = "hidden";
@@ -76,7 +76,8 @@ save_profile.addEventListener("click", async () => {
   const last_name       = document.getElementById("last-name").value;
   const username        = document.getElementById("username").value;
   const email           = document.getElementById("email").value;
-  const profile_picture = (await crud.getUserInfo(session_info.user_id)).pp_path;
+  const profile_picture = document.getElementById("profile-picture-editable").src;
+  console.log(profile_picture);
   const res = await crud.updateUser(session_info.user_id, first_name, last_name, username, email, profile_picture);
   if (res === 200) {
     alert("Profile Successfully Updated");
@@ -96,13 +97,12 @@ upload_profile_picture.addEventListener("click", async () => {
       alert("There was an error uploading your new profile picture");
     } else {
       const newpp_path = (await uploadRes.json()).newpp_path;
-      const downloadRes = await crud.downloadTempPP(newpp_path);
-      console.log(downloadRes);
+      const downloadBlob = await crud.downloadTempPP(newpp_path);
+      const imgURL = URL.createObjectURL(downloadBlob);
+      document.getElementById('profile-picture-editable').src = imgURL;
+      document.getElementById("bfpp").click();
     }
   }
-  
-  // document.getElementById("bfpp").click();
-  // profile_picture_editable.src = '/img/temp/msScrabbleGame.jpg';
 });
 
 const show_all_posts = document.getElementById("show-all-posts");
@@ -151,7 +151,7 @@ function renderPost(post) {
   });
 
   post_container.appendChild(post_img);
-  $(`.row${Math.floor(num_posts_displayed / 2 + 1)}`).appendChild(post_container);
+  document.getElementById(`row${Math.floor(num_posts_displayed / 2 + 1)}`).appendChild(post_container);
 
   ++num_posts_displayed;
 }

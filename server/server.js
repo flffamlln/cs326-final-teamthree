@@ -212,8 +212,6 @@ class Server {
      */
     this.app.put('/update_user', async (req, res) => {
       const options = req.body;
-      const files = req.files;
-      console.log(files);
 
       const query = `
         UPDATE users
@@ -225,7 +223,7 @@ class Server {
         WHERE user_id = $1
         RETURNING *
       ;`;
-      const values = [options.user_id, options.new_first_name, options.new_last_name, options.new_username, options.new_email, options.new_pp_path];
+      const values = [options.user_id, options.new_first_name, options.new_last_name, options.new_username, options.new_email, options.newpp_path];
 
       try {
         await this.db.generalQuery(query, values);
