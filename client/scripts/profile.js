@@ -102,7 +102,7 @@ upload_profile_picture.addEventListener("click", async () => {
       const imgURL = URL.createObjectURL(downloadBlob);
       document.getElementById('profile-picture-editable').src = imgURL;
       document.getElementById("bfpp").click();
-      path_to_pp = newpp_path;
+      path_to_pp = newpp_path.slice(newpp_path.indexOf('/2'));
     }
   }
 });
@@ -205,7 +205,7 @@ async function loadUserInfo() {
   const pfps = document.getElementsByClassName("profile-picture");
   Array.from(pfps).forEach(pfp => {
     if (profile_picture) {
-      pfp.src = profile_picture.slice(profile_picture.indexOf('/client'));
+      pfp.src = '/client/img/profile_pictures' + profile_picture;
       pfp.onerror = function () {
         this.onerror = null;
         this.src='/client/img/profile_pictures/default.jpg';

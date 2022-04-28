@@ -5,9 +5,11 @@ import morgan from 'morgan';
 import logger from 'morgan';
 import DatabaseConnection from './database.js';
 import 'path';
+import * as fs from 'fs';
 
 const headerFields = { 'Content-Type': 'application/json' };
 const __dirname = path.resolve();
+let pp_count = 0;
 
 class Server {
   constructor(dburl) {
@@ -85,14 +87,28 @@ class Server {
  
       const file = req.files.pp;
       const file_path = __dirname + '/client/img/profile_pictures/' + file.name;
+      let extention = '';
+      if (file.name.endsWith('.jpg')) {
+        extention = '.jpg';
+      } else if (file.name.endsWith('.jpeg')) {
+        extention = '.jpeg';
+      } else if (file.name.endsWith('.png')) {
+        extention = '.png';
+      }
     
-      file.mv(file_path, (err) => {
+      await file.mv(file_path, (err) => {
         if (err) {
           res.status(500).send(err);
         }
       });
 
-      res.status(200).send({ newpp_path: file_path });
+      const d = new Date();
+      const new_name = d.getDate().toString() + (d.getMonth()+1).toString() + d.getFullYear().toString() + d.getHours().toString() + d.getMinutes().toString() + d.getSeconds().toString() + d.getMilliseconds().toString();
+      console.log(new_name);
+      const new_path = __dirname + '/client/img/profile_pictures/' + new_name.toString() + extention;
+      fs.rename(file_path, new_path, () => {});
+
+      res.status(200).send({ newpp_path: new_path });
     });
 
     /**
