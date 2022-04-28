@@ -49,6 +49,8 @@ class Server {
      */
     this.app.post('/create_user', async (req, res) => {
 
+      res.writeHead(200, headerFields);
+      res.end();
     });
 
     /**
@@ -87,20 +89,20 @@ class Server {
      * 
      */
     this.app.post('/login', (req, res) => {
-        console.log("Login");
-        const options = req.body;
-        console.log(options);
-        res.writeHead(200, headerFields);
+      console.log("Login");
+      const options = req.body;
+      console.log(options);
+      res.writeHead(200, headerFields);
     });
     
     /**
      * 
      */
     this.app.post('/signup', (req, res) => {
-        console.log("signup");
-        const options = req.body;
-        saveSignupInfo(options.username, options.email, options.password);
-        res.writeHead(200, headerFields);
+      console.log("signup");
+      const options = req.body;
+      saveSignupInfo(options.username, options.email, options.password);
+      res.writeHead(200, headerFields);
     });
   }
 
@@ -111,11 +113,11 @@ class Server {
      */
     this.app.get('/get_post', async (req, res) => {
       const options = req.query;
-      for (let i = 0; i < posts.length; i++) {
-        if (posts[i]["post_id"] === options.post_id) {
-          res.status(200).send(posts[i]);
-        }
-      }
+      
+      // Query database here
+
+      res.writeHead(200, headerFields);
+      res.end();
     });
 
     /**
@@ -201,9 +203,12 @@ class Server {
      * Change to delete post, comment, etc.
      */
     this.app.delete('/delete', (req, res) => {
-      console.log("Delete");
       const options = req.query;
-      console.log(options);
+
+      // Query database here
+
+      res.writeHead(200, headerFields);
+      res.end();
     });
   }
 
