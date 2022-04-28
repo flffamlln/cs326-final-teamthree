@@ -50,6 +50,9 @@ class Server {
      * 
      */
     this.app.post('/create_user', async (req, res) => {
+      const options = req.body;
+
+      // Query database here
 
       res.writeHead(200, headerFields);
       res.end();
@@ -67,6 +70,8 @@ class Server {
         description: options.description,
         tag: options.tag,
       };
+
+      // Query database here
 
       res.writeHead(200, headerFields);
       res.end();
