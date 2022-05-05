@@ -38,7 +38,7 @@ back_to_profile_button.addEventListener("click", async () => {
   profile_container.style.pointerEvents = "";
   edit_profile_overlay.style.visibility = "hidden";
   change_profile_picture_overlay.style.visibility = "hidden";
-  document.getElementById("profile-picture-editable") = (await crud.getUserInfo(session_info.user_id)).pp_path;
+  document.getElementById("profile-picture-editable").src = (await crud.getUserInfo(session_info.user_id)).pp_path;
 });
 
 
