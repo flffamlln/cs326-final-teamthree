@@ -275,10 +275,12 @@ class Server {
         if (actual_curr_password === options.current_password) {
           const q2 = `UPDATE users SET password = $1 WHERE user_id = $2`;
           await this.db.generalQuery(q2, [options.new_password, options.user_id]);
+          const q3 = `SELECT email FROM users WHERE user_id = $1`;
+          const user_email = (await this.db.generalQuery(q3, [options.user_id])).rows[0].email;
 
           const mailOptions = {
             from: 'petstagram.03@hotmail.com',
-            to: 'lbertoni1227@gmail.com',
+            to: user_email,
             subject: 'Password Changed!',
             text: 'This email is to inform you that your password has been changed.'
           };

@@ -115,9 +115,9 @@ change_password.addEventListener("click", async () => {
   const current_password = document.getElementById("current-password");
   const new_password = document.getElementById("new-password");
 
-  // I know this is very weak but it's not really a priority
-  if (new_password.value.length < 8) {
-    document.getElementById("password-change-message").innerHTML = "Your new password should be at least 8 characters";
+  // I know this is very weak but it's not really a priority and I don't feel like using regex
+  if (new_password.value.length < 8 || new_password.value.length > 32) {
+    document.getElementById("password-change-message").innerHTML = "Your new password should be between 8 and 32 characters";
     document.getElementById("password-change-message").style.color = "red";
   } else {
     const update_res = await crud.updatePassword(session_info.user_id, current_password.value, new_password.value);
