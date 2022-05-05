@@ -93,11 +93,11 @@ const upload_profile_picture = document.getElementById("save-profile-picture-but
 upload_profile_picture.addEventListener("click", async () => {
   const newpp = document.getElementById("newpp").files[0];
   if (newpp) {
-    const uploadRes = await crud.uploadPP(newpp);
-    if (!uploadRes.status === 200 || !uploadRes.ok) {
+    const upload_res = await crud.uploadPP(newpp);
+    if (!upload_res.status === 200 || !uploadRes.ok) {
       alert("There was an error uploading your new profile picture");
     } else {
-      const newpp_path = (await uploadRes.json()).newpp_path;
+      const newpp_path = (await upload_res.json()).newpp_path;
       const downloadBlob = await crud.downloadPP(newpp_path);
       const imgURL = URL.createObjectURL(downloadBlob);
       document.getElementById('profile-picture-editable').src = imgURL;
@@ -107,22 +107,20 @@ upload_profile_picture.addEventListener("click", async () => {
   }
 });
 
-// const show_all_posts = document.getElementById("show-all-posts");
-// show_all_posts.addEventListener("click", async () => {
-//   // Get 1000 posts (if there are that many), this should be more than enough
-//   const res = await crud.getUserPosts(session_info.user_id);
-//   if (res.status === 200 && res.ok) {
-//     res.posts_arr.forEach(post => {
-//       renderPost(post);
-//     });
-
-//     if (res.posts_arr.length > 0) {
-//       document.getElementById("recent-posts").style.overflowY = "scroll";
-//     }
-//   } else {
-//     alert("There was an error getting more posts");
-//   }
-// });
+const change_password = document.getElementById("save-password-change-button");
+change_password.addEventListener("click", async () => {
+  document.getElementById("password-change-message").innerHTML = "";
+  const current_password = document.getElementById("current_password");
+  const new_password = document.getElementById("new_password");
+  const change_res = await crud.changePassword(current_password, new_password);
+  if (change_res.status === 200 && change_res.ok) {
+    document.getElementById("password-change-message").appendTextNode("Password successfully updated");
+  } else if (true) {
+    document.getElementById("password-change-message").appendTextNode("Incorrect Current Password");
+  } else {
+    document.getElementById("password-change-message").appendTextNode("There was an error changing your password");
+  }
+});
 
 
 

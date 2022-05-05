@@ -9,7 +9,6 @@ import * as fs from 'fs';
 
 const headerFields = { 'Content-Type': 'application/json' };
 const __dirname = path.resolve();
-let pp_count = 0;
 
 class Server {
   constructor(dburl) {
@@ -54,7 +53,10 @@ class Server {
         tag: options.tag,
       };
 
+      // const post = [options.post_id, ];
+
       // Query database here
+      // const query 'INSERT INTO posts(user_id, ) VALUES ($1, $2, )'
 
       res.writeHead(200, headerFields);
       res.end();
@@ -253,6 +255,17 @@ class Server {
       }
 
       res.end();
+    });
+
+    this.app.put('/change_password', async (req, res) => {
+      const options = req.body;
+
+      const q1 = `SELECT password FROM users WHERE user_id = $1`;
+      const curr_password = (await this.db.generalQuery(q1, [options.user_id])).rows[0];
+      console.log(curr_password);
+
+      const query = `UPDATE users SET password = $1 WHERE user_id`;
+      res.sendStatus(200);
     });
 
     /**
