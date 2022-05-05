@@ -54,6 +54,8 @@ class Server {
         tag: options.tag,
       };
 
+      const values = [options.post_id, options.user_id, ]
+
       // Query database here
 
       res.writeHead(200, headerFields);
@@ -202,8 +204,15 @@ class Server {
       const options = req.query;
 
       // Query database here
-      
-      res.writeHead(200, headerFields);
+      const query = `SELECT COUNT(*) FROM likes WHERE post_id = $1 RETURNING *;`;
+      const values = [options.post_id];
+
+      try {
+        await this.db.generalQuery(query, values);
+        res.writeHead(200, headerFields);
+      } catch (err) {
+        res.sendStatus(500);
+      }
       res.end();
     });
 

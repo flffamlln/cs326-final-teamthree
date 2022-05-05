@@ -1,11 +1,15 @@
 import { createComment, getPost, updateLike, getLikes } from './crud.js';
 
 const session_info = {
-    user_id: 0,
-    post_id: 0
+    user_id: 1,
+    post_id: 1
 };
 
 window.onload = async function () {
+    loadPhoto();
+}
+
+async function loadPhoto() {
     const post_info = await getPost(session_info.post_id);
     const post = JSON.parse(post_info["post"]);
 

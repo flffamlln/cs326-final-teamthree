@@ -15,15 +15,11 @@ window.onload = async function () {
   loadPosts();
 }
 
-
-
 const posts_div = document.getElementById("recent-posts");
 const change_profile_picture_overlay = document.getElementById("change-profile-picture-overlay");
 const change_password_overlay = document.getElementById("change-password-overlay");
 const edit_profile_overlay = document.getElementById("edit-profile-overlay");
 const profile_container = document.getElementById("profile-container");
-
-
 
 const edit_profile_button = document.getElementById("edit-profile-button");
 edit_profile_button.addEventListener("click", () => {
@@ -41,15 +37,11 @@ back_to_profile_button.addEventListener("click", async () => {
   document.getElementById("profile-picture-editable") = (await crud.getUserInfo(session_info.user_id)).pp_path;
 });
 
-
-
 const profile_picture_editable = document.getElementById("profile-picture-editable");
 profile_picture_editable.addEventListener("click", () => {
   edit_profile_overlay.style.visibility = "hidden";
   change_profile_picture_overlay.style.visibility = "visible";
 });
-
-
 
 const change_password_button = document.getElementById("change-password-button");
 change_password_button.addEventListener("click", () => {
@@ -68,7 +60,6 @@ Array.from(back_to_edit_buttons).forEach(button => {
     change_profile_picture_overlay.style.visibility = "hidden";
   });
 });
-
 
 
 const save_profile = document.getElementById("save-profile-button");
@@ -123,8 +114,6 @@ upload_profile_picture.addEventListener("click", async () => {
 //     alert("There was an error getting more posts");
 //   }
 // });
-
-
 
 async function loadUserInfo() {
   const user_info = await crud.getUserInfo(session_info.user_id);
@@ -214,7 +203,6 @@ async function loadPosts() {
     posts_div.appendChild(document.createElement("br"));
   }
 }
-
 
 
 function renderPost(post) {
