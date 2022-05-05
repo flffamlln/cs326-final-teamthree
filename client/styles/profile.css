@@ -126,7 +126,6 @@ span b {
 #recent-posts {
   overflow-y: scroll;
   position: relative;
-  min-height: 100% !important;
 }
 
 #recent-posts::-webkit-scrollbar {
@@ -149,8 +148,7 @@ span b {
   overflow-y: hidden;
   /* overflow-y: scroll; */
   max-height: 95vh !important;
-  padding-bottom: 2%;
-  margin-top: 2%;
+  margin-top: 2vh;
 }
 
 #new-profile-picture {

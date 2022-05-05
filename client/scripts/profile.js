@@ -1,6 +1,5 @@
 import * as crud from './crud.js';
 
-const NUM_INIT_POSTS = 4;
 const session_info = {
   user_id: 1
 };
@@ -13,9 +12,25 @@ window.onload = async function () {
   loadUserInfo();
   loadPostCount();
   loadPosts();
+  await new Promise(r => setTimeout(r, 100));
+  resizeElements();
 }
 
+window.addEventListener("resize", () => {
+  resizeElements();
+});
 
+function resizeElements() {
+  const pch = document.getElementById("profile-container").getBoundingClientRect().height;
+  const d1h = document.getElementById("d1").getBoundingClientRect().height;
+  const d2h = document.getElementById("d2").getBoundingClientRect().height;
+  const d3h = pch - (d1h + d2h);
+  document.getElementById("d3").style.height = `${d3h}px`;
+
+  const d4h = document.getElementById("d4").getBoundingClientRect().height;
+  const rph = d3h - d4h - 20;
+  document.getElementById("recent-posts").style.height = `${rph}px`;
+}
 
 const posts_div = document.getElementById("recent-posts");
 const change_profile_picture_overlay = document.getElementById("change-profile-picture-overlay");
@@ -253,7 +268,7 @@ function renderPost(post) {
   post_img.classList.add("pointer");
   post_img.src = '/client/img/posts' + post.picture_path;
   post_img.alt = "Oops, this image couldn't be found";
-  post_img.width = 350;
+  post_img.width = 375;
   post_img.addEventListener("click", async () => {
     const post_display = await crud.getPost(post.post_id);
     console.log(post_display);
