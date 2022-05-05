@@ -1,6 +1,5 @@
 import * as crud from './crud.js';
 
-const NUM_INIT_POSTS = 4;
 const session_info = {
   user_id: 1
 };
@@ -13,6 +12,24 @@ window.onload = async function () {
   loadUserInfo();
   loadPostCount();
   loadPosts();
+  await new Promise(r => setTimeout(r, 100));
+  resizeElements();
+}
+
+window.addEventListener("resize", () => {
+  resizeElements();
+});
+
+function resizeElements() {
+  const pch = document.getElementById("profile-container").getBoundingClientRect().height;
+  const d1h = document.getElementById("d1").getBoundingClientRect().height;
+  const d2h = document.getElementById("d2").getBoundingClientRect().height;
+  const d3h = pch - (d1h + d2h);
+  document.getElementById("d3").style.height = `${d3h}px`;
+
+  const d4h = document.getElementById("d4").getBoundingClientRect().height;
+  const rph = d3h - d4h - 20;
+  document.getElementById("recent-posts").style.height = `${rph}px`;
 }
 
 const posts_div = document.getElementById("recent-posts");
@@ -34,7 +51,7 @@ back_to_profile_button.addEventListener("click", async () => {
   profile_container.style.pointerEvents = "";
   edit_profile_overlay.style.visibility = "hidden";
   change_profile_picture_overlay.style.visibility = "hidden";
-  document.getElementById("profile-picture-editable") = (await crud.getUserInfo(session_info.user_id)).pp_path;
+  document.getElementById("profile-picture-editable").src = (await crud.getUserInfo(session_info.user_id)).pp_path;
 });
 
 const profile_picture_editable = document.getElementById("profile-picture-editable");
@@ -54,6 +71,7 @@ Array.from(back_to_edit_buttons).forEach(button => {
   button.addEventListener("click", () => {
     document.getElementById("current-password").value="";
     document.getElementById("new-password").value="";
+    document.getElementById("password-change-message").innerHTML="";
     
     edit_profile_overlay.style.visibility = "visible";
     change_password_overlay.style.visibility = "hidden";
@@ -84,11 +102,11 @@ const upload_profile_picture = document.getElementById("save-profile-picture-but
 upload_profile_picture.addEventListener("click", async () => {
   const newpp = document.getElementById("newpp").files[0];
   if (newpp) {
-    const uploadRes = await crud.uploadPP(newpp);
-    if (!uploadRes.status === 200 || !uploadRes.ok) {
+    const upload_res = await crud.uploadPP(newpp);
+    if (!upload_res.status === 200 || !uploadRes.ok) {
       alert("There was an error uploading your new profile picture");
     } else {
-      const newpp_path = (await uploadRes.json()).newpp_path;
+      const newpp_path = (await upload_res.json()).newpp_path;
       const downloadBlob = await crud.downloadPP(newpp_path);
       const imgURL = URL.createObjectURL(downloadBlob);
       document.getElementById('profile-picture-editable').src = imgURL;
@@ -98,22 +116,37 @@ upload_profile_picture.addEventListener("click", async () => {
   }
 });
 
-// const show_all_posts = document.getElementById("show-all-posts");
-// show_all_posts.addEventListener("click", async () => {
-//   // Get 1000 posts (if there are that many), this should be more than enough
-//   const res = await crud.getUserPosts(session_info.user_id);
-//   if (res.status === 200 && res.ok) {
-//     res.posts_arr.forEach(post => {
-//       renderPost(post);
-//     });
+const change_password = document.getElementById("save-password-change-button");
+change_password.addEventListener("click", async () => {
+  document.getElementById("password-change-message").innerHTML = "";
+  document.getElementById("password-change-message").style.color = "";
+  const current_password = document.getElementById("current-password");
+  const new_password = document.getElementById("new-password");
 
-//     if (res.posts_arr.length > 0) {
-//       document.getElementById("recent-posts").style.overflowY = "scroll";
-//     }
-//   } else {
-//     alert("There was an error getting more posts");
-//   }
-// });
+  // I know this is very weak but it's not really a priority and I don't feel like using regex
+  if (new_password.value.length < 8 || new_password.value.length > 32) {
+    document.getElementById("password-change-message").innerHTML = "Your new password should be between 8 and 32 characters";
+    document.getElementById("password-change-message").style.color = "red";
+  } else {
+    const update_res = await crud.updatePassword(session_info.user_id, current_password.value, new_password.value);
+    if (update_res.status === 200 && update_res.ok) {
+      document.getElementById("password-change-message").innerHTML = "Password successfully updated";
+      document.getElementById("password-change-message").style.color = "green";
+      current_password.value = "";
+      new_password.value = "";
+    } else if (update_res.status === 406) {
+      document.getElementById("password-change-message").innerHTML = "Incorrect password";
+      document.getElementById("password-change-message").style.color = "red";
+      current_password.value = "";
+      new_password.value = "";
+    } else {
+      document.getElementById("password-change-message").innerHTML = "There was an error changing your password";
+      document.getElementById("password-change-message").style.color = "red";
+      current_password.value = "";
+      new_password.value = "";
+    }
+  }
+});
 
 async function loadUserInfo() {
   const user_info = await crud.getUserInfo(session_info.user_id);
@@ -225,7 +258,7 @@ function renderPost(post) {
   post_img.classList.add("pointer");
   post_img.src = '/client/img/posts' + post.picture_path;
   post_img.alt = "Oops, this image couldn't be found";
-  post_img.width = 350;
+  post_img.width = 375;
   post_img.addEventListener("click", async () => {
     const post_display = await crud.getPost(post.post_id);
     console.log(post_display);
