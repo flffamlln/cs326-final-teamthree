@@ -254,6 +254,26 @@ export async function updateUser(user_id, new_first_name, new_last_name, new_use
   }
 }
 
+export async function updatePassword(user_id, current_password, new_password) {
+  try {
+    const new_data = {
+      user_id: user_id,
+      current_password: current_password,
+      new_password: new_password
+    };
+    const response = await fetch('/update_password', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(new_data)
+    });
+    return response;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 /**
  * Update the description for a post
  * @param {string} post_id  the post id

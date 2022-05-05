@@ -62,6 +62,7 @@ Array.from(back_to_edit_buttons).forEach(button => {
   button.addEventListener("click", () => {
     document.getElementById("current-password").value="";
     document.getElementById("new-password").value="";
+    document.getElementById("password-change-message").innerHTML="";
     
     edit_profile_overlay.style.visibility = "visible";
     change_password_overlay.style.visibility = "hidden";
@@ -110,15 +111,32 @@ upload_profile_picture.addEventListener("click", async () => {
 const change_password = document.getElementById("save-password-change-button");
 change_password.addEventListener("click", async () => {
   document.getElementById("password-change-message").innerHTML = "";
-  const current_password = document.getElementById("current_password");
-  const new_password = document.getElementById("new_password");
-  const change_res = await crud.changePassword(current_password, new_password);
-  if (change_res.status === 200 && change_res.ok) {
-    document.getElementById("password-change-message").appendTextNode("Password successfully updated");
-  } else if (true) {
-    document.getElementById("password-change-message").appendTextNode("Incorrect Current Password");
+  document.getElementById("password-change-message").style.color = "";
+  const current_password = document.getElementById("current-password");
+  const new_password = document.getElementById("new-password");
+
+  // I know this is very weak but it's not really a priority
+  if (new_password.value.length < 8) {
+    document.getElementById("password-change-message").innerHTML = "Your new password should be at least 8 characters";
+    document.getElementById("password-change-message").style.color = "red";
   } else {
-    document.getElementById("password-change-message").appendTextNode("There was an error changing your password");
+    const update_res = await crud.updatePassword(session_info.user_id, current_password.value, new_password.value);
+    if (update_res.status === 200 && update_res.ok) {
+      document.getElementById("password-change-message").innerHTML = "Password successfully updated";
+      document.getElementById("password-change-message").style.color = "green";
+      current_password.value = "";
+      new_password.value = "";
+    } else if (update_res.status === 406) {
+      document.getElementById("password-change-message").innerHTML = "Incorrect password";
+      document.getElementById("password-change-message").style.color = "red";
+      current_password.value = "";
+      new_password.value = "";
+    } else {
+      document.getElementById("password-change-message").innerHTML = "There was an error changing your password";
+      document.getElementById("password-change-message").style.color = "red";
+      current_password.value = "";
+      new_password.value = "";
+    }
   }
 });
 

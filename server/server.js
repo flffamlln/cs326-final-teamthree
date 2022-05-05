@@ -5,7 +5,16 @@ import morgan from 'morgan';
 import logger from 'morgan';
 import DatabaseConnection from './database.js';
 import 'path';
+import nodemailer from 'nodemailer'
 import * as fs from 'fs';
+
+const transporter = nodemailer.createTransport({
+  service: 'hotmail',
+  auth: {
+    user: 'petstagram.03@hotmail.com',
+    pass: 'CS326Final!'
+  }
+});
 
 const headerFields = { 'Content-Type': 'application/json' };
 const __dirname = path.resolve();
@@ -257,15 +266,36 @@ class Server {
       res.end();
     });
 
-    this.app.put('/change_password', async (req, res) => {
+    this.app.put('/update_password', async (req, res) => {
       const options = req.body;
 
       const q1 = `SELECT password FROM users WHERE user_id = $1`;
-      const curr_password = (await this.db.generalQuery(q1, [options.user_id])).rows[0];
-      console.log(curr_password);
+      try {
+        const actual_curr_password = (await this.db.generalQuery(q1, [options.user_id])).rows[0].password;
+        if (actual_curr_password === options.current_password) {
+          const q2 = `UPDATE users SET password = $1 WHERE user_id = $2`;
+          await this.db.generalQuery(q2, [options.new_password, options.user_id]);
 
-      const query = `UPDATE users SET password = $1 WHERE user_id`;
-      res.sendStatus(200);
+          const mailOptions = {
+            from: 'petstagram.03@hotmail.com',
+            to: 'lbertoni1227@gmail.com',
+            subject: 'Password Changed!',
+            text: 'This email is to inform you that your password has been changed.'
+          };
+          
+          transporter.sendMail(mailOptions, function(error){
+            if (error) {
+              console.log(error);
+            }
+          });
+
+          res.sendStatus(200);
+        } else {
+          res.sendStatus(406);
+        }
+      } catch (err) {
+        res.sendStatus(500);
+      }
     });
 
     /**
