@@ -1,11 +1,10 @@
 import { createPost } from './crud.js';
 
 const session_info = {
-    user_id: 0
+    user_id: 1
 };
 
 let submit = document.getElementById("submit");
-
 
 submit.addEventListener("click", async () => {
   const photo           = document.getElementById("formFileLg").value;

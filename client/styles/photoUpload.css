@@ -1,3 +1,27 @@
+a:link {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+}
+  
+a:visited {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+}
+  
+a:hover {
+    text-decoration: underline;
+    color: black;
+    font-size: 15px;
+}
+  
+a:active {
+    text-decoration: underline;
+    color: black;
+    font-size: 15px;
+}
+
 .container{
     background-color: #971B2F;
     border-radius: 12px;
