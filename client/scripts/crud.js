@@ -140,6 +140,27 @@ export async function downloadPP(newpp_path) {
 }
 
 /**
+ * Gets all posted photos for the feed that 
+ * are tagged as the specified tag
+ * @param {string} tag
+ * @returns Post information
+ */
+ export async function getFeed(tag) {
+  try {
+    const response = await fetch(`/get_feed?tag=${tag}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const data = { status: response.status, ok: response.ok, post: await response.json() };
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+/**
  * Return the number of posts created 
  * @returns Post information
  */
@@ -388,26 +409,6 @@ export async function updateLike(like_id, post_id, user_id) {
       body: JSON.stringify(new_data)
     });
     return response.status;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-/**
- * Return the 'num_posts' most recent posts for a user
- * @param {string} post_id 
- * @returns Post information
- */
- export async function getFeed(post_id) {
-  try {
-    const response = await fetch(`/get_feed`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
-    const data = { status: response.status, ok: response.ok, post: await response.json() };
-    return data;
   } catch (err) {
     console.log(err);
   }
