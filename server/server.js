@@ -111,7 +111,7 @@ class Server {
           res.status(500).send(err);
         }
       });
-      console.log(r);
+      //console.log(err);
 
       const d = new Date();
       const new_name = d.getDate().toString() + (d.getMonth()+1).toString() + d.getFullYear().toString() + d.getHours().toString() + d.getMinutes().toString() + d.getSeconds().toString() + d.getMilliseconds().toString();
@@ -185,6 +185,21 @@ class Server {
       const result = await this.db.generalQuery(query, values);
 
       res.status(200).json(result.rows[0]);
+    });
+    
+    /**
+     * 
+     */
+    this.app.get('/get_username', async (req, res) => {
+      const options = req.query;
+      try {
+        const data = await this.db.getUsername(options.user_id);
+        res.status(200).send(data.rows[0]);
+        console.log(data.rows[0]);
+      } catch (err) {
+        res.status(500).send({ error: 'There was an error retreiving username' });
+      }
+      res.end();
     });
 
     /**

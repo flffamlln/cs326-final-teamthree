@@ -76,6 +76,17 @@ export default class DatabaseConnection {
   /**
    * 
    */
+     async getUsername(user_id) {
+      const query = 'SELECT username FROM users WHERE user_id = $1 LIMIT 1;';
+      const values = [user_id];
+      const result = await this.client.query(query, values);
+      return result;
+    }
+  
+
+  /**
+   * 
+   */
   async getPost(post_id) {
     const query = 'SELECT * FROM posts WHERE post_id = $1;';
     const values = [post_id];

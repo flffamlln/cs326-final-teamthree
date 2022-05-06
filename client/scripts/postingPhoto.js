@@ -1,4 +1,4 @@
-import { getComments, createComment, getPost, updateLike, getLikes } from './crud.js';
+import { getUsername, getComments, createComment, getPost, updateLike, getLikes } from './crud.js';
 
 const session_info = {
     user_id: 1,
@@ -14,7 +14,10 @@ async function loadPhoto() {
     const post_info = await getPost(session_info.post_id);
     const tag = post_info.tag;
     const imageURL = post_info.picture_path;
-    const poster = post_info.user_id;
+    
+    const poster_info = await getUsername(post_info.user_id);
+    const poster = poster_info.username;
+
     const description = post_info.description;
 
     const tag1 = document.getElementById('tags');
@@ -44,7 +47,8 @@ async function loadPhoto() {
     commentSection1.innerHTML = 'Comments:';
     for(let i = 0; i < comments_info.length; i++){
             const curComment = comments_info[i];
-            const commenter = curComment.user_id;
+            const commenter_info = await getUsername(curComment.user_id);
+            const commenter = commenter_info.username;
             const message = curComment.comment;
 
             let comment1 = document.createElement('div');

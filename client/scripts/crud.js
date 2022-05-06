@@ -139,6 +139,27 @@ export async function downloadPP(newpp_path) {
 }
 
 /**
+ * Returns the username given user_id
+ * @param {string} user_id 
+ * @returns Post information
+ */
+ export async function getUsername(user_id) {
+  try {
+    const response = await fetch(`/get_username?user_id=${user_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+    return { status: 500, ok: false}
+  }
+}
+
+/**
  * Return the comments for a post
  * @param {string} post_id 
  * @returns Comments
