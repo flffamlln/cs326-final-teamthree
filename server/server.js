@@ -78,7 +78,6 @@ class Server {
       const options = req.body;
       try {
         const comments = await this.db.addComment(options.comment_id, options.post_id, options.user_id, options.comment);
-        console.log(comments.rows[0]);
         res.status(200).send(comments.rows[0]);
       } catch (err) {
         res.status(500).send({ error: 'There was an error retreiving the likes' });
@@ -156,7 +155,6 @@ class Server {
       const options = req.query;
       try {
         const post = await this.db.getPost(options.post_id);
-        console.log(post.rows[0])
         res.status(200).send(post.rows[0]);
       } catch (err) {
         res.status(500).send({ error: 'There was an error retreiving the post' });
@@ -170,7 +168,6 @@ class Server {
       const options = req.query;
       try {
         const comments = await this.db.getComments(options.post_id);
-        console.log(comments.rows);
         res.status(200).send(comments.rows);
       } catch (err) {
         res.status(500).send({ error: 'There was an error retreiving the comments' });
@@ -225,7 +222,6 @@ class Server {
       const options = req.query;
       try {
         const likes = await this.db.getLikes(options.post_id);
-        console.log(likes.rows[0]);
         res.status(200).send(likes.rows[0]);
       } catch (err) {
         res.status(500).send({ error: 'There was an error retreiving the likes' });
@@ -322,7 +318,6 @@ class Server {
       const options = req.body;
       try {
         const likes = await this.db.addLike(options.like_id, options.post_id, options.user_id);
-        console.log(likes.rows[0]);
         res.status(200).send(likes.rows[0]);
       } catch (err) {
         res.status(500).send({ error: 'There was an error retreiving the likes' });

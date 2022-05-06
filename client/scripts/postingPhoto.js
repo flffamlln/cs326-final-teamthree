@@ -70,8 +70,6 @@ let comment = document.getElementById("button-addon2");
 comment.addEventListener("click", async () => {
     const comment_info = await getComments(session_info.post_id);
     const comment_id = comment_info.length;
-    console.log("num comments");
-    console.log(comment_id);
 
     const post_id = session_info.post_id; 
     const user_id = session_info.user_id;
