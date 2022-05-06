@@ -86,8 +86,7 @@ class Server {
       }
  
       const file = req.files.pp;
-      console.log(file);
-      const file_path = __dirname + '/client/img/profile_pictures/' + file.name;
+
       let extention = '';
       if (file.name.endsWith('.jpg')) {
         extention = '.jpg';
@@ -96,19 +95,18 @@ class Server {
       } else if (file.name.endsWith('.png')) {
         extention = '.png';
       }
-    
-      // NEED TO WAIT FOR THIS
+
+      // Rename profile picture to something unique
+      const d = new Date();
+      const new_name = d.getFullYear().toString() + (d.getMonth()+1).toString() + d.getDate().toString() + d.getHours().toString() + d.getMinutes().toString() + d.getSeconds().toString() + d.getMilliseconds().toString();
+      file.name = new_name + extention;
+      const file_path = __dirname + '/client/img/profile_pictures/' + file.name;
+
       await file.mv(file_path, (err) => {
         if (err) {
           res.status(500).send(err);
         }
       });
-      //console.log(err);
-
-      const d = new Date();
-      const new_name = d.getDate().toString() + (d.getMonth()+1).toString() + d.getFullYear().toString() + d.getHours().toString() + d.getMinutes().toString() + d.getSeconds().toString() + d.getMilliseconds().toString();
-      const new_path = __dirname + '/client/img/profile_pictures/' + new_name.toString() + extention;
-      fs.rename(file_path, new_path, () => { console.log("changed"); });
 
       res.status(200).send({ newpp_path: (new_name.toString() + extention) });
     });
@@ -252,7 +250,7 @@ class Server {
      * 
      */
     this.app.get('/download_pp', async (req, res) => {
-      const pp_path = __dirname + 'client/img/profile_pictures/' + req.query.newpp_path;
+      const pp_path = __dirname + '/client/img/profile_pictures/' + req.query.newpp_path;
       res.status(200).sendFile(pp_path);
     });
 

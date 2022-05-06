@@ -103,7 +103,7 @@ upload_profile_picture.addEventListener("click", async () => {
   const newpp = document.getElementById("newpp").files[0];
   if (newpp) {
     const upload_res = await crud.uploadPP(newpp);
-    if (!upload_res.status === 200 || !uploadRes.ok) {
+    if (!upload_res.status === 200 || !upload_res.ok) {
       alert("There was an error uploading your new profile picture");
     } else {
       const newpp_path = (await upload_res.json()).newpp_path;
@@ -111,7 +111,9 @@ upload_profile_picture.addEventListener("click", async () => {
       const imgURL = URL.createObjectURL(downloadBlob);
       document.getElementById('profile-picture-editable').src = imgURL;
       document.getElementById("bfpp").click();
-      path_to_pp = newpp_path.slice(newpp_path.indexOf('/2'));
+      // Hard coded to the millenium 2000
+      console.log(newpp_path);
+      path_to_pp = newpp_path;
     }
   }
 });
@@ -192,7 +194,7 @@ async function loadUserInfo() {
   const pfps = document.getElementsByClassName("profile-picture");
   Array.from(pfps).forEach(pfp => {
     if (profile_picture) {
-      pfp.src = '/client/img/profile_pictures' + profile_picture;
+      pfp.src = '/client/img/profile_pictures/' + profile_picture;
       pfp.onerror = function () {
         this.onerror = null;
         this.src='/client/img/profile_pictures/default.jpg';
