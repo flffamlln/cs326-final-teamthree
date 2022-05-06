@@ -13,8 +13,9 @@ async function loadPhoto() {
     /* General post */
     const post_info = await getPost(session_info.post_id);
     const tag = post_info.tag;
-    const imageURL = post_info.picture_path;
-    
+    let imageURL = post_info.picture_path;
+    imageURL = "./img/profile_pictures/tinyheadedkingdom.jpg";
+
     const poster_info = await getUsername(post_info.user_id);
     const poster = poster_info.username;
 

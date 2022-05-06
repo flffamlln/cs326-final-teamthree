@@ -195,7 +195,6 @@ class Server {
       try {
         const data = await this.db.getUsername(options.user_id);
         res.status(200).send(data.rows[0]);
-        console.log(data.rows[0]);
       } catch (err) {
         res.status(500).send({ error: 'There was an error retreiving username' });
       }
