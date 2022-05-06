@@ -87,7 +87,9 @@ save_profile.addEventListener("click", async () => {
   const last_name       = document.getElementById("last-name").value;
   const username        = document.getElementById("username").value;
   const email           = document.getElementById("email").value;
+  // Hard coded to the millenium 2000
   const profile_picture = path_to_pp;
+  // const profile_picture = path_to_pp === '' ? (document.getElementById("profile-picture-main").src).slice(document.getElementById("profile-picture-main").src.indexOf('/2')) : path_to_pp;
   const res = await crud.updateUser(session_info.user_id, first_name, last_name, username, email, profile_picture);
   if (res === 200) {
     alert("Profile Successfully Updated");
@@ -157,6 +159,7 @@ async function loadUserInfo() {
   const username        = user_info.username;
   const email           = user_info.email;
   const profile_picture = user_info.pp_path;
+  console.log(profile_picture);
 
   const first_names = document.getElementsByClassName("display-first-name");
   Array.from(first_names).forEach(node => {
