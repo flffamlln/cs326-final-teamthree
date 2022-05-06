@@ -10,13 +10,12 @@ window.onload = async function () {
 }
 
 async function loadPhoto() {
+    /* General post */
     const post_info = await getPost(session_info.post_id);
     const tag = post_info.tag;
     const imageURL = post_info.picture_path;
     const poster = post_info.user_id;
     const description = post_info.description;
-    const comments_info = await getComments(session_info.post_id);
-    const likes = 50;
 
     const tag1 = document.getElementById('tags');
     tag1.innerHTML = 'Tag: ' + tag;
@@ -27,35 +26,42 @@ async function loadPhoto() {
     img.src = imageURL; // doesn't work rn
     image1.appendChild(img);
 
-    const likes1 = document.getElementById('likes');
-    likes1.innerHTML = likes + ' likes';
-
     const poster1 = document.getElementById('poster');
     poster1.innerHTML = poster + ':';
 
     const description1 = document.getElementById('description');
     description1.innerHTML = description;
 
+    /* Likes */
+    const likes_info = await getLikes(session_info.post_id);
+    const likes = likes_info.count;
+    const likes1 = document.getElementById('likes');
+    likes1.innerHTML = likes + ' likes';
+
+    /* Comments */
+    const comments_info = await getComments(session_info.post_id);
     const commentSection1 = document.getElementById('commentSection');
     commentSection1.innerHTML = 'Comments:';
     for(let i = 0; i < comments_info.length; i++){
-            let curComment = comments_info[i];
+            const curComment = comments_info[i];
+            const commenter = curComment.user_id;
+            const message = curComment.comment;
 
-            let comment = document.createElement('div');
-            comment.classList.add('mb-1');
+            let comment1 = document.createElement('div');
+            comment1.classList.add('mb-1');
 
-            let commenter = document.createElement('span');
-            let bold = document.createElement('b');
-            bold.innerHTML = curComment.user_id + ': ';
-            commenter.appendChild(bold);
+            let commenter1 = document.createElement('span');
+            let bold1 = document.createElement('b');
+            bold1.innerHTML = commenter + ': ';
+            commenter1.appendChild(bold1);
 
-            let message = document.createElement('span');
-            message.innerHTML = curComment.comment;
+            let message1 = document.createElement('span');
+            message1.innerHTML = message;
             
-            comment.appendChild(commenter);
-            comment.appendChild(message);
+            comment1.appendChild(commenter1);
+            comment1.appendChild(message1);
 
-            commentSection1.appendChild(comment);
+            commentSection1.appendChild(comment1);
         }
         
 }

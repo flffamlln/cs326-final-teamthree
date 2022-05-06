@@ -83,11 +83,21 @@ export default class DatabaseConnection {
     return result;
   }
 
-    /**
+  /**
    * 
    */
      async getComments(post_id) {
       const query = 'SELECT * FROM comments WHERE post_id = $1;';
+      const values = [post_id];
+      const result = await this.client.query(query, values);
+      return result;
+    }
+
+  /**
+   * 
+   */
+     async getLikes(post_id) {
+      const query = 'SELECT COUNT(*) FROM likes WHERE post_id = $1;';
       const values = [post_id];
       const result = await this.client.query(query, values);
       return result;

@@ -171,9 +171,9 @@ class Server {
     this.app.get('/get_comments', async (req, res) => {
       const options = req.query;
       try {
-        const post = await this.db.getComments(options.post_id);
-        console.log(post.rows);
-        res.status(200).send(post.rows);
+        const comments = await this.db.getComments(options.post_id);
+        console.log(comments.rows);
+        res.status(200).send(comments.rows);
       } catch (err) {
         res.status(500).send({ error: 'There was an error retreiving the comments' });
       }
@@ -225,16 +225,12 @@ class Server {
      */
     this.app.get('/get_likes', async (req, res) => {
       const options = req.query;
-
-      // Query database here
-      const query = `SELECT COUNT(*) FROM likes WHERE post_id = $1 RETURNING *;`;
-      const values = [options.post_id];
-
       try {
-        await this.db.generalQuery(query, values);
-        res.writeHead(200, headerFields);
+        const likes = await this.db.getLikes(options.post_id);
+        console.log(likes.rows[0]);
+        res.status(200).send(likes.rows[0]);
       } catch (err) {
-        res.sendStatus(500);
+        res.status(500).send({ error: 'There was an error retreiving the likes' });
       }
       res.end();
     });
