@@ -148,6 +148,13 @@ export default class DatabaseConnection {
       return result;
   }
 
+  async getFeed(tag) {
+    const query = 'SELECT * FROM posts WHERE tag = $1;';
+    const values = [tag];
+    const result = await this.client.query(query, values);
+    return result;
+}
+
   /* TEST CASE SWITCHING JUST QUERY TO SEE IF IT'LL RUN
   async addPost(post_id, user_id, picture_path, description, tag) {
     const query = 'SELECT * from posts;';
