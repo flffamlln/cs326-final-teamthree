@@ -54,20 +54,12 @@ class Server {
      */
     this.app.post('/create_post', async (req, res) => {
       const options = req.body;
-      const post = {
-        post_id: options.post_id,
-        user_id: options.user_id,
-        url: options.url,
-        description: options.description,
-        tag: options.tag,
-      };
-
-      const values = [options.post_id, options.user_id, ]
-
-      // Query database here
-      // const query 'INSERT INTO posts(user_id, ) VALUES ($1, $2, )'
-
-      res.writeHead(200, headerFields);
+      try {
+        const postDetails = await this.db.addPost(options.post_id, options.user_id, options.picture_path, options.description, options.tag);
+        res.status(200).send(postDetails.rows);
+      } catch (err) {
+        res.status(500).send({ error: 'There was an error creating a post' });
+      }
       res.end();
     });
 
@@ -80,7 +72,7 @@ class Server {
         const comments = await this.db.addComment(options.comment_id, options.post_id, options.user_id, options.comment);
         res.status(200).send(comments.rows[0]);
       } catch (err) {
-        res.status(500).send({ error: 'There was an error retreiving the likes' });
+        res.status(500).send({ error: 'There was an error adding a comment' });
       }
       res.end();
     });
@@ -159,6 +151,19 @@ class Server {
       } catch (err) {
         res.status(500).send({ error: 'There was an error retreiving the post' });
       }
+    });
+
+    /**
+     * 
+     */
+    this.app.get('/get_num_posts', async (req, res) => {
+        const options = req.query;
+        try {
+          const data = await this.db.getNumPosts();
+          res.status(200).send(data.rows[0]);
+        } catch (err) {
+          res.status(500).send({ error: 'There was an error retreiving the number of posts' });
+        }
     });
 
     /**
