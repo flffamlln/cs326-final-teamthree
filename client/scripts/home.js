@@ -16,6 +16,11 @@ window.onload = async function () {
   displayFeed();
 }
 
+async function getPostFeed() {
+  await crud.getFeed(tag);
+  
+}
+
 async function displayFeed() {
   const posts = document.getElementById("posts");
   for (let i = 0; i < Math.floor(Object.keys(feed_photos).length/2); ++i) {
