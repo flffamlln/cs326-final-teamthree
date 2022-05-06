@@ -8,21 +8,19 @@ let submit = document.getElementById("submit");
 submit.addEventListener("click", async () => {
   const post_info = await getNumPosts();
   const post_id = parseInt(post_info.count) + 1;
-  console.log(post_id);
   
   const user_id = session_info.user_id;
-  //const picture_path           = document.getElementById("formFileLg").value;
-  const picture_path = '/test4.jpg';
+  const picture_path           = 'puppyPhoto.jpg';
   const description       = document.getElementById("photoDescription").value;
   const tag        = document.getElementById("tag").value;
 
   const res = await createPost(post_id, user_id, picture_path, description, tag);
   if (res === 200) {
     alert("Post successfully created");
-    //location.reload();
+    location.reload();
   } else {
     alert("There was an error creating your post");
-    //location.reload();
+    location.reload();
   }
 });
 
