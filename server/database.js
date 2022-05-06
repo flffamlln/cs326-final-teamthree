@@ -140,44 +140,12 @@ export default class DatabaseConnection {
       return result;
   }
   
-  
   async addPost(post_id, user_id, picture_path, description, tag) {
       const query = 'INSERT INTO posts (post_id, user_id, picture_path, description, tag) VALUES ($1, $2, $3, $4, $5);';
       const values = [post_id, user_id, picture_path, description, tag];
       const result = await this.client.query(query, values);
       return result;
   }
-
-  /* TEST CASE SWITCHING JUST QUERY TO SEE IF IT'LL RUN
-  async addPost(post_id, user_id, picture_path, description, tag) {
-    const query = 'SELECT * from posts;';
-    const values = [post_id, user_id, picture_path, description, tag];
-    console.log(values);
-    const result = await this.client.query(query);
-    console.log(result);
-    return result;
-}
-*/
-
-
-/*
-
-  async addPost(post_id, user_id, picture_path, description, tag) {
-    console.log(typeof post_id);
-    console.log(typeof user_id);
-    console.log(typeof picture_path);
-    console.log(typeof description);
-    console.log(typeof tag);
-
-    const query = 'SELECT * FROM posts;';
-    const result = await this.client.query(query);
-    console.log("should return all posts in db");
-    console.log(result);
-    return result;
-  }
-
-  */
-
 
   async close() {
     await this.client.release();
