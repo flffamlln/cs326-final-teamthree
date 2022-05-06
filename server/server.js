@@ -156,12 +156,26 @@ class Server {
      */
     this.app.get('/get_post', async (req, res) => {
       const options = req.query;
-      
       try {
         const post = await this.db.getPost(options.post_id);
+        console.log(post.rows[0])
         res.status(200).send(post.rows[0]);
       } catch (err) {
         res.status(500).send({ error: 'There was an error retreiving the post' });
+      }
+    });
+
+    /**
+     * 
+     */
+    this.app.get('/get_comments', async (req, res) => {
+      const options = req.query;
+      try {
+        const post = await this.db.getComments(options.post_id);
+        console.log(post.rows);
+        res.status(200).send(post.rows);
+      } catch (err) {
+        res.status(500).send({ error: 'There was an error retreiving the comments' });
       }
     });
 

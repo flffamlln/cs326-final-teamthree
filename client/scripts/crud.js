@@ -81,7 +81,6 @@ export async function createComment(post_id, user_id, comment) {
       },
       body: JSON.stringify(comment_data)
     });
-  
     return response.status;
   } catch(err) {
     console.log(err);
@@ -118,7 +117,7 @@ export async function downloadPP(newpp_path) {
 }
 
 /**
- * Return the 'num_posts' most recent posts for a user
+ * Return the post information for a given post
  * @param {string} post_id 
  * @returns Post information
  */
@@ -130,10 +129,32 @@ export async function downloadPP(newpp_path) {
         'Content-Type': 'application/json'
       },
     });
-    const data = { status: response.status, ok: response.ok, post: await response.json() };
+    const data = await response.json();
     return data;
   } catch (err) {
     console.log(err);
+    return { status: 500, ok: false}
+  }
+}
+
+/**
+ * Return the comments for a post
+ * @param {string} post_id 
+ * @returns Comments
+ */
+ export async function getComments(post_id) {
+  try {
+    const response = await fetch(`/get_comments?post_id=${post_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+    return { status: 500, ok: false}
   }
 }
 
@@ -214,10 +235,11 @@ export async function getUserPosts(user_id) {
         'Content-Type': 'application/json'
       },
     });
-    const data = { status: response.status, ok: response.ok, likes: await response.json() };
+    const data = await response.json();
     return data;
   } catch (err) {
     console.log(err);
+    return { status: 500, ok: false}
   }
 }
 
@@ -309,8 +331,8 @@ export async function updatePost(post_id, new_desc) {
 export async function updateLike(post_id, user_id) {
   try {
     const new_data = {
-      "post_id": post_id,
-      "user_id": user_id
+      post_id: post_id,
+      user_id: user_id
     };
     const response = await fetch(`/update_likes`, {
       method: 'PUT',
@@ -319,7 +341,6 @@ export async function updateLike(post_id, user_id) {
       },
       body: JSON.stringify(new_data)
     });
-
     return response.status;
   } catch (err) {
     console.log(err);
@@ -344,12 +365,4 @@ export async function updateLike(post_id, user_id) {
   } catch (err) {
     console.log(err);
   }
-}
-
-export async function deletePost(post_id) {
-  
-}
-
-export async function deleteComment(comment_id) {
-  
 }

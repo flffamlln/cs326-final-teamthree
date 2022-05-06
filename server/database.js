@@ -53,6 +53,7 @@ export default class DatabaseConnection {
       post_id INT NOT NULL,
       user_id INT NOT NULL
     );
+
     `;
 
     await this.client.query(queryText);
@@ -81,6 +82,16 @@ export default class DatabaseConnection {
     const result = await this.client.query(query, values);
     return result;
   }
+
+    /**
+   * 
+   */
+     async getComments(post_id) {
+      const query = 'SELECT * FROM comments WHERE post_id = $1;';
+      const values = [post_id];
+      const result = await this.client.query(query, values);
+      return result;
+    }
 
   async close() {
     await this.client.release();

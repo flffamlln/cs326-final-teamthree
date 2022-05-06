@@ -1,4 +1,4 @@
-import { createComment, getPost, updateLike, getLikes } from './crud.js';
+import { getComments, createComment, getPost, updateLike, getLikes } from './crud.js';
 
 const session_info = {
     user_id: 1,
@@ -11,62 +11,53 @@ window.onload = async function () {
 
 async function loadPhoto() {
     const post_info = await getPost(session_info.post_id);
-    const post = JSON.parse(post_info["post"]);
+    const tag = post_info.tag;
+    const imageURL = post_info.picture_path;
+    const poster = post_info.user_id;
+    const description = post_info.description;
+    const comments_info = await getComments(session_info.post_id);
+    const likes = 50;
 
-    const tag = document.getElementById('tags');
-    const image = document.getElementById('image');
-    const likes = document.getElementById('likes');
-    const poster = document.getElementById('poster');
-    const description = document.getElementById('description');
-    const commentSection = document.getElementById('commentSection');
+    const tag1 = document.getElementById('tags');
+    tag1.innerHTML = 'Tag: ' + tag;
 
-    tag.innerHTML = '';
-    image.innerHTML = '';
-    likes.innerHTML = '';
-    poster.innerHTML = '';
-    description.innerHTML = '';
-    commentSection.innerHTML = '';
+    const image1 = document.getElementById('image');
+    image1.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = imageURL; // doesn't work rn
+    image1.appendChild(img);
 
-    if(post_info.status === 200 && post_info.ok){
-        tag.appendTextNode(post.tag);
+    const likes1 = document.getElementById('likes');
+    likes1.innerHTML = likes + ' likes';
 
-        const img = document.createElement('img');
-        img.src = post.url;
-        image.appendChild(img);
+    const poster1 = document.getElementById('poster');
+    poster1.innerHTML = poster + ':';
 
-        likes.appendTextNode(post[likes].length + ' likes');
+    const description1 = document.getElementById('description');
+    description1.innerHTML = description;
 
-        poster.appendTextNode(post.user_id + ':');
-
-        description.appendTextNode(post.description);
-
-        for(let i = 0; i < post["comments"].length; i++){
-            let curComment = post["comments"][i];
+    const commentSection1 = document.getElementById('commentSection');
+    commentSection1.innerHTML = 'Comments:';
+    for(let i = 0; i < comments_info.length; i++){
+            let curComment = comments_info[i];
 
             let comment = document.createElement('div');
             comment.classList.add('mb-1');
 
             let commenter = document.createElement('span');
             let bold = document.createElement('b');
-            bold.appendTextNode(curComment["from"]);
+            bold.innerHTML = curComment.user_id + ': ';
             commenter.appendChild(bold);
 
             let message = document.createElement('span');
-            message.appendTextNode(curComment["message"]);
+            message.innerHTML = curComment.comment;
             
             comment.appendChild(commenter);
             comment.appendChild(message);
 
-            commentSection.appendChild(comment);
+            commentSection1.appendChild(comment);
         }
-    } else{
-        tag.appendTextNode("error");
-        image.appendTextNode("error");
-        likes.appendTextNode("error");
-        poster.appendTextNode("error");
-        description.appendTextNode("error");
-        commentSection.appendTextNode("error");
-    }
+        
 }
 
 // Enter comment
@@ -106,7 +97,6 @@ like.addEventListener("click", async () => {
     const post_id = session_info.post_id; 
     const user_id = session_info.user_id;
     const res = await updateLike(post_id, user_id);
-    console.log(res);
     if(res === 200){
         alert("Like went through");
     } else{
