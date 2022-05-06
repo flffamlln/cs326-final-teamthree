@@ -103,6 +103,16 @@ export default class DatabaseConnection {
       return result;
     }
 
+  /**
+   * 
+   */
+  async addLike(like_id, post_id, user_id) {
+        const query = 'INSERT INTO likes (like_id, post_id, user_id) VALUES ($1, $2, $3);';
+        const values = [like_id, post_id, user_id];
+        const result = await this.client.query(query, values);
+        return result;
+  }
+  
   async close() {
     await this.client.release();
   }

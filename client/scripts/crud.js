@@ -324,13 +324,15 @@ export async function updatePost(post_id, new_desc) {
 
 /**
  * Update the description for a post
+ * @param {string} like_id  the post id of post being liked
  * @param {string} post_id  the post id of post being liked
  * @param {string} user_id the user id of liker
  * @returns 200 if the post was successfully updated, 400 otherwise
  */
-export async function updateLike(post_id, user_id) {
+export async function updateLike(like_id, post_id, user_id) {
   try {
     const new_data = {
+      like_id: like_id,
       post_id: post_id,
       user_id: user_id
     };

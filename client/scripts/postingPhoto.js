@@ -62,8 +62,7 @@ async function loadPhoto() {
             comment1.appendChild(message1);
 
             commentSection1.appendChild(comment1);
-        }
-        
+        } 
 }
 
 // Enter comment
@@ -100,28 +99,17 @@ comment.addEventListener("click", async () => {
 // Like photo
 let like = document.getElementById("likeButton");
 like.addEventListener("click", async () => {
+    const likes_info = await getLikes(session_info.post_id);
+    const like_id = likes_info.count;
+
     const post_id = session_info.post_id; 
     const user_id = session_info.user_id;
-    const res = await updateLike(post_id, user_id);
+    const res = await updateLike(like_id, post_id, user_id);
     if(res === 200){
-        alert("Like went through");
+        alert("Like successfully went through");
+        location.reload();
     } else{
-        alert("There was an error liking the post");
-    }
-
-    const num_likes = await getLikes(session_info.post_id);
-
-    const likes = document.getElementById('likes');
-    let curLikes = likes.innerHTML;
-    likes.innerHTML = '';
-
-    likes.appendTextNode(curLikes + ' likes');
-    console.log(curLikes);
-    console.log(curLikes + 1);
-
-    if(num_likes.status === 200 && num_likes.ok){
-        //likes.appendTextNode(num_likes.likes + ' likes');
-    } else{
-        likes.appendTextNode("error");
+        alert("There was an error liking the photo");
+        location.reload();
     }
 });
