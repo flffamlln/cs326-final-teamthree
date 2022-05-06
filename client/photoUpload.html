@@ -19,7 +19,7 @@
         <a href="./home.html">Back to Home</a>
       </div>
     </div>
-    
+
     <div class="container">
       <!-- Upload a Photo Container -->
       <div class="p-5">
@@ -27,17 +27,14 @@
           <h1 class="my-5 text-center text-white">Upload a Photo!</h1>
         </div>
 
-        <!-- Select photo file-->
-        <!--
-        <div class="mx-5 my-2">
-          <input class="form-control form-control-lg my-2 " id="formFileLg" type="file">
-        </div>
-        -->
-
-        <!-- Textbox for photo url -->
+        <!-- Upload a photo -->
         <div class="mx-5">
-          <label for="formFileLg" class="form-label my-2 text-white">Enter your photo URL:</label>
-          <textarea class="form-control" id="formFileLg" rows="2"></textarea>
+          <div class="row mt-3 p-2 pb-3">
+            <div class="form-group col-xl">
+              <label for="newpp" class="form-label my-2 text-white">Upload Picture (JPG or PNG)</label>
+              <input type="file" id="formFileLg" name="newpp" class="form-control mb-3" accept=".jpg, .jpeg, .png"/>
+            </div>
+          </div>
         </div>
 
         <!-- Textbox for description -->
@@ -50,9 +47,16 @@
         <div class="mx-5 my-2">
           <select id="tag" class="form-select form-select-lg mb-3 my-4" aria-label=".form-select-lg example">
             <option selected>Select a tag</option>
-            <option value="1">Puppy</option>
-            <option value="2">Cat</option>
-            <option value="3">Reptile</option>
+            <option value="puppy">Puppy</option>
+            <option value="cat">Cat</option>
+            <option value="snake">Snake</option>
+            <option value="rabbit">Rabbit</option>
+            <option value="bird">Bird</option>
+            <option value="horse">Horse</option>
+            <option value="frog">Frog</option>
+            <option value="fish">Fish</option>
+            <option value="hamster">Hamster</option>
+
           </select>
         </div>
 
