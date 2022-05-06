@@ -74,17 +74,15 @@ class Server {
     /**
      * 
      */
-    this.app.post('/create_comment', async (req, res) => {
+    this.app.post('/add_comment', async (req, res) => {
       const options = req.body;
-    
-      const comment = {
-        from: options.user_id,
-        message: options.message
-      };
-
-      // Query database here
-    
-      res.writeHead(200, headerFields);
+      try {
+        const comments = await this.db.addComment(options.comment_id, options.post_id, options.user_id, options.comment);
+        console.log(comments.rows[0]);
+        res.status(200).send(comments.rows[0]);
+      } catch (err) {
+        res.status(500).send({ error: 'There was an error retreiving the likes' });
+      }
       res.end();
     });
 

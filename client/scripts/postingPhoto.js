@@ -65,34 +65,26 @@ async function loadPhoto() {
         } 
 }
 
-// Enter comment
+// Add comment
 let comment = document.getElementById("button-addon2");
 comment.addEventListener("click", async () => {
+    const comment_info = await getComments(session_info.post_id);
+    const comment_id = comment_info.length;
+    console.log("num comments");
+    console.log(comment_id);
+
     const post_id = session_info.post_id; 
     const user_id = session_info.user_id;
-    const comment = document.getElementById("comment_text");
-    const res = await createComment(post_id, user_id, comment);
+
+    const comment = document.getElementById("comment-text").value;
+
+    const res = await createComment(comment_id, post_id, user_id, comment);
     if(res === 200){
         alert("Comment successfully created");
-
-        const commentSection = document.getElementById('commentSection');
-        let com = document.createElement('div');
-        com.classList.add('mb-1');
-
-        let commenter = document.createElement('span');
-        let bold = document.createElement('b');
-        bold.appendTextNode(curComment["from"]);
-        commenter.appendChild(bold);
-
-        let message = document.createElement('span');
-        message.appendTextNode(curComment["message"]);
-            
-        com.appendChild(commenter);
-        com.appendChild(message);
-
-        commentSection.appendChild(com);
+        location.reload();
     } else{
-        alert("There was an error posting your comment");
+        alert("There was an error adding your comment");
+        location.reload();
     }
 })
 
