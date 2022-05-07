@@ -13,7 +13,7 @@ async function loadPhoto() {
     /* General post */
     const post_info = await getPost(session_info.post_id);
     const tag = post_info.tag;
-    let imageURL = "./img/posts" + post_info.picture_path;
+    let imageURL = "./img/posts/" + post_info.picture_path;
 
     const poster_info = await getUsername(post_info.user_id);
     const poster = poster_info.username;
