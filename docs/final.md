@@ -87,7 +87,10 @@ Likes table
 
 <ins>**Breakdown of Labor for the entire project**</ins> <br>
 
-* Lucas Bertoni
+* Lucas Bertoni - Implemented all functionality related to the user's profile page as well as HTML/CSS
+   - Updating a user's profile information (first name, last name, email, password, profile picture)
+   - Displaying a user's posts
+   - Displaying previews of a user's posts when one is clicked on
 * Youmna Alnasrallah
 * Yuri Kim - Implemented functionality to uploading a post (image saving, description, tag, poster), viewing a post's details (postingPhoto), likes and comments
 * Emily Torok - Implemented all functionality relating to the home page - CSS/HTML, server + CRUD operations, and back-end functionality.
