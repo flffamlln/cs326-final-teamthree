@@ -59,7 +59,7 @@ likes table
 
 * Lucas Bertoni
 * Youmna Alnasrallah
-* Yuri Kim
+* Yuri Kim - Implemented all functionality to uploading a post (image saving, description, tag, poster), viewing a post's details (postingPhoto), likes and comments functionality
 * Emily Torok - Implemented all functionality relating to the home page - CSS/HTML, server + CRUD operations, and back-end functionality.
 
 **Conclusion:** *A conclusion describing your team’s experience in working on this project. This should include what you learned through the design and implementation process, the difficulties you encountered, what your team would have liked to know before starting the project that would have helped you later, and any other technical hurdles that your team encountered.*
