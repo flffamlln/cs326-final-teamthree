@@ -40,6 +40,12 @@ likes table
 <ins>**Breakdown of Labor for Milestone 3**</ins> <br>
 
 * Lucas Bertoni
+* - Implemented the PostgreSQL database schema
+* - Implemented the server connection to the database
+* - Implemented uploading a user's profile picture
+* - Implemented updating a user's information, including changing password
+* - Implemented displaying a feed of a user's posts on their profile page
+* - Implemented displaying a specific post (picture, likes, comments) on a user's profile page
 * Youmna Alnasrallah - worked on the authentication of the login and sign up pages. 
 * Yuri Kim - built fullstack functionality of uploading a post (image saving, description, tag, poster), viewing a post's details (postingPhoto), likes and comments
 * Emily Torok
