@@ -67,6 +67,7 @@ class Server {
     );
     this.app.set("view engine", "htmlthis.");
 
+
     // Temporary
     // this.app.use(logger('dev'));
 }
@@ -184,30 +185,19 @@ initPostRoutes() {
   /**
    * AUTHENTICATION STUFF GOES HERE
    */
-  this.app.get("/client/signup.html", checkAuthenticated, (req, res) => {
-    res.render("signup.html");
-  });
 
-  this.app.get("/client/login.html", checkAuthenticated, (req, res) => {
-    // flash sets a messages variable. passport sets the error message
-    console.log(req.session.flash.error);
-    res.render("login.html");
-  });
-
-  this.app.get("/client/home.html", checkNotAuthenticated, (req, res) => {
-    console.log(req.isAuthenticated());
-    res.render("home.html", { user: req.user.name });
-  });
 
   // this.app.get("/users/logout", (req, res) => {
   //     req.logout();
   //     res.render("index", { message: "You have logged out successfully" });
   // });
 
-  this.app.post("/signup", async(req, res) => {
+  this.app.post('/signup', async(req, res) => {
     console.log(req.body);
     const options = req.body;
     const username = options.username;
+    const firstname = options.firstname;
+    const lastname = options.lastname;
     const email = options.email;
     const password = options.password;
     const password2 = options.confirmPassword;
@@ -216,32 +206,29 @@ initPostRoutes() {
 
     console.log({
       username,
+      firstname,
+      lastname,
       email,
       password,
       password2
     });
 
-    if (!username || !email || !password || !password2) {
-      console.log("Fields error");
+    if (!username || !firstname || !lastname || !email || !password || !password2) {
       errors.push({ message: "Please enter all fields" });
     }
 
     if (password.length < 6) {
-      console.log("Length error");
       errors.push({ message: "Password must be a least 6 characters long" });
     }
 
     if (password !== password2) {
-      console.log("Password error");
       errors.push({ message: "Passwords do not match" });
     }
 
     if (errors.length > 0) {
-      console.log("HERE BAD");
-      res.render("signup.html", { errors, username, email, password, password2 });
+      res.render("signup.html", { errors, username, firstname, lastname, email, password, password2 });
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
-      console.log(hashedPassword);
 
       // Validation passed
       const q1 = 'SELECT * FROM users WHERE email = $1';
@@ -252,7 +239,7 @@ initPostRoutes() {
         // THIS DOESN'T WORK
         return res.render("signup.html", { message: "Email already registered" });
       } else {
-        const r2 = await this.db.createUser(username, email, password);
+        const r2 = await this.db.createUser(username, firstname, lastname, email, password);
         console.log(r2.rows);
         req.flash("success_msg", "You are now registered. Please log in");
         res.redirect("/client/login.html");
@@ -260,7 +247,7 @@ initPostRoutes() {
     }
   });
 
-  this.app.post("/login",
+  this.app.post('/login',
     passport.authenticate("local", {
       successRedirect: "/client/home.html",
       failureRedirect: "/client/login.html",
@@ -453,6 +440,28 @@ initGetRoutes() {
   });
 
   /**
+   * 
+   */
+  this.app.get('signup', checkAuthenticated, (req, res) => {
+    res.redirect("/client/signup.html");
+  });
+
+  /**
+   * 
+   */
+  this.app.get('/login', checkNotAuthenticated, (req, res) => {
+    res.render("/client/signup.html");
+  })
+
+  /**
+   * 
+   */
+  this.app.get('/home', checkNotAuthenticated, (req, res) => {
+    console.log(req.isAuthenticated());
+    res.render("home.html", { user: req.user.name });
+  });
+
+  /**
    * *****************************************
    * CHANGE WHEN AUTHENTICATION IS IMPLEMENTED
    * *****************************************
@@ -579,14 +588,15 @@ server.start();
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return res.redirect("/client/home.html");
+    return next()
   }
-  next();
+  res.redirect("/client/login.html");
 }
 
 function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return next();
+    return res.redirect("/client/home.html");
   }
-  res.redirect("/client/login.html");
+  next();
+  
 }

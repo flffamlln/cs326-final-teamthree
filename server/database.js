@@ -175,11 +175,13 @@ export default class DatabaseConnection {
     return result;
   }
 
-  async createUser(username, email, password) {
-    const query = `INSERT INTO users (username, email, password)
-                    VALUES ($1, $2, $3)
+  async createUser(username, firstname, lastname, email, password) {
+    // console.log("create");
+    // console.log(username, firstname, lastname, email, password);
+    const query = `INSERT INTO users (username, first_name, last_name, email, password, created_on)
+                    VALUES ($1, $2, $3, $4, $5, current_timestamp)
                     RETURNING user_id, password`;
-    const values = [username, email, password];
+    const values = [username, firstname, lastname, email, password];
     const result = await this.client.query(query, values);
     return result;
   }
