@@ -112,6 +112,40 @@ class Server {
     });
 
     /**
+         * 
+         */
+    this.app.post('/upload_photo', async (req, res) => {
+      if (!req.files) {
+        res.status(400).send('No files were uploaded.');
+      }
+
+      const file = req.files.newFile;
+
+      let extention = '';
+      if (file.name.endsWith('.jpg')) {
+        extention = '.jpg';
+      } else if (file.name.endsWith('.jpeg')) {
+        extention = '.jpeg';
+      } else if (file.name.endsWith('.png')) {
+        extention = '.png';
+      }
+
+      // Rename picture to something unique
+      const d = new Date();
+      const new_name = d.getFullYear().toString() + (d.getMonth()+1).toString() + d.getDate().toString() + d.getHours().toString() + d.getMinutes().toString() + d.getSeconds().toString() + d.getMilliseconds().toString();
+      file.name = new_name + extention;
+      const file_path = __dirname + '/client/img/posts/' + file.name;
+
+      await file.mv(file_path, (err) => {
+        if (err) {
+          res.status(500).send(err);
+        }
+      });
+
+      res.status(200).send({ newpp_path: (new_name.toString() + extention) });
+    });
+
+    /**
      * AUTHENTICATION STUFF GOES HERE
      */
     this.app.post('/login', async (req, res) => {
@@ -267,6 +301,14 @@ class Server {
       const pp_path = __dirname + '/client/img/profile_pictures/' + req.query.newpp_path;
       res.status(200).sendFile(pp_path);
     });
+
+     /**
+     * 
+     */
+      this.app.get('/download_photo', async (req, res) => {
+        const pp_path = __dirname + '/client/img/posts/' + req.query.newpp_path;
+        res.status(200).sendFile(pp_path);
+      });
 
     /**
      * *****************************************
