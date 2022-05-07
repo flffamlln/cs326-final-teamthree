@@ -41,5 +41,5 @@ likes table
 
 * Lucas Bertoni
 * Youmna Alnasrallah
-* Yuri Kim - built fullstack functionality of uploading a post (image saving, description, tag, poster), viewing a post details (postingPhoto), likes and comments
+* Yuri Kim - built fullstack functionality of uploading a post (image saving, description, tag, poster), viewing a post's details (postingPhoto), likes and comments
 * Emily Torok
