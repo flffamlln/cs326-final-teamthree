@@ -101,9 +101,38 @@ export async function uploadPP(new_file) {
   }
 }
 
+export async function uploadPhoto(new_file) {
+  try {
+    const picture = new FormData();
+    picture.append('newFile', new_file);
+    const response = await fetch('/upload_photo', {
+      method: 'POST',
+      body: picture
+    });
+
+    return response;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export async function downloadPP(newpp_path) {
   try {
     const response = await fetch(`/download_pp?&newpp_path=${newpp_path}`, {
+      method: 'GET',
+    });
+
+    if (response.status === 200 && response.ok) {
+      return response.blob();
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function downloadPhoto(newpp_path) {
+  try {
+    const response = await fetch(`/download_photo?&newpp_path=${newpp_path}`, {
       method: 'GET',
     });
 
