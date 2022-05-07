@@ -312,6 +312,35 @@ class Server {
       const pp_path = __dirname + '/client/img/profile_pictures/' + req.query.newpp_path;
       res.status(200).sendFile(pp_path);
     });
+    
+    /**
+     * 
+     */
+    this.app.get('/get_feed', async (req, res) => {
+      const options = req.query;
+      try {
+        if(options.tag == 'All'){
+          const query = 'SELECT * FROM posts;';
+          const posts = await this.db.generalQuery(query);
+          res.status(200).send(posts.rows);
+
+        } else {
+          const posts = await this.db.getFeed(options.tag);
+          res.status(200).send(posts.rows);
+        }
+      } catch (err) {
+        res.status(500).send({ error: err.message });
+      }
+      res.end();
+    });
+    
+    /**
+     * 
+     */
+    this.app.get('/download_post', async (req, res) => {
+      const post_path = __dirname + '/client/img/posts/' + req.query.post_path;
+      res.status(200).sendFile(post_path);
+    });
 
      /**
      * 
@@ -409,17 +438,6 @@ class Server {
         res.status(200);
       } catch (err) {
         res.status(500).send({ error: 'There was an error retreiving the likes' });
-      }
-      res.end();
-    });
-
-    this.app.put('/get_feed', async (req, res) => {
-      const options = req.body;
-      try {
-        const posts = await this.db.getFeed(options.tag);
-        res.status(200).send(posts.rows[2]);
-      } catch (err) {
-        res.status(500).send({ error: 'There was an error retreiving the posts' });
       }
       res.end();
     });
