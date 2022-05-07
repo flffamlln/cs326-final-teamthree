@@ -87,9 +87,12 @@ Likes table
 
 <ins>**Breakdown of Labor for the entire project**</ins> <br>
 
-* Lucas Bertoni
-* Youmna Alnasrallah - Implemented the functionality of the login and sign up page - CSS/HTML, server, and back-end.
+* Lucas Bertoni - Implemented all functionality related to the user's profile page as well as HTML/CSS
+   - Updating a user's profile information (first name, last name, email, password, profile picture)
+   - Displaying a user's posts
+   - Displaying previews of a user's posts when one is clicked on
+* Youmna Alnasrallah
 * Yuri Kim - Implemented functionality to uploading a post (image saving, description, tag, poster), viewing a post's details (postingPhoto), likes and comments
 * Emily Torok - Implemented all functionality relating to the home page - CSS/HTML, server + CRUD operations, and back-end functionality.
 
-**Conclusion:** *A conclusion describing your team’s experience in working on this project. This should include what you learned through the design and implementation process, the difficulties you encountered, what your team would have liked to know before starting the project that would have helped you later, and any other technical hurdles that your team encountered.*
+**Conclusion:** Through developing Petstagram for our CS326 final project, we were able to learn so much about how a fullstack application is developed from start to finish including interactions from client to server to database as well as how to develop software in a team setting. Some struggles we faced throughout this semester included merge conflicts and finding time that aligns with everyone's schedules along with learning PSQL + using PGAdmin, node.js, ExpressJS and deployment for Heroku as these were new to many of us and working through debugging our API. However, we have learned a ton about building software and to have it working is a huge win for us, despite not having user authentication work completely.
