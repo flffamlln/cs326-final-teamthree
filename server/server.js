@@ -325,6 +325,17 @@ initPostRoutes() {
 
 // Initialize all of the routes for getting stuff
 initGetRoutes() {
+  this.app.get('/get_feed', async(req, res) => {
+    const options = req.body;
+    try {
+      const posts = await this.db.getFeed(options.tag);
+      res.status(200).send(posts.rows);
+    } catch (err) {
+      res.status(500).send({ error: 'There was an error retreiving the posts' });
+    }
+    res.end();
+});
+
   /**
    * 
    */
@@ -547,17 +558,6 @@ initPutRoutes() {
       res.status(200);
     } catch (err) {
       res.status(500).send({ error: 'There was an error retreiving the likes' });
-    }
-    res.end();
-  });
-
-  this.app.put('/get_feed', async(req, res) => {
-    const options = req.body;
-    try {
-      const posts = await this.db.getFeed(options.tag);
-      res.status(200).send(posts.rows[2]);
-    } catch (err) {
-      res.status(500).send({ error: 'There was an error retreiving the posts' });
     }
     res.end();
   });
