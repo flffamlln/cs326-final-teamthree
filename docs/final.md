@@ -36,10 +36,12 @@ Profile: A profile page of the user that is loggined in displaying their user da
 <img src="..\final-UI\editProfile.PNG" width="500"><br> <br>
 <img src="..\final-UI\profilePostView.PNG" width="500"><br> <br>
 
-**APIs:** *A final up-to-date list/table describing your application’s API*
+**APIs:**
+<img src="..\api planning\POSTS_FINAL.png"><br>
+<img src="..\api planning\USER_FINAL.png"><br>
 
 **Database:**
-users table
+Users table
 | Column       | Data Type | Description              |
 |--------------|-----------|--------------------------|
 | user_id      | integer   | The id of a user         |
@@ -51,7 +53,7 @@ users table
 | pp_path | string | The path to the user's profile photo |
 | created_on | timestamp | The date the user was created |
 
-posts table
+Posts table
 | Column       | Data Type | Description              |
 |--------------|-----------|--------------------------|
 | post_id      | integer   | The id of a post         |
@@ -60,7 +62,7 @@ posts table
 | description | string | The caption of the post |
 | tag | string | The animal the post image contains |
 
-comments table
+Comments table
 | Column       | Data Type | Description              |
 |--------------|-----------|--------------------------|
 | comment_id      | integer   | The id of a comment         |
@@ -68,7 +70,7 @@ comments table
 | user_id | integer | The user id of the commenter |
 | comment | string | The comment message |
 
-likes table
+Likes table
 | Column       | Data Type | Description              |
 |--------------|-----------|--------------------------|
 | like_id      | integer   | The id of a like         |
