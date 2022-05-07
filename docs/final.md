@@ -6,7 +6,7 @@
 
 **Semester:** Spring 2022
 
-**Overview:** *A brief overview of your application. This will be based on what you are submitting as your final web application artifact. You should also mention why your application is innovative.*
+**Overview:** Petstagram is an innovative image-sharing application, similar to Instagram, but exclusively for users to share pictures of their pets. Users can like and comment on posted photos, as well as add descriptions and tags to their images when they upload them. Users can also update their own information through the profile page.
 
 **Team Members:** Youmna Alnasrallah (@YoumnaAlNasrallah), Lucas Bertoni (@lucas-bertoni), Yuri Kim (@flffamlln), Emily Torok (@zeldagirl113)
 
@@ -14,7 +14,42 @@
 
 **APIs:** *A final up-to-date list/table describing your application’s API*
 
-**Database:** *A final up-to-date representation of your database including a brief description of each of the entities in your data model and their relationships if any.*
+**Database:**
+users table
+| Column       | Data Type | Description              |
+|--------------|-----------|--------------------------|
+| user_id      | integer   | The id of a user         |
+| email | string   | The email of a user |
+| password | string | The password of a user |
+| first_name | string | The first name of a user |
+| last_name | string | The last name of a user |
+| username | string | The username of a user |
+| pp_path | string | The path to the user's profile photo |
+| created_on | timestamp | The date the user was created |
+
+posts table
+| Column       | Data Type | Description              |
+|--------------|-----------|--------------------------|
+| post_id      | integer   | The id of a post         |
+| user_id | integer   | The user id of the poster |
+| picture_path | string   | The path to the post image |
+| description | string | The caption of the post |
+| tag | string | The animal the post image contains |
+
+comments table
+| Column       | Data Type | Description              |
+|--------------|-----------|--------------------------|
+| comment_id      | integer   | The id of a comment         |
+| post_id | integer   | The post id of the post it was commented on |
+| user_id | integer | The user id of the commenter |
+| comment | string | The comment message |
+
+likes table
+| Column       | Data Type | Description              |
+|--------------|-----------|--------------------------|
+| like_id      | integer   | The id of a like         |
+| post_id | integer   | The post id of the post the like is for |
+| user_id | integer | The user id of the person who liked the post |
 
 **URL Routes/Mappings:** *A final up-to-date table of all the URL routes that your application supports and a short description of what those routes are used for. You should also indicate any authentication and permissions on those routes.*
 

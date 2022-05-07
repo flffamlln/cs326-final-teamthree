@@ -10,7 +10,6 @@ import 'path';
 import nodemailer from 'nodemailer'
 import 'dotenv/config';
 
-// import users from './users.js';
 import expressSession from 'express-session';
 import passport from 'passport';
 import passportLocal from 'passport-local';
