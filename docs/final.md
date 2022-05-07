@@ -77,9 +77,13 @@ Likes table
 | post_id | integer   | The post id of the post the like is for |
 | user_id | integer | The user id of the person who liked the post |
 
-**URL Routes/Mappings:** *A final up-to-date table of all the URL routes that your application supports and a short description of what those routes are used for. You should also indicate any authentication and permissions on those routes.*
+**URL Routes/Mappings:** <br>
+<img src="..\URLroutes\get.png" width="350"><br>
+<img src="..\URLroutes\post.png" width="350"><br>
+<img src="..\URLroutes\put.png" width="350"><br>
 
-**Authentication/Authorization:** *A final up-to-date description of how users are authenticated and any permissions for specific users (if any) that you used in your application. You should mention how they relate to which UI views are accessible.*
+**Authentication/Authorization:** <br>
+*A final up-to-date description of how users are authenticated and any permissions for specific users (if any) that you used in your application. You should mention how they relate to which UI views are accessible.*
 
 <ins>**Breakdown of Labor for the entire project**</ins> <br>
 
