@@ -389,12 +389,13 @@ export async function updateUser(user_id, new_first_name, new_last_name, new_use
   }
 }
 
-export async function updatePassword(user_id, current_password, new_password) {
+export async function updatePassword(user_id, current_password, new_password, gen_new) {
   try {
     const new_data = {
       user_id: user_id,
       current_password: current_password,
-      new_password: new_password
+      new_password: new_password,
+      gen_new: gen_new
     };
     const response = await fetch('/update_password', {
       method: 'PUT',
@@ -455,6 +456,34 @@ export async function updateLike(post_id, user_id) {
       body: JSON.stringify(new_data)
     });
     return response.status;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function forgotPassword(email) {
+  try {
+    let response = await fetch(`/get_user_by_email?email=${email}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const count = await response.json();
+
+    if (count === 1) {
+      response = await fetch('');
+    }
+
+    // Doesn't go here
+    const new_password = await fetch('https://www.passwordrandom.com/query?command=password&format=json&count=1', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    return count;
   } catch (err) {
     console.log(err);
   }

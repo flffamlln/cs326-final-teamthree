@@ -269,6 +269,17 @@ class Server {
     /**
      * 
      */
+    this.app.get('/get_user_by_email', async (req, res) => {
+      const email = req.query.email;
+      const query = 'SELECT user_id FROM users WHERE email = $1;';
+      const result = (await this.db.generalQuery(query, [email])).rows[0].length;
+      const user_id = result.user_id;
+      res.status(200).send(count);
+    });
+
+    /**
+     * 
+     */
     this.app.get('/get_likes', async (req, res) => {
       const options = req.query;
       try {
@@ -283,15 +294,15 @@ class Server {
     /**
      * 
      */
-         this.app.get('/liked', async (req, res) => {
-          const options = req.query;
-          try {
-            const likes = await this.db.liked(options.post_id, options.user_id);
-            res.status(200).send(likes.rows[0]);
-          } catch (err) {
-            res.status(500).send({ error: 'There was an error retreiving whether user liked this post' });
-          }
-          res.end();
+      this.app.get('/liked', async (req, res) => {
+      const options = req.query;
+      try {
+        const likes = await this.db.liked(options.post_id, options.user_id);
+        res.status(200).send(likes.rows[0]);
+      } catch (err) {
+        res.status(500).send({ error: 'There was an error retreiving whether user liked this post' });
+      }
+      res.end();
     });
 
     /**
@@ -353,34 +364,38 @@ class Server {
     this.app.put('/update_password', async (req, res) => {
       const options = req.body;
 
-      const q1 = `SELECT password FROM users WHERE user_id = $1`;
-      try {
-        const actual_curr_password = (await this.db.generalQuery(q1, [options.user_id])).rows[0].password;
-        if (actual_curr_password === options.current_password) {
-          const q2 = `UPDATE users SET password = $1 WHERE user_id = $2`;
-          await this.db.generalQuery(q2, [options.new_password, options.user_id]);
-          const q3 = `SELECT email FROM users WHERE user_id = $1`;
-          const user_email = (await this.db.generalQuery(q3, [options.user_id])).rows[0].email;
+      if (!options.gen_new) {
+        const q1 = `SELECT password FROM users WHERE user_id = $1`;
+        try {
+          const actual_curr_password = (await this.db.generalQuery(q1, [options.user_id])).rows[0].password;
+          if (actual_curr_password === options.current_password) {
+            const q2 = `UPDATE users SET password = $1 WHERE user_id = $2`;
+            await this.db.generalQuery(q2, [options.new_password, options.user_id]);
+            const q3 = `SELECT email FROM users WHERE user_id = $1`;
+            const user_email = (await this.db.generalQuery(q3, [options.user_id])).rows[0].email;
 
-          const mailOptions = {
-            from: 'petstagram.03@hotmail.com',
-            to: user_email,
-            subject: 'Password Changed!',
-            text: 'This email is to inform you that your password has been changed.'
-          };
-          
-          transporter.sendMail(mailOptions, function(error){
-            if (error) {
-              console.log(error);
-            }
-          });
+            const mailOptions = {
+              from: 'petstagram.03@hotmail.com',
+              to: user_email,
+              subject: 'Password Changed!',
+              text: 'This email is to inform you that your password has been changed.'
+            };
+            
+            transporter.sendMail(mailOptions, function(error){
+              if (error) {
+                console.log(error);
+              }
+            });
 
-          res.sendStatus(200);
-        } else {
-          res.sendStatus(406);
+            res.sendStatus(200);
+          } else {
+            res.sendStatus(406);
+          }
+        } catch (err) {
+          res.sendStatus(500);
         }
-      } catch (err) {
-        res.sendStatus(500);
+      } else {
+
       }
     });
 

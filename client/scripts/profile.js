@@ -138,7 +138,7 @@ change_password.addEventListener("click", async () => {
     document.getElementById("password-change-message").innerHTML = "Your new password should be between 8 and 32 characters";
     document.getElementById("password-change-message").style.color = "red";
   } else {
-    const update_res = await crud.updatePassword(session_info.user_id, current_password.value, new_password.value);
+    const update_res = await crud.updatePassword(session_info.user_id, current_password.value, new_password.value, false);
     if (update_res.status === 200 && update_res.ok) {
       document.getElementById("password-change-message").innerHTML = "Password successfully updated";
       document.getElementById("password-change-message").style.color = "green";
