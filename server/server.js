@@ -1,6 +1,7 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
 import auth from './auth.js'
+import users from './users.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import morgan from 'morgan';
@@ -9,6 +10,7 @@ import DatabaseConnection from './database.js';
 import 'path';
 import nodemailer from 'nodemailer'
 import 'dotenv/config';
+import { dirname } from 'path';
 
 import expressSession from 'express-session';
 import passport from 'passport';
@@ -39,11 +41,6 @@ const headerFields = { 'Content-Type': 'application/json' };
 const __dirname = path.resolve();
 
 
-
-// const initializePassport = require("./auth");
-
-// initializePassport(passport);
-
 class Server {
   constructor(dburl) {
     this.dburl = dburl;
@@ -61,14 +58,14 @@ class Server {
         createParentPath: true
     }));
     this.app.use(
-        session({
-            // Key we want to keep secret which will encrypt all of our information
-            secret: process.env.SESSION_SECRET,
-            // Should we resave our session variables if nothing has changes which we dont
-            resave: false,
-            // Save empty value if there is no vaue which we do not want to do
-            saveUninitialized: false
-        })
+      session({
+        // Key we want to keep secret which will encrypt all of our information
+        secret: process.env.SESSION_SECRET,
+        // Should we resave our session variables if nothing has changes which we dont
+        resave: false,
+        // Save empty value if there is no vaue which we do not want to do
+        saveUninitialized: false
+      })
     );
     this.app.set("view engine", "htmlthis.");
 
@@ -189,14 +186,8 @@ initPostRoutes() {
   /**
    * AUTHENTICATION STUFF GOES HERE
    */
-
-
-  // this.app.get("/", (req, res) => {
-  //     res.render("index");
-  // });
-
   this.app.get("/client/signup.html", checkAuthenticated, (req, res) => {
-    res.render("signup.html");
+      res.render("signup.html");
   });
 
   this.app.get("/client/login.html", checkAuthenticated, (req, res) => {
@@ -249,37 +240,35 @@ initPostRoutes() {
         `SELECT * FROM users
         WHERE email = $1`, [email],
         (err, results) => {
-          if (err) {
-            console.log(err);
-          }
-          console.log(results.rows);
+        if (err) {
+          console.log(err);
+        }
+        console.log(results.rows);
 
-          if (results.rows.length > 0) {
-            return res.render("signup.html", {
-              message: "Email already registered"
-            });
-          } else {
-            pool.query(
-              `INSERT INTO users (name, email, password)
-              VALUES ($1, $2, $3)
-              RETURNING id, password`, [name, email, hashedPassword],
-              (err, results) => {
-                if (err) {
+        if (results.rows.length > 0) {
+          return res.render("signup.html", {
+          message: "Email already registered"
+        });
+      } else {
+        pool.query(
+            `INSERT INTO users (name, email, password)
+            VALUES ($1, $2, $3)
+            RETURNING id, password`, [name, email, hashedPassword],
+            (err, results) => {
+              if (err) {
                   throw err;
-                }
-                console.log(results.rows);
-                req.flash("success_msg", "You are now registered. Please log in");
-                res.redirect("/client/login.html");
               }
-            );
+              console.log(results.rows);
+              req.flash("success_msg", "You are now registered. Please log in");
+              res.redirect("/client/login.html");
+            });
           }
         }
       );
     }
   });
 
-  this.app.post(
-    "/login.html",
+  this.app.post("/login",
     passport.authenticate("local", {
       successRedirect: "/client/home.html",
       failureRedirect: "/client/login.html",
@@ -287,19 +276,10 @@ initPostRoutes() {
     })
   );
 
-  function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return res.redirect("/client/home.html");
-    }
-    next();
-  }
+  // this.app.get("/", (req, res) => {
+  //     res.render("index");
+  // });
 
-  function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next();
-    }
-    res.redirect("/client/login.html");
-  }
 
   // this.app.post('/login', async(req, res) => {
   //     const options = req.body;
@@ -604,3 +584,17 @@ start() {
 
 const server = new Server(process.env.DATABASE_URL);
 server.start();
+
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect("/client/home.html");
+  }
+  next();
+}
+
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/client/login.html");
+}

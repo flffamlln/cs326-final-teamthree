@@ -86,6 +86,11 @@ export async function createComment(post_id, user_id, comment) {
   }
 }
 
+/**
+ * 
+ * @param {File} new_file the file containing the new profile picture
+ * @returns 
+ */
 export async function uploadPP(new_file) {
   try {
     const picture = new FormData();
@@ -187,27 +192,6 @@ export async function downloadPhoto(newpp_path) {
 }
 
 /**
- * Return the number of posts created 
- * @returns Post information
- */
- export async function getNumPosts() {
-  try {
-    const response = await fetch(`/get_num_posts`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
-    const data = await response.json();
-    return data;
-  } catch (err) {
-    console.log(err);
-    return { status: 500, ok: false}
-  }
-}
-
-
-/**
  * Returns the username given user_id
  * @param {string} user_id 
  * @returns Post information
@@ -271,10 +255,8 @@ export async function downloadPhoto(newpp_path) {
 }
 
 /**
- * Return the 'num_posts' most recent posts for a user
- * @param {string} user_id 
- * @param {number} num_posts_requested 
- * @param {number} num_posts_present 
+ * Return the posts for a user
+ * @param {string} user_id
  * @returns An array of posts
  */
 export async function getUserPosts(user_id) {
@@ -389,6 +371,13 @@ export async function updateUser(user_id, new_first_name, new_last_name, new_use
   }
 }
 
+/**
+ * 
+ * @param {number} user_id The id of the user
+ * @param {String} current_password the user's current password gues
+ * @param {String} new_password the user's new password
+ * @returns 
+ */
 export async function updatePassword(user_id, current_password, new_password) {
   try {
     const new_data = {
