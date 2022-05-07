@@ -12,7 +12,7 @@ window.onload = async function () {
   loadUserInfo();
   loadPostCount();
   loadPosts();
-  await new Promise(r => setTimeout(r, 100));
+  await new Promise(r => setTimeout(r, 200));
   resizeElements();
 }
 
@@ -40,6 +40,7 @@ const display_post_overlay            = document.getElementById("display-post-ov
 const profile_container               = document.getElementById("profile-container");
 const post_description                = document.getElementById("post-description");
 const post_picture                    = document.getElementById("display-picture");
+const post_likes                      = document.getElementById("like-count");
 const post_comments_container         = document.getElementById("post-comments-container");
 
 const edit_profile_button = document.getElementById("edit-profile-button");
@@ -60,6 +61,7 @@ Array.from(back_to_profile_buttons).forEach(button => {
     post_description.innerHTML = "";
     post_picture.src = "";
     post_comments_container.innerHTML = "";
+    post_likes.innerHTML = "";
     document.getElementById("profile-picture-editable").src = (await crud.getUserInfo(session_info.user_id)).pp_path;
   });
 });
@@ -96,9 +98,7 @@ save_profile.addEventListener("click", async () => {
   const last_name       = document.getElementById("last-name").value;
   const username        = document.getElementById("username").value;
   const email           = document.getElementById("email").value;
-  // Hard coded to the millenium 2000
   const profile_picture = path_to_pp;
-  // const profile_picture = path_to_pp === '' ? (document.getElementById("profile-picture-main").src).slice(document.getElementById("profile-picture-main").src.indexOf('/2')) : path_to_pp;
   const res = await crud.updateUser(session_info.user_id, first_name, last_name, username, email, profile_picture);
   if (res === 200) {
     alert("Profile Successfully Updated");
@@ -273,24 +273,31 @@ function renderPost(post) {
   post_img.addEventListener("click", async () => {
     const post_info = await crud.getPost(post.post_id);
     const post_comments = await crud.getComments(post.post_id);
+    const like_count = (await crud.getLikes(post.post_id)).count;
     profile_container.style.filter = "blur(8px)";
     profile_container.style.pointerEvents = "none";
     display_post_overlay.style.visibility = "visible";
     post_picture.src = '/client/img/posts/' + post_info.picture_path;
     post_description.innerHTML = post_info.description;
+    post_likes.innerHTML = "Likes: " + like_count.toString();
 
-    post_comments.forEach(async (comment) => {
-      const usernameNode = document.createTextNode((await crud.getUsername(comment.user_id)).username);
-      const textDiv = document.createElement("div");
-      const comment_div = document.createElement("div");
-      const bold = document.createElement("strong");
-      textDiv.innerHTML = comment.comment;
-      bold.appendChild(usernameNode);
-      comment_div.classList.add("comment-div");
-      comment_div.appendChild(bold);
-      comment_div.appendChild(textDiv);
-      post_comments_container.appendChild(comment_div);
-    });
+    if (post_comments.length > 0) {
+      post_comments.forEach(async (comment) => {
+        const usernameNode = document.createTextNode((await crud.getUsername(comment.user_id)).username);
+        const textDiv = document.createElement("div");
+        const comment_div = document.createElement("div");
+        const bold = document.createElement("strong");
+        textDiv.innerHTML = comment.comment;
+        bold.appendChild(usernameNode);
+        comment_div.classList.add("comment-div");
+        comment_div.appendChild(bold);
+        comment_div.appendChild(textDiv);
+        post_comments_container.appendChild(comment_div);
+      });
+    } else {
+      const no_comments = document.createTextNode("No comments");
+      post_comments_container.appendChild(no_comments);
+    }
   });
 
   post_container.appendChild(post_img);

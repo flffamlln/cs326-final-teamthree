@@ -90,6 +90,18 @@ span b {
   padding-top: 5px;
 }
 
+.back-arrow {
+  font-weight: bolder;
+  font-size: 30pt;
+}
+
+
+
+#post-comments-container {
+  height: 25vh;
+  overflow-y: scroll;
+}
+
 #display-post-container {
   position: absolute;
   z-index: 40;
@@ -121,6 +133,7 @@ span b {
 }
 
 #recent-posts {
+  /* min-height: 70vh; */
   overflow-y: scroll;
   position: relative;
 }
