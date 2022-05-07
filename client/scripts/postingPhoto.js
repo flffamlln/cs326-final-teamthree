@@ -93,12 +93,9 @@ comment.addEventListener("click", async () => {
 // Like photo
 let like = document.getElementById("likeButton");
 like.addEventListener("click", async () => {
-    const likes_info = await getLikes(session_info.post_id);
-    const like_id = likes_info.count;
-
     const post_id = session_info.post_id; 
     const user_id = session_info.user_id;
-    const res = await updateLike(like_id, post_id, user_id);
+    const res = await updateLike(post_id, user_id);
     if(res === 200){
         alert("Like successfully went through");
         location.reload();

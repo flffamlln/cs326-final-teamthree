@@ -334,7 +334,7 @@ class Server {
     this.app.put('/update_likes', async (req, res) => {
       const options = req.body;
       try {
-        const likes = await this.db.addLike(options.like_id, options.post_id, options.user_id);
+        const likes = await this.db.addLike(options.post_id, options.user_id);
         res.status(200).send(likes.rows[0]);
       } catch (err) {
         res.status(500).send({ error: 'There was an error retreiving the likes' });
