@@ -179,8 +179,22 @@ export async function downloadPhoto(newpp_path) {
         'Content-Type': 'application/json'
       },
     });
-    const data = { status: response.status, ok: response.ok, post: await response.json() };
+    const data = await response.json();
     return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function downloadPost(post_path) {
+  try {
+    const response = await fetch(`/download_post?&post_path=${post_path}`, {
+      method: 'GET',
+    });
+
+    if (response.status === 200 && response.ok) {
+      return response.blob();
+    }
   } catch (err) {
     console.log(err);
   }
