@@ -55,7 +55,7 @@ class Server {
     this.app.post('/create_post', async (req, res) => {
       const options = req.body;
       try {
-        const postDetails = await this.db.addPost(options.post_id, options.user_id, options.picture_path, options.description, options.tag);
+        const postDetails = await this.db.addPost(options.user_id, options.picture_path, options.description, options.tag);
         res.status(200).send(postDetails.rows);
       } catch (err) {
         res.status(500).send({ error: 'There was an error creating a post' });

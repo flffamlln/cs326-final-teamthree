@@ -32,7 +32,6 @@ export async function createUser(first_name, last_name, username, email, passwor
 
 /**
  * Create a new post in the database
- * @param {int} post_id the post's id
  * @param {int} user_id the user's id
  * @param {string} picture_path post photo
  * @param {string} description   the post description
@@ -42,7 +41,6 @@ export async function createUser(first_name, last_name, username, email, passwor
 export async function createPost(post_id, user_id, picture_path, description, tag) {
   try {
     const post_data = {
-      post_id: post_id,
       user_id: user_id,
       picture_path: picture_path,
       description: description,

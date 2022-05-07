@@ -140,9 +140,9 @@ export default class DatabaseConnection {
       return result;
   }
   
-  async addPost(post_id, user_id, picture_path, description, tag) {
-      const query = 'INSERT INTO posts (post_id, user_id, picture_path, description, tag) VALUES ($1, $2, $3, $4, $5);';
-      const values = [post_id, user_id, picture_path, description, tag];
+  async addPost(user_id, picture_path, description, tag) {
+      const query = 'INSERT INTO posts (user_id, picture_path, description, tag) VALUES ($1, $2, $3, $4);';
+      const values = [user_id, picture_path, description, tag];
       const result = await this.client.query(query, values);
       return result;
   }
