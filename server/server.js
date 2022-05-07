@@ -249,6 +249,20 @@ class Server {
     /**
      * 
      */
+         this.app.get('/liked', async (req, res) => {
+          const options = req.query;
+          try {
+            const likes = await this.db.liked(options.post_id, options.user_id);
+            res.status(200).send(likes.rows[0]);
+          } catch (err) {
+            res.status(500).send({ error: 'There was an error retreiving whether user liked this post' });
+          }
+          res.end();
+    });
+
+    /**
+     * 
+     */
     this.app.get('/download_pp', async (req, res) => {
       const pp_path = __dirname + '/client/img/profile_pictures/' + req.query.newpp_path;
       res.status(200).sendFile(pp_path);
