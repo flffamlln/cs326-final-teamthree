@@ -12,29 +12,29 @@
 
 **User Interface:** <br>
 Login: Login page a user is redirected to if they are not loggined in yet. <br>
-<img src="..\final-UI\login.PNG" width="350"><br> <br>
+<img src="..\final-UI\login.PNG" width="500"><br> <br>
 
 Sign up: Sign up page a user is redirected to if sign up button clicked. <br>
-<img src="..\final-UI\signup.PNG" width="350"><br> <br>
+<img src="..\final-UI\signup.PNG" width="500"><br> <br>
 
 Forgot password: A page a user is redirected to if forgot password button clicked. <br>
-<img src="..\final-UI\forgotPassword.PNG" width="350"><br> <br>
+<img src="..\final-UI\forgotPassword.PNG" width="500"><br> <br>
 
 Feed: A page a user is shown once logged in. Shows all posts every created. Allows users to sort posts by tag.<br>
-<img src="..\final-UI\feed.PNG" width="350"><br>
-<img src="..\final-UI\feed1.PNG" width="350"><br>
-<img src="..\final-UI\feed2.PNG" width="350"><br> <br>
+<img src="..\final-UI\feed.PNG" width="500"><br>
+<img src="..\final-UI\feed1.PNG" width="500"><br>
+<img src="..\final-UI\feed2.PNG" width="500"><br> <br>
 
 Post View: A page where a user can view a specific post's data and like a post or add a comment to it. <br>
-<img src="..\final-UI\postView.PNG" width="350"><br> <br>
+<img src="..\final-UI\postView.PNG" width="500"><br> <br>
 
 Upload Photo: A page where a user can create a post with their image, description and tag. <br>
-<img src="..\final-UI\uploadPhoto.PNG" width="350"><br> <br>
+<img src="..\final-UI\uploadPhoto.PNG" width="500"><br> <br>
 
 Profile: A profile page of the user that is loggined in displaying their user data. Can click on a post to view post data. <br>
-<img src="..\final-UI\profile.PNG" width="350"><br> <br>
-<img src="..\final-UI\editProfile.PNG" width="350"><br> <br>
-<img src="..\final-UI\profilePostView.PNG" width="350"><br> <br>
+<img src="..\final-UI\profile.PNG" width="500"><br> <br>
+<img src="..\final-UI\editProfile.PNG" width="500"><br> <br>
+<img src="..\final-UI\profilePostView.PNG" width="500"><br> <br>
 
 **APIs:** *A final up-to-date list/table describing your application’s API*
 
