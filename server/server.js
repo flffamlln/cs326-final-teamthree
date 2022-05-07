@@ -335,7 +335,7 @@ class Server {
       const options = req.body;
       try {
         const likes = await this.db.addLike(options.post_id, options.user_id);
-        res.status(200).send(likes.rows[0]);
+        res.status(200);
       } catch (err) {
         res.status(500).send({ error: 'There was an error retreiving the likes' });
       }

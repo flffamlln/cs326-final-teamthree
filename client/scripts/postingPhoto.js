@@ -94,9 +94,10 @@ like.addEventListener("click", async () => {
     const user_id = session_info.user_id;
     const res = await updateLike(post_id, user_id);
     if(res === 200){
-        alert("Like successfully went through");
+        alert("Like successfully went through or you have already liked this post");
         location.reload();
-    } else{
+    } 
+    else{
         alert("There was an error liking the photo");
         location.reload();
     }
