@@ -39,7 +39,8 @@ const edit_profile_overlay            = document.getElementById("edit-profile-ov
 const display_post_overlay            = document.getElementById("display-post-overlay");
 const profile_container               = document.getElementById("profile-container");
 const post_description                = document.getElementById("post-description");
-const post_img                        = document.getElementById("display-picture");
+const post_picture                    = document.getElementById("display-picture");
+const post_comments_container         = document.getElementById("post-comments-container");
 
 const edit_profile_button = document.getElementById("edit-profile-button");
 edit_profile_button.addEventListener("click", () => {
@@ -57,7 +58,8 @@ Array.from(back_to_profile_buttons).forEach(button => {
     change_profile_picture_overlay.style.visibility = "hidden";
     display_post_overlay.style.visibility = "hidden";
     post_description.innerHTML = "";
-    post_img.src = "";
+    post_picture.src = "";
+    post_comments_container.innerHTML = "";
     document.getElementById("profile-picture-editable").src = (await crud.getUserInfo(session_info.user_id)).pp_path;
   });
 });
@@ -265,16 +267,26 @@ function renderPost(post) {
   post_img.classList.add("rounded");
   post_img.classList.add("shadow-sm");
   post_img.classList.add("pointer");
-  post_img.src = '/client/img/posts/' + post.picture_path;
+  post_img.src = "/client/img/posts/" + post.picture_path;
   post_img.alt = "Oops, this image couldn't be found";
   post_img.width = 375;
   post_img.addEventListener("click", async () => {
     const post_info = await crud.getPost(post.post_id);
+    const post_comments = await crud.getComments(post.post_id);
     profile_container.style.filter = "blur(8px)";
     profile_container.style.pointerEvents = "none";
     display_post_overlay.style.visibility = "visible";
-    post_img.src = '/client/img/posts/' + post_info.picture_path;
+    post_picture.src = '/client/img/posts/' + post_info.picture_path;
     post_description.innerHTML = post_info.description;
+
+    post_comments.forEach(async (comment) => {
+      const usernameNode = document.createTextNode((await crud.getUsername(comment.user_id)).username);
+      const textNode = document.createTextNode(comment.comment);
+      const comment_div = document.createElement("div");
+      comment_div.appendChild(usernameNode);
+      comment_div.appendChild(textNode);
+      post_comments_container.appendChild(comment_div);
+    });
   });
 
   post_container.appendChild(post_img);
