@@ -40,6 +40,6 @@ likes table
 <ins>**Breakdown of Labor for Milestone 3**</ins> <br>
 
 * Lucas Bertoni
-* Youmna Alnasrallah
+* Youmna Alnasrallah - worked on the authentication of the login and sign up pages. 
 * Yuri Kim - built fullstack functionality of uploading a post (image saving, description, tag, poster), viewing a post's details (postingPhoto), likes and comments
 * Emily Torok
