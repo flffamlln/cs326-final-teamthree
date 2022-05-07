@@ -233,13 +233,14 @@ initPostRoutes() {
       // Validation passed
       const q1 = 'SELECT * FROM users WHERE email = $1';
       const result = await this.db.generalQuery(q1, [email]);
-      // console.log(result);
+      console.log(result, "here");
 
       if (result.rows.length > 0) {
         // THIS DOESN'T WORK
         return res.render("signup.html", { message: "Email already registered" });
       } else {
-        const r2 = await this.db.createUser(username, firstname, lastname, email, password);
+        console.log("hi");
+        const r2 = await this.db.createUser(username, firstname, lastname, email, hashedPassword);
         console.log(r2.rows);
         req.flash("success_msg", "You are now registered. Please log in");
         res.redirect("/client/login.html");
@@ -255,31 +256,6 @@ initPostRoutes() {
     })
   );
 
-  // this.app.get("/", (req, res) => {
-  //     res.render("index");
-  // });
-
-
-  // this.app.post('/login', async(req, res) => {
-  //     const options = req.body;
-
-  //     // Query database here
-
-  //     res.writeHead(200, headerFields);
-  //     res.end();
-  // });
-
-  // /**
-  //  * 
-  //  */
-  // this.app.post('/signup', async(req, res) => {
-  //     const options = req.body;
-
-  //     // Query database here
-
-  //     res.writeHead(200, headerFields);
-  //     res.end();
-  // });
 }
 
 // Initialize all of the routes for getting stuff
