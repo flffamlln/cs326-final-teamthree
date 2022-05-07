@@ -48,4 +48,4 @@ likes table
   - Implemented displaying a specific post (picture, likes, comments) on a user's profile page
 * Youmna Alnasrallah - worked on the authentication of the login and sign up pages. 
 * Yuri Kim - built fullstack functionality of uploading a post (image saving, description, tag, poster), viewing a post's details (postingPhoto), likes and comments
-* Emily Torok
+* Emily Torok - Implemented displaying the feed of posts on the home page, viewing posts according to their tags, and viewing a specific post's details when clicking on it (in order to like or comment on that post).
