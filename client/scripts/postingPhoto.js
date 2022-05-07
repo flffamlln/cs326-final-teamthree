@@ -39,13 +39,10 @@ async function loadPhoto() {
     const thumbsup = document.getElementById("thumbsup");
     const liked_info = await liked(session_info.post_id, session_info.user_id);
     const likedBool = liked_info.count;
-    console.log(likedBool);
     if(likedBool > 0){
         thumbsup.style.fill = "black";
-        console.log("Liked");
     } else{
         thumbsup.style.fill = "white";
-        console.log("Did not like");
     }
 
     const likes_info = await getLikes(session_info.post_id);
