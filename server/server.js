@@ -1,22 +1,21 @@
 import express from 'express';
-import expressSession from 'express-session';
 import fileUpload from 'express-fileupload';
-import users from './users.js';
 import auth from './auth.js'
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 import path from 'path';
 import morgan from 'morgan';
 import logger from 'morgan';
 import DatabaseConnection from './database.js';
 import 'path';
 import nodemailer from 'nodemailer'
-import * as fs from 'fs';
 import 'dotenv/config';
-import passport from 'passport';
-import passportLocal from 'passport-local';
-import flash from 'express-flash';
-import session from 'express-session';
+
+// import users from './users.js';
+// import expressSession from 'express-session';
+// import passport from 'passport';
+// import passportLocal from 'passport-local';
+// import flash from 'express-flash';
+// import session from 'express-session';
 
 const __filename = fileURLToPath(
     import.meta.url);
