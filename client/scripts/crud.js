@@ -86,6 +86,11 @@ export async function createComment(post_id, user_id, comment) {
   }
 }
 
+/**
+ * 
+ * @param {File} new_file the file containing the new profile picture
+ * @returns 
+ */
 export async function uploadPP(new_file) {
   try {
     const picture = new FormData();
