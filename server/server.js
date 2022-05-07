@@ -4,13 +4,11 @@ import auth from './auth.js'
 import users from './users.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import morgan from 'morgan';
-import logger from 'morgan';
 import DatabaseConnection from './database.js';
 import 'path';
 import nodemailer from 'nodemailer'
 import 'dotenv/config';
-import { dirname } from 'path';
+import bcrypt from 'bcrypt';
 
 import expressSession from 'express-session';
 import passport from 'passport';
@@ -55,7 +53,7 @@ class Server {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use('/client', express.static(path.join(__dirname, 'client')));
     this.app.use(fileUpload({
-        createParentPath: true
+      createParentPath: true
     }));
     this.app.use(
       session({
@@ -187,7 +185,7 @@ initPostRoutes() {
    * AUTHENTICATION STUFF GOES HERE
    */
   this.app.get("/client/signup.html", checkAuthenticated, (req, res) => {
-      res.render("signup.html");
+    res.render("signup.html");
   });
 
   this.app.get("/client/login.html", checkAuthenticated, (req, res) => {
@@ -206,65 +204,59 @@ initPostRoutes() {
   //     res.render("index", { message: "You have logged out successfully" });
   // });
 
-  this.app.post("/client/signup.html", async(req, res) => {
-    let { name, email, password, password2 } = req.body;
+  this.app.post("/signup", async(req, res) => {
+    console.log(req.body);
+    const options = req.body;
+    const username = options.username;
+    const email = options.email;
+    const password = options.password;
+    const password2 = options.confirmPassword;
 
     let errors = [];
 
     console.log({
-      name,
+      username,
       email,
       password,
       password2
     });
 
-    if (!name || !email || !password || !password2) {
+    if (!username || !email || !password || !password2) {
+      console.log("Fields error");
       errors.push({ message: "Please enter all fields" });
     }
 
     if (password.length < 6) {
+      console.log("Length error");
       errors.push({ message: "Password must be a least 6 characters long" });
     }
 
     if (password !== password2) {
+      console.log("Password error");
       errors.push({ message: "Passwords do not match" });
     }
 
     if (errors.length > 0) {
-      res.render("signup.html", { errors, name, email, password, password2 });
+      console.log("HERE BAD");
+      res.render("signup.html", { errors, username, email, password, password2 });
     } else {
-      hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10);
       console.log(hashedPassword);
-      // Validation passed
-      pool.query(
-        `SELECT * FROM users
-        WHERE email = $1`, [email],
-        (err, results) => {
-        if (err) {
-          console.log(err);
-        }
-        console.log(results.rows);
 
-        if (results.rows.length > 0) {
-          return res.render("signup.html", {
-          message: "Email already registered"
-        });
+      // Validation passed
+      const q1 = 'SELECT * FROM users WHERE email = $1';
+      const result = await this.db.generalQuery(q1, [email]);
+      // console.log(result);
+
+      if (result.rows.length > 0) {
+        // THIS DOESN'T WORK
+        return res.render("signup.html", { message: "Email already registered" });
       } else {
-        pool.query(
-            `INSERT INTO users (name, email, password)
-            VALUES ($1, $2, $3)
-            RETURNING id, password`, [name, email, hashedPassword],
-            (err, results) => {
-              if (err) {
-                  throw err;
-              }
-              console.log(results.rows);
-              req.flash("success_msg", "You are now registered. Please log in");
-              res.redirect("/client/login.html");
-            });
-          }
-        }
-      );
+        const r2 = await this.db.createUser(username, email, password);
+        console.log(r2.rows);
+        req.flash("success_msg", "You are now registered. Please log in");
+        res.redirect("/client/login.html");
+      }
     }
   });
 

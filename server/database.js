@@ -77,20 +77,20 @@ export default class DatabaseConnection {
   /**
    * 
    */
-     async getUsername(user_id) {
-      const query = 'SELECT username FROM users WHERE user_id = $1 LIMIT 1;';
-      const values = [user_id];
-      const result = await this.client.query(query, values);
-      return result;
-    }
+  async getUsername(user_id) {
+    const query = 'SELECT username FROM users WHERE user_id = $1 LIMIT 1;';
+    const values = [user_id];
+    const result = await this.client.query(query, values);
+    return result;
+  }
   
   /**
    * 
    */
   async getNumPosts() {
-      const query = 'SELECT COUNT(*) FROM posts;';
-      const result = await this.client.query(query);
-      return result;
+    const query = 'SELECT COUNT(*) FROM posts;';
+    const result = await this.client.query(query);
+    return result;
   }
   
 
@@ -107,70 +107,80 @@ export default class DatabaseConnection {
   /**
    * 
    */
-     async getComments(post_id) {
-      const query = 'SELECT * FROM comments WHERE post_id = $1;';
-      const values = [post_id];
-      const result = await this.client.query(query, values);
-      return result;
-    }
+  async getComments(post_id) {
+    const query = 'SELECT * FROM comments WHERE post_id = $1;';
+    const values = [post_id];
+    const result = await this.client.query(query, values);
+    return result;
+  }
 
   /**
    * 
    */
-     async getLikes(post_id) {
-      const query = 'SELECT COUNT(*) FROM likes WHERE post_id = $1;';
-      const values = [post_id];
-      const result = await this.client.query(query, values);
-      return result;
-    }
+  async getLikes(post_id) {
+    const query = 'SELECT COUNT(*) FROM likes WHERE post_id = $1;';
+    const values = [post_id];
+    const result = await this.client.query(query, values);
+    return result;
+  }
 
   /**
    * 
    */
-    async liked(post_id, user_id) {
-        const query = 'SELECT COUNT(*) FROM likes WHERE post_id = $1 AND user_id = $2;';
-        const values = [post_id, user_id];
-        const result = await this.client.query(query, values);
-        return result;
-    }
+  async liked(post_id, user_id) {
+    const query = 'SELECT COUNT(*) FROM likes WHERE post_id = $1 AND user_id = $2;';
+    const values = [post_id, user_id];
+    const result = await this.client.query(query, values);
+    return result;
+  }
 
   /**
    * 
    */
   async addLike(post_id, user_id) {
-        const query1 = 'SELECT COUNT(*) FROM likes WHERE post_id = $1 AND user_id = $2;';
-        const values1 = [post_id, user_id];
-        const result1 = await this.client.query(query1, values1);
-        if(result1.rows[0].count == 0){
-          const query = 'INSERT INTO likes (post_id, user_id) VALUES ($1, $2);';
-          const values = [post_id, user_id];
-          const result = await this.client.query(query, values);
-          return result;
-        }
-        return;
+    const query1 = 'SELECT COUNT(*) FROM likes WHERE post_id = $1 AND user_id = $2;';
+    const values1 = [post_id, user_id];
+    const result1 = await this.client.query(query1, values1);
+    if(result1.rows[0].count == 0){
+      const query = 'INSERT INTO likes (post_id, user_id) VALUES ($1, $2);';
+      const values = [post_id, user_id];
+      const result = await this.client.query(query, values);
+      return result;
+    }
+
+    return;
   }
   
   /**
    * 
    */
   async addComment(post_id, user_id, comment) {
-      const query = 'INSERT INTO comments (post_id, user_id, comment) VALUES ($1, $2, $3);';
-      const values = [post_id, user_id, comment];
-      const result = await this.client.query(query, values);
-      return result;
+    const query = 'INSERT INTO comments (post_id, user_id, comment) VALUES ($1, $2, $3);';
+    const values = [post_id, user_id, comment];
+    const result = await this.client.query(query, values);
+    return result;
   }
   
   async addPost(user_id, picture_path, description, tag) {
-      const query = 'INSERT INTO posts (user_id, picture_path, description, tag) VALUES ($1, $2, $3, $4);';
-      const values = [user_id, picture_path, description, tag];
-      const result = await this.client.query(query, values);
-      return result;
+    const query = 'INSERT INTO posts (user_id, picture_path, description, tag) VALUES ($1, $2, $3, $4);';
+    const values = [user_id, picture_path, description, tag];
+    const result = await this.client.query(query, values);
+    return result;
   }
 
   async getFeed(tag) {
     const query = 'SELECT * FROM posts WHERE tag = $1;';
     const values = [tag];
     const result = await this.client.query(query,values);
+    return result;
+  }
+
+  async createUser(username, email, password) {
+    const query = `INSERT INTO users (username, email, password)
+                    VALUES ($1, $2, $3)
+                    RETURNING user_id, password`;
+    const values = [username, email, password];
+    const result = await this.client.query(query, values);
     return result;
   }
 
