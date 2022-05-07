@@ -1,6 +1,5 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
-import auth from './auth.js'
 import { fileURLToPath } from 'url';
 import path from 'path';
 import morgan from 'morgan';
@@ -9,15 +8,19 @@ import DatabaseConnection from './database.js';
 import 'path';
 import nodemailer from 'nodemailer'
 import 'dotenv/config';
-
+import { dirname } from 'path';
+import users from './users.js';
+import auth from './auth.js';
 import expressSession from 'express-session';
 import passport from 'passport';
+
 import passportLocal from 'passport-local';
 import flash from 'express-flash';
 import session from 'express-session';
 
 const __filename = fileURLToPath(
     import.meta.url);
+
 
 // Session configuration
 const sessionConfig = {
@@ -37,12 +40,6 @@ const transporter = nodemailer.createTransport({
 
 const headerFields = { 'Content-Type': 'application/json' };
 const __dirname = path.resolve();
-
-
-
-// const initializePassport = require("./auth");
-
-// initializePassport(passport);
 
 class Server {
     constructor(dburl) {
@@ -71,6 +68,9 @@ class Server {
             })
         );
         this.app.set("view engine", "htmlthis.");
+
+        auth.configure(this.app);
+
 
         // Temporary
         // this.app.use(logger('dev'));
@@ -195,111 +195,111 @@ class Server {
         //     res.render("index");
         // });
 
-        this.app.get("/client/signup.html", checkAuthenticated, (req, res) => {
-            res.render("signup.html");
-        });
-
-        this.app.get("/client/login.html", checkAuthenticated, (req, res) => {
-            // flash sets a messages variable. passport sets the error message
-            console.log(req.session.flash.error);
-            res.render("login.html");
-        });
-
-        this.app.get("/client/home.html", checkNotAuthenticated, (req, res) => {
-            console.log(req.isAuthenticated());
-            res.render("home.html", { user: req.user.name });
-        });
-
-        // this.app.get("/users/logout", (req, res) => {
-        //     req.logout();
-        //     res.render("index", { message: "You have logged out successfully" });
+        // this.app.get("/client/signup.html", checkAuthenticated, (req, res) => {
+        //     res.render("signup.html");
         // });
 
-        this.app.post("/client/signup.html", async(req, res) => {
-            let { name, email, password, password2 } = req.body;
+        // this.app.get("/client/login.html", checkAuthenticated, (req, res) => {
+        //     // flash sets a messages variable. passport sets the error message
+        //     console.log(req.session.flash.error);
+        //     res.render("login.html");
+        // });
 
-            let errors = [];
+        // this.app.get("/client/home.html", checkNotAuthenticated, (req, res) => {
+        //     console.log(req.isAuthenticated());
+        //     res.render("home.html", { user: req.user.name });
+        // });
 
-            console.log({
-                name,
-                email,
-                password,
-                password2
-            });
+        // // this.app.get("/users/logout", (req, res) => {
+        // //     req.logout();
+        // //     res.render("index", { message: "You have logged out successfully" });
+        // // });
 
-            if (!name || !email || !password || !password2) {
-                errors.push({ message: "Please enter all fields" });
-            }
+        // this.app.post("/client/signup.html", async(req, res) => {
+        //     let { name, email, password, password2 } = req.body;
 
-            if (password.length < 6) {
-                errors.push({ message: "Password must be a least 6 characters long" });
-            }
+        //     let errors = [];
 
-            if (password !== password2) {
-                errors.push({ message: "Passwords do not match" });
-            }
+        //     console.log({
+        //         name,
+        //         email,
+        //         password,
+        //         password2
+        //     });
 
-            if (errors.length > 0) {
-                res.render("signup.html", { errors, name, email, password, password2 });
-            } else {
-                hashedPassword = await bcrypt.hash(password, 10);
-                console.log(hashedPassword);
-                // Validation passed
-                pool.query(
-                    `SELECT * FROM users
-        WHERE email = $1`, [email],
-                    (err, results) => {
-                        if (err) {
-                            console.log(err);
-                        }
-                        console.log(results.rows);
+        //     if (!name || !email || !password || !password2) {
+        //         errors.push({ message: "Please enter all fields" });
+        //     }
 
-                        if (results.rows.length > 0) {
-                            return res.render("signup.html", {
-                                message: "Email already registered"
-                            });
-                        } else {
-                            pool.query(
-                                `INSERT INTO users (name, email, password)
-              VALUES ($1, $2, $3)
-              RETURNING id, password`, [name, email, hashedPassword],
-                                (err, results) => {
-                                    if (err) {
-                                        throw err;
-                                    }
-                                    console.log(results.rows);
-                                    req.flash("success_msg", "You are now registered. Please log in");
-                                    res.redirect("/client/login.html");
-                                }
-                            );
-                        }
-                    }
-                );
-            }
-        });
+        //     if (password.length < 6) {
+        //         errors.push({ message: "Password must be a least 6 characters long" });
+        //     }
 
-        this.app.post(
-            "/login.html",
-            passport.authenticate("local", {
-                successRedirect: "/client/home.html",
-                failureRedirect: "/client/login.html",
-                failureFlash: true
-            })
-        );
+        //     if (password !== password2) {
+        //         errors.push({ message: "Passwords do not match" });
+        //     }
 
-        function checkAuthenticated(req, res, next) {
-            if (req.isAuthenticated()) {
-                return res.redirect("/client/home.html");
-            }
-            next();
-        }
+        //     if (errors.length > 0) {
+        //         res.render("signup.html", { errors, name, email, password, password2 });
+        //     } else {
+        //         hashedPassword = await bcrypt.hash(password, 10);
+        //         console.log(hashedPassword);
+        //         // Validation passed
+        //         pool.query(
+        //             `SELECT * FROM users
+        // WHERE email = $1`, [email],
+        //             (err, results) => {
+        //                 if (err) {
+        //                     console.log(err);
+        //                 }
+        //                 console.log(results.rows);
 
-        function checkNotAuthenticated(req, res, next) {
-            if (req.isAuthenticated()) {
-                return next();
-            }
-            res.redirect("/client/login.html");
-        }
+        //                 if (results.rows.length > 0) {
+        //                     return res.render("signup.html", {
+        //                         message: "Email already registered"
+        //                     });
+        //                 } else {
+        //                     pool.query(
+        //                         `INSERT INTO users (name, email, password)
+        //       VALUES ($1, $2, $3)
+        //       RETURNING id, password`, [name, email, hashedPassword],
+        //                         (err, results) => {
+        //                             if (err) {
+        //                                 throw err;
+        //                             }
+        //                             console.log(results.rows);
+        //                             req.flash("success_msg", "You are now registered. Please log in");
+        //                             res.redirect("/client/login.html");
+        //                         }
+        //                     );
+        //                 }
+        //             }
+        //         );
+        //     }
+        // });
+
+        // this.app.post(
+        //     "/login.html",
+        //     passport.authenticate("local", {
+        //         successRedirect: "/client/home.html",
+        //         failureRedirect: "/client/login.html",
+        //         failureFlash: true
+        //     })
+        // );
+
+        // function checkAuthenticated(req, res, next) {
+        //     if (req.isAuthenticated()) {
+        //         return res.redirect("/client/home.html");
+        //     }
+        //     next();
+        // }
+
+        // function checkNotAuthenticated(req, res, next) {
+        //     if (req.isAuthenticated()) {
+        //         return next();
+        //     }
+        //     res.redirect("/client/login.html");
+        // }
 
         // this.app.post('/login', async(req, res) => {
         //     const options = req.body;
@@ -321,6 +321,85 @@ class Server {
         //     res.writeHead(200, headerFields);
         //     res.end();
         // });
+
+
+        // Our own middleware to check if the user is authenticated
+        function checkLoggedIn(req, res, next) {
+            if (req.isAuthenticated()) {
+                // If we are authenticated, run the next route.
+                next();
+            } else {
+                // Otherwise, redirect to the login page.
+                res.redirect('/login');
+            }
+        }
+
+        this.app.get('/', checkLoggedIn, (req, res) => {
+            res.send('/home');
+        });
+
+        // Handle the URL /login (just output the login.html file).
+        this.app.get('/login', (req, res) =>
+            res.sendFile('client/login.html', { root: dirname(dirname(__filename)) })
+        );
+
+        // Handle post data from the login.html form.
+        this.app.post(
+            '/login',
+            auth.authenticate('local', {
+                // use username/password authentication
+                successRedirect: '/private', // when we login, go to /private
+                failureRedirect: '/login', // otherwise, back to login
+            })
+        );
+
+
+        // Like login, but add a new user and password IFF one doesn't exist already.
+        // If we successfully add a new user, go to /login, else, back to /register.
+        // Use req.body to access data (as in, req.body['username']).
+        // Use res.redirect to change URLs.
+        this.app.post('/signup', (req, res) => {
+            const { username, password } = req.body;
+            if (users.addUser(username, password)) {
+                res.redirect('/login');
+            } else {
+                res.redirect('/signup');
+            }
+        });
+
+        // Register URL
+        this.app.get('/signup', (req, res) =>
+            res.sendFile('client/signup.html', { root: dirname(dirname(__filename)) })
+        );
+
+        // Private data
+        this.app.get(
+            '/private',
+            checkLoggedIn, // If we are logged in (notice the comma!)...
+            (req, res) => {
+                // Go to the user's page.
+                res.redirect('/private/' + req.user);
+            }
+        );
+
+        // A dummy page for the user.
+        this.app.get(
+            '/private/:userID/',
+            checkLoggedIn, // We also protect this route: authenticated...
+            (req, res) => {
+                // Verify this is the right user.
+                if (req.params.userID === req.user) {
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.end();
+                } else {
+                    res.redirect('/private/');
+                }
+            }
+        );
+
+        this.app.get('*', (req, res) => {
+            res.send('Error');
+        });
     }
 
     // Initialize all of the routes for getting stuff
