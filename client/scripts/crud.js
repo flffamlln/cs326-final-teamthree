@@ -38,7 +38,7 @@ export async function createUser(first_name, last_name, username, email, passwor
  * @param {string} tag the post tag
  * @returns 200 if the post was successfully created, 400 otherwise
  */
-export async function createPost(post_id, user_id, picture_path, description, tag) {
+export async function createPost(user_id, picture_path, description, tag) {
   try {
     const post_data = {
       user_id: user_id,
