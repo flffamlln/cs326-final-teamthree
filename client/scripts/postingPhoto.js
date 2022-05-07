@@ -72,15 +72,12 @@ async function loadPhoto() {
 // Add comment
 let comment = document.getElementById("button-addon2");
 comment.addEventListener("click", async () => {
-    const comment_info = await getComments(session_info.post_id);
-    const comment_id = comment_info.length;
-
     const post_id = session_info.post_id; 
     const user_id = session_info.user_id;
 
     const comment = document.getElementById("comment-text").value;
 
-    const res = await createComment(comment_id, post_id, user_id, comment);
+    const res = await createComment(post_id, user_id, comment);
     if(res === 200){
         alert("Comment successfully created");
         location.reload();
@@ -97,9 +94,10 @@ like.addEventListener("click", async () => {
     const user_id = session_info.user_id;
     const res = await updateLike(post_id, user_id);
     if(res === 200){
-        alert("Like successfully went through");
+        alert("Like successfully went through or you have already liked this post");
         location.reload();
-    } else{
+    } 
+    else{
         alert("There was an error liking the photo");
         location.reload();
     }

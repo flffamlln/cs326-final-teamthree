@@ -66,10 +66,9 @@ export async function createPost(user_id, picture_path, description, tag) {
  * @param {string} comment   the comment text
  * @returns 200 if the comment was successfully created, 400 otherwise
  */
-export async function createComment(comment_id, post_id, user_id, comment) {
+export async function createComment(post_id, user_id, comment) {
   try {
     const new_data = {
-      comment_id: comment_id,
       post_id: post_id,
       user_id: user_id,
       comment: comment,
