@@ -266,9 +266,9 @@ function renderPost(post) {
   post_img.classList.add("rounded");
   post_img.classList.add("shadow-sm");
   post_img.classList.add("pointer");
+  post_img.classList.add("post-img");
   post_img.src = "/client/img/posts/" + post.picture_path;
   post_img.alt = "Oops, this image couldn't be found";
-  post_img.width = 375;
   post_img.addEventListener("click", async () => {
     const post_info = await crud.getPost(post.post_id);
     const post_comments = await crud.getComments(post.post_id);
