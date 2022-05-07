@@ -281,10 +281,14 @@ function renderPost(post) {
 
     post_comments.forEach(async (comment) => {
       const usernameNode = document.createTextNode((await crud.getUsername(comment.user_id)).username);
-      const textNode = document.createTextNode(comment.comment);
+      const textDiv = document.createElement("div");
       const comment_div = document.createElement("div");
-      comment_div.appendChild(usernameNode);
-      comment_div.appendChild(textNode);
+      const bold = document.createElement("strong");
+      textDiv.innerHTML = comment.comment;
+      bold.appendChild(usernameNode);
+      comment_div.classList.add("comment-div");
+      comment_div.appendChild(bold);
+      comment_div.appendChild(textDiv);
       post_comments_container.appendChild(comment_div);
     });
   });
