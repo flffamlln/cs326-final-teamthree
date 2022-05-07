@@ -186,20 +186,6 @@ export async function downloadPhoto(newpp_path) {
   }
 }
 
-export async function downloadPost(post_path) {
-  try {
-    const response = await fetch(`/download_post?&post_path=${post_path}`, {
-      method: 'GET',
-    });
-
-    if (response.status === 200 && response.ok) {
-      return response.blob();
-    }
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 /**
  * Return the number of posts created 
  * @returns Post information
