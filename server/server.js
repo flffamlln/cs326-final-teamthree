@@ -69,7 +69,7 @@ class Server {
     this.app.post('/add_comment', async (req, res) => {
       const options = req.body;
       try {
-        const comments = await this.db.addComment(options.comment_id, options.post_id, options.user_id, options.comment);
+        const comments = await this.db.addComment(options.post_id, options.user_id, options.comment);
         res.status(200).send(comments.rows[0]);
       } catch (err) {
         res.status(500).send({ error: 'There was an error adding a comment' });
