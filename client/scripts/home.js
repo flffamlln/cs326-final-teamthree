@@ -25,11 +25,10 @@ async function getPostFeedPath() {
   const tagFilter = document.getElementById("drop-button");
   console.log(tagFilter.value);
   const results = await crud.getFeed(tagFilter.value);
-  console.log(results);
   for(let i = 0; i < Object.keys(results).length; ++i){
-    feed_photos_path.push(results[i].picture_path);
+    feed_photos_path.push([results[i].post_id,results[i].picture_path]);
   }
-  
+  console.log(feed_photos_path);
   getPostFeedImages();
 }
 
@@ -37,10 +36,11 @@ async function getPostFeedImages() {
   feed_photos_scr = [];
   for (let i = 0; i <feed_photos_path.length; ++i){
     try{
-      const downloadPostBlob = await crud.downloadPost(feed_photos_path[i]);
+      console.log(feed_photos_path[i][1]);
+      const downloadPostBlob = await crud.downloadPost(feed_photos_path[i][1]);
       if(downloadPostBlob !== undefined){
         const imgURL = URL.createObjectURL(downloadPostBlob);
-        feed_photos_scr.push(imgURL);
+        feed_photos_scr.push([imgURL,feed_photos_path[i][0]]);
       }
     } catch (err){
       console.log(err.message);
@@ -66,10 +66,9 @@ async function displayFeed() {
       photo.classList.add("img-fluid");
       photo.classList.add("rounded");
       photo.classList.add("shadow-sm");
-      
+      photo.id = feed_photos_scr[2*i + j][1];
 
-
-      photo.src = feed_photos_scr[2*i + j];
+      photo.src = feed_photos_scr[2*i + j][0];
       
       photo.addEventListener("click", redirected);
       centering.appendChild(photo);
@@ -79,12 +78,6 @@ async function displayFeed() {
   }
 }
 
-function redirected() {
-  //window.location.href = "/client/postingPhoto.html?post_id=${3}";
-  window.location.replace("/client/postingPhoto.html?post_id=3");
-}
-
-async function addFeedPhoto(image) {
-  crud.getFeed();
-  feed_photos.push(image);
+function redirected(e) {
+  window.location.replace(`/client/postingPhoto.html?post_id=${e.path[0].id}`);
 }

@@ -25,22 +25,11 @@ td:hover{
   background-color: #f1f1f1;
   border-radius: 10px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  color: #971B2F;
   display: none;
   min-width: 160px;
   position: absolute;
   z-index: 1;
-}
-
-.tags a {
-  border-radius: 10px;
-  color: #971B2F;
-  display: block;
-  padding: 12px 16px;
-  text-decoration: none;
-}
-
-.tags a:hover {
-  background-color: #ddd;
 }
 
 .dropdown:hover .tags {
@@ -95,6 +84,11 @@ td:hover{
 
 #drop-button:hover {
   background-color: #971B2F;
+  color: white;
+}
+
+#label {
+  margin-top: 10px;
 }
 
 #upload-button {

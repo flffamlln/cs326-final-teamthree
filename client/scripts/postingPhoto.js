@@ -1,12 +1,18 @@
 import { liked, getUsername, getComments, createComment, getPost, updateLike, getLikes } from './crud.js';
 
-const session_info = {
+let session_info = {
     user_id: 1,
     post_id: 15
 };
 
 window.onload = async function () {
+    getPostID();
     loadPhoto();
+}
+
+function getPostID(){
+    const parameters = new URLSearchParams(window.location.search);
+    session_info.post_id = parameters.get('post_id');
 }
 
 async function loadPhoto() {
