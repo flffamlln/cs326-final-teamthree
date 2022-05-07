@@ -255,22 +255,22 @@ initPostRoutes() {
           console.log(results.rows);
 
           if (results.rows.length > 0) {
-              return res.render("signup.html", {
-                message: "Email already registered"
-              });
+            return res.render("signup.html", {
+              message: "Email already registered"
+            });
           } else {
             pool.query(
-                `INSERT INTO users (name, email, password)
-                VALUES ($1, $2, $3)
-                RETURNING id, password`, [name, email, hashedPassword],
-                (err, results) => {
-                  if (err) {
-                    throw err;
-                  }
-                  console.log(results.rows);
-                  req.flash("success_msg", "You are now registered. Please log in");
-                  res.redirect("/client/login.html");
+              `INSERT INTO users (name, email, password)
+              VALUES ($1, $2, $3)
+              RETURNING id, password`, [name, email, hashedPassword],
+              (err, results) => {
+                if (err) {
+                  throw err;
                 }
+                console.log(results.rows);
+                req.flash("success_msg", "You are now registered. Please log in");
+                res.redirect("/client/login.html");
+              }
             );
           }
         }
@@ -541,25 +541,25 @@ initPutRoutes() {
    * 
    */
   this.app.put('/update_likes', async(req, res) => {
-      const options = req.body;
-      try {
-          const likes = await this.db.addLike(options.post_id, options.user_id);
-          res.status(200);
-      } catch (err) {
-          res.status(500).send({ error: 'There was an error retreiving the likes' });
-      }
-      res.end();
+    const options = req.body;
+    try {
+      const likes = await this.db.addLike(options.post_id, options.user_id);
+      res.status(200);
+    } catch (err) {
+      res.status(500).send({ error: 'There was an error retreiving the likes' });
+    }
+    res.end();
   });
 
   this.app.put('/get_feed', async(req, res) => {
-      const options = req.body;
-      try {
-          const posts = await this.db.getFeed(options.tag);
-          res.status(200).send(posts.rows[2]);
-      } catch (err) {
-          res.status(500).send({ error: 'There was an error retreiving the posts' });
-      }
-      res.end();
+    const options = req.body;
+    try {
+      const posts = await this.db.getFeed(options.tag);
+      res.status(200).send(posts.rows[2]);
+    } catch (err) {
+      res.status(500).send({ error: 'There was an error retreiving the posts' });
+    }
+    res.end();
   });
 }
 
