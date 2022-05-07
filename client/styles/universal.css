@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
 body,
 html {
     margin: 0;
@@ -7,52 +9,53 @@ html {
 }
 
 #header {
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 120px;
-    width: 100%;
-    border-bottom: 4px solid #971B2F;
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0px;
-    z-index: 100;
+  font-family: 'Kaushan Script', cursive;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  width: 100%;
+  border-bottom: 4px solid #971B2F;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0px;
+  z-index: 100;
 }
 
 .bg-maroon {
-    background-color: #971B2F;
+  background-color: #971B2F;
 }
 
 .bg-gray {
-    background-color: #eeeeee;
+  background-color: #eeeeee;
 }
 
 .btn,
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .btn:hover {
-    color: white !important;
+  color: white !important;
 }
 
 .noselect {
-    -webkit-touch-callout: none;
-    /* iOS Safari */
-    -webkit-user-select: none;
-    /* Safari */
-    -khtml-user-select: none;
-    /* Konqueror HTML */
-    -moz-user-select: none;
-    /* Old versions of Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer/Edge */
-    user-select: none;
-    /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+  supported by Chrome, Edge, Opera and Firefox */
 }
 
 .rounded-border-8px {
-    border-radius: 8px;
+  border-radius: 8px;
 }

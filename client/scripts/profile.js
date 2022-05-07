@@ -113,8 +113,6 @@ upload_profile_picture.addEventListener("click", async () => {
       const imgURL = URL.createObjectURL(downloadBlob);
       document.getElementById('profile-picture-editable').src = imgURL;
       document.getElementById("bfpp").click();
-      // Hard coded to the millenium 2000
-      console.log(newpp_path);
       path_to_pp = newpp_path;
     }
   }
@@ -159,7 +157,6 @@ async function loadUserInfo() {
   const username        = user_info.username;
   const email           = user_info.email;
   const profile_picture = user_info.pp_path;
-  console.log(profile_picture);
 
   const first_names = document.getElementsByClassName("display-first-name");
   Array.from(first_names).forEach(node => {
@@ -261,7 +258,7 @@ function renderPost(post) {
   post_img.classList.add("rounded");
   post_img.classList.add("shadow-sm");
   post_img.classList.add("pointer");
-  post_img.src = '/client/img/posts' + post.picture_path;
+  post_img.src = '/client/img/posts/' + post.picture_path;
   post_img.alt = "Oops, this image couldn't be found";
   post_img.width = 375;
   post_img.addEventListener("click", async () => {
