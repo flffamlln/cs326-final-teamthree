@@ -305,6 +305,28 @@ export async function getUserPosts(user_id) {
   }
 }
 
+/**
+ * Return # times user has liked the post
+ * @param {string} post_id 
+ * @param {string} user_id 
+ * @returns {number} A number (0, 1) representing if user liked the post
+ */
+ export async function liked(post_id, user_id) {
+  try {
+    const response = await fetch(`/liked?post_id=${post_id}&user_id=${user_id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+    return { status: 500, ok: false}
+  }
+}
+
 
 /**
  * 
