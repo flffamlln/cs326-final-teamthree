@@ -56,6 +56,12 @@ span b {
   transform: translateY(5rem)
 }
 
+.profile-picture {
+  object-fit: cover;
+  width: 150px !important;
+  height: 150px !important;
+}
+
 .overlay-container {
   visibility: hidden;
   display: flex;
@@ -67,9 +73,21 @@ span b {
   visibility: hidden;
   min-width: 100% !important;
   min-height: 70% !important;
-
 }
 
+.overlay {
+  background-color: white;
+  border: 4px solid #971B2F;
+  box-shadow: 0 0 3px #aaa;
+  color: black;
+  height: auto;
+  padding-top: 5px;
+}
+
+#display-post-container {
+  position: absolute;
+  z-index: 40;
+}
 
 #change-profile-picture-container {
   position: absolute;
@@ -84,33 +102,6 @@ span b {
 #edit-profile-container {
   position: absolute;
   z-index: 10;
-}
-
-#change-profile-picture-overlay {
-  background-color: white;
-  border: 4px solid #971B2F;
-  box-shadow: 0 0 3px #aaa;
-  color: black;
-  height: auto;
-  padding-top: 5px;
-}
-
-#change-password-overlay {
-  background-color: white;
-  border: 4px solid #971B2F;
-  box-shadow: 0 0 3px #aaa;
-  color: black;
-  height: auto;
-  padding-top: 5px;
-}
-
-#edit-profile-overlay {
-  background-color: white;
-  border: 4px solid #971B2F;
-  box-shadow: 0 0 3px #aaa;
-  color: black;
-  height: auto;
-  padding-top: 5px;
 }
 
 #profile-picture-cover {
@@ -157,4 +148,19 @@ span b {
 
 #main-container {
   padding-top: 0px !important;
+}
+
+#display-picture {
+  object-fit: cover;
+  width: 100%;
+}
+
+#post-description-container {
+  border: 1px solid rgba(200, 200, 200, 0.5);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
 }

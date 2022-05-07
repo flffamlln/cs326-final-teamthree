@@ -32,11 +32,14 @@ function resizeElements() {
   document.getElementById("recent-posts").style.height = `${rph}px`;
 }
 
-const posts_div = document.getElementById("recent-posts");
-const change_profile_picture_overlay = document.getElementById("change-profile-picture-overlay");
-const change_password_overlay = document.getElementById("change-password-overlay");
-const edit_profile_overlay = document.getElementById("edit-profile-overlay");
-const profile_container = document.getElementById("profile-container");
+const posts_div                       = document.getElementById("recent-posts");
+const change_profile_picture_overlay  = document.getElementById("change-profile-picture-overlay");
+const change_password_overlay         = document.getElementById("change-password-overlay");
+const edit_profile_overlay            = document.getElementById("edit-profile-overlay");
+const display_post_overlay            = document.getElementById("display-post-overlay");
+const profile_container               = document.getElementById("profile-container");
+const post_description                = document.getElementById("post-description");
+const post_img                        = document.getElementById("display-picture");
 
 const edit_profile_button = document.getElementById("edit-profile-button");
 edit_profile_button.addEventListener("click", () => {
@@ -45,13 +48,18 @@ edit_profile_button.addEventListener("click", () => {
   edit_profile_overlay.style.visibility = "visible";
 });
 
-const back_to_profile_button = document.getElementById("back-to-profile-button");
-back_to_profile_button.addEventListener("click", async () => {
-  profile_container.style.filter = "";
-  profile_container.style.pointerEvents = "";
-  edit_profile_overlay.style.visibility = "hidden";
-  change_profile_picture_overlay.style.visibility = "hidden";
-  document.getElementById("profile-picture-editable").src = (await crud.getUserInfo(session_info.user_id)).pp_path;
+const back_to_profile_buttons = document.getElementsByClassName("back-to-profile-button");
+Array.from(back_to_profile_buttons).forEach(button => {
+  button.addEventListener("click", async () => {
+    profile_container.style.filter = "";
+    profile_container.style.pointerEvents = "";
+    edit_profile_overlay.style.visibility = "hidden";
+    change_profile_picture_overlay.style.visibility = "hidden";
+    display_post_overlay.style.visibility = "hidden";
+    post_description.innerHTML = "";
+    post_img.src = "";
+    document.getElementById("profile-picture-editable").src = (await crud.getUserInfo(session_info.user_id)).pp_path;
+  });
 });
 
 const profile_picture_editable = document.getElementById("profile-picture-editable");
@@ -72,7 +80,6 @@ Array.from(back_to_edit_buttons).forEach(button => {
     document.getElementById("current-password").value="";
     document.getElementById("new-password").value="";
     document.getElementById("password-change-message").innerHTML="";
-    
     edit_profile_overlay.style.visibility = "visible";
     change_password_overlay.style.visibility = "hidden";
     change_profile_picture_overlay.style.visibility = "hidden";
@@ -262,8 +269,12 @@ function renderPost(post) {
   post_img.alt = "Oops, this image couldn't be found";
   post_img.width = 375;
   post_img.addEventListener("click", async () => {
-    const post_display = await crud.getPost(post.post_id);
-    console.log(post_display);
+    const post_info = await crud.getPost(post.post_id);
+    profile_container.style.filter = "blur(8px)";
+    profile_container.style.pointerEvents = "none";
+    display_post_overlay.style.visibility = "visible";
+    post_img.src = '/client/img/posts/' + post_info.picture_path;
+    post_description.innerHTML = post_info.description;
   });
 
   post_container.appendChild(post_img);
