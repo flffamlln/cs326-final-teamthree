@@ -23,12 +23,10 @@ tagFilter.addEventListener('change',getPostFeedPath);
 async function getPostFeedPath() {
   feed_photos_path = [];
   const tagFilter = document.getElementById("drop-button");
-  console.log(tagFilter.value);
   const results = await crud.getFeed(tagFilter.value);
   for(let i = 0; i < Object.keys(results).length; ++i){
     feed_photos_path.push([results[i].post_id,results[i].picture_path]);
   }
-  console.log(feed_photos_path);
   getPostFeedImages();
 }
 
@@ -36,7 +34,6 @@ async function getPostFeedImages() {
   feed_photos_scr = [];
   for (let i = 0; i <feed_photos_path.length; ++i){
     try{
-      console.log(feed_photos_path[i][1]);
       const downloadPostBlob = await crud.downloadPost(feed_photos_path[i][1]);
       if(downloadPostBlob !== undefined){
         const imgURL = URL.createObjectURL(downloadPostBlob);
