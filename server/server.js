@@ -1,6 +1,6 @@
 import express from 'express';
 import fileUpload from 'express-fileupload';
-import './auth.js'
+import auth from './auth.js'
 import { fileURLToPath } from 'url';
 import path from 'path';
 import morgan from 'morgan';
@@ -326,12 +326,18 @@ class Server {
     // Initialize all of the routes for getting stuff
     initGetRoutes() {
         this.app.get('/get_feed', async(req, res) => {
-            const options = req.body;
+            const options = req.query;
             try {
-                const posts = await this.db.getFeed(options.tag);
-                res.status(200).send(posts.rows);
+                if (options.tag === "All") {
+                    const query = 'SELECT * FROM posts;';
+                    const posts = await this.db.generalQuery(query);
+                    res.status(200).send(posts.rows);
+                } else {
+                    const posts = await this.db.getFeed(options.tag);
+                    res.status(200).send(posts.rows);
+                }
             } catch (err) {
-                res.status(500).send({ error: 'There was an error retreiving the posts' });
+                res.status(500).send({ error: err.message });
             }
             res.end();
         });

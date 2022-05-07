@@ -34,7 +34,7 @@ async function getPostFeedImages() {
   feed_photos_scr = [];
   for (let i = 0; i <feed_photos_path.length; ++i){
     try{
-      const downloadPostBlob = await crud.downloadPost(feed_photos_path[i][1]);
+      const downloadPostBlob = await crud.downloadPhoto(feed_photos_path[i][1]);
       if(downloadPostBlob !== undefined){
         const imgURL = URL.createObjectURL(downloadPostBlob);
         feed_photos_scr.push([imgURL,feed_photos_path[i][0]]);
@@ -43,6 +43,7 @@ async function getPostFeedImages() {
       console.log(err.message);
     }
   }
+
   displayFeed();
 }
 
@@ -52,24 +53,26 @@ async function displayFeed() {
   while(posts.firstChild){
     posts.removeChild(posts.firstChild);
   }
-  for (let i = 0; i < Math.floor(feed_photos_scr.length/2); ++i) {
+  for (let i = 0; i < Math.ceil(feed_photos_scr.length/2); ++i) {
     const row = document.createElement("div");
     row.classList.add("post-img-row");
     for (let j = 0; j < 2; ++j) {
-      const centering = document.createElement("div");
-      centering.classList.add("d-flex");
-      centering.classList.add("justify-content-center");
-      const photo = document.createElement("img");
-      photo.classList.add("img-fluid");
-      photo.classList.add("rounded");
-      photo.classList.add("shadow-sm");
-      photo.id = feed_photos_scr[2*i + j][1];
+      if((2*i + j) < feed_photos_scr.length){
+        const centering = document.createElement("div");
+        centering.classList.add("d-flex");
+        centering.classList.add("justify-content-center");
+        const photo = document.createElement("img");
+        photo.classList.add("img-fluid");
+        photo.classList.add("rounded");
+        photo.classList.add("shadow-sm");
+        photo.id = feed_photos_scr[2*i + j][1];
 
-      photo.src = feed_photos_scr[2*i + j][0];
-      
-      photo.addEventListener("click", redirected);
-      centering.appendChild(photo);
-      row.appendChild(centering);
+        photo.src = feed_photos_scr[2*i + j][0];
+        
+        photo.addEventListener("click", redirected);
+        centering.appendChild(photo);
+        row.appendChild(centering);
+      }
     }
     posts.appendChild(row);
   }
