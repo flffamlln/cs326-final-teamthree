@@ -2,7 +2,7 @@ import { getUsername, getComments, createComment, getPost, updateLike, getLikes 
 
 const session_info = {
     user_id: 1,
-    post_id: 1
+    post_id: 15
 };
 
 window.onload = async function () {

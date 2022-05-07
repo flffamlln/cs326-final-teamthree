@@ -89,10 +89,10 @@ export async function createComment(comment_id, post_id, user_id, comment) {
   }
 }
 
-export async function uploadPP(newpp) {
+export async function uploadPP(new_file) {
   try {
     const picture = new FormData();
-    picture.append('pp', newpp);
+    picture.append('newFile', new_file);
     const response = await fetch('/upload_pp', {
       method: 'POST',
       body: picture

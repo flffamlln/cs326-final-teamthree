@@ -80,12 +80,12 @@ class Server {
     /**
      * 
      */
-    this.app.post('/upload_pp', async (req, res) => {
+     this.app.post('/upload_pp', async (req, res) => {
       if (!req.files) {
         res.status(400).send('No files were uploaded.');
       }
  
-      const file = req.files.pp;
+      const file = req.files.newFile;
 
       let extention = '';
       if (file.name.endsWith('.jpg')) {
