@@ -93,7 +93,6 @@ Array.from(back_to_edit_buttons).forEach(button => {
 
 const save_profile = document.getElementById("save-profile-button");
 save_profile.addEventListener("click", async () => {
-  // To be dynamically updated later after login and sessions are created
   const first_name      = document.getElementById("first-name").value;
   const last_name       = document.getElementById("last-name").value;
   const username        = document.getElementById("username").value;

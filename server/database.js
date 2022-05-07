@@ -17,6 +17,8 @@ export default class DatabaseConnection {
     this.client = await this.pool.connect();
     console.log("Database Connected");
 
+    await new Promise(r => setTimeout(r, 100));
+
     await this.init();
   }
   
@@ -56,7 +58,11 @@ export default class DatabaseConnection {
     `;
 
     await this.client.query(queryText);
+
+    await new Promise(r => setTimeout(r, 100));
+
     console.log("Database Initialized");
+    
     return;
   }
 
@@ -64,8 +70,6 @@ export default class DatabaseConnection {
    * 
    */
   async generalQuery(query_string, values_arr) {
-    // console.log(query_string);
-    // console.log(values_arr);
     const result = await this.client.query(query_string, values_arr);
     return result;
   }
