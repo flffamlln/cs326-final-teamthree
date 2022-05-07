@@ -42,7 +42,7 @@ likes table
 * Lucas Bertoni
 * - Implemented the PostgreSQL database schema
 * - Implemented the server connection to the database
-* - Implemented uploading a user's profile picture
+* - Implemented uploading a user's profile picture (as well as changing it)
 * - Implemented updating a user's information, including changing password
 * - Implemented displaying a feed of a user's posts on their profile page
 * - Implemented displaying a specific post (picture, likes, comments) on a user's profile page
