@@ -11,11 +11,11 @@ import nodemailer from 'nodemailer'
 import 'dotenv/config';
 
 // import users from './users.js';
-// import expressSession from 'express-session';
-// import passport from 'passport';
-// import passportLocal from 'passport-local';
-// import flash from 'express-flash';
-// import session from 'express-session';
+import expressSession from 'express-session';
+import passport from 'passport';
+import passportLocal from 'passport-local';
+import flash from 'express-flash';
+import session from 'express-session';
 
 const __filename = fileURLToPath(
     import.meta.url);
