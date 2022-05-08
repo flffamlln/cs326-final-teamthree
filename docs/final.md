@@ -84,6 +84,7 @@ Likes table
 
 **Authentication/Authorization:** <br>
 *A final up-to-date description of how users are authenticated and any permissions for specific users (if any) that you used in your application. You should mention how they relate to which UI views are accessible.*
+- In our application, users can sign up with a username, first name, last name, and password. We save the users information in a query database. A few things that are not allowed when signing up are using the email more than once or using a password that contains less than 6 characters. I struglled with the authentication part for the login part so it is not completly functional. However, the attempt was to make sure the email used to login matches the email we have in our database and check if the hashedpassword matches that user. Then we get the password from the user and ensure that it matches the email to log in. 
 
 <ins>**Breakdown of Labor for the entire project**</ins> <br>
 
@@ -91,7 +92,7 @@ Likes table
    - Updating a user's profile information (first name, last name, email, password, profile picture)
    - Displaying a user's posts
    - Displaying previews of a user's posts when one is clicked on
-* Youmna Alnasrallah
+* Youmna Alnasrallah - Implemented the functionality related to the login and sign up page and the HTML/CSS for these pages
 * Yuri Kim - Implemented functionality to uploading a post (image saving, description, tag, poster), viewing a post's details (postingPhoto), likes and comments
 * Emily Torok - Implemented all functionality relating to the home page - CSS/HTML, server + CRUD operations, and back-end functionality.
 
