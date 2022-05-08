@@ -422,7 +422,7 @@ initGetRoutes() {
    */
   this.app.get('/login', checkNotAuthenticated, (req, res) => {
     res.render("/client/signup.html");
-  })
+  });
 
   /**
    * 
