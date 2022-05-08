@@ -7,10 +7,10 @@ const session_info = {
 let submit = document.getElementById("submit");
 submit.addEventListener("click", async () => {  
   const user_id = session_info.user_id;
-  const picture_path           = await savePhoto();
+  const picture_path = await savePhoto();
   
-  const description       = document.getElementById("photoDescription").value;
-  const tag        = document.getElementById("tag").value;
+  const description = document.getElementById("photoDescription").value;
+  const tag = document.getElementById("tag").value;
 
   const res = await createPost(user_id, picture_path, description, tag);
   if (res === 200) {
