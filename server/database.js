@@ -169,7 +169,7 @@ export default class DatabaseConnection {
   }
 
   async getFeed(tag) {
-    const query = 'SELECT * FROM posts WHERE tag = $1;';
+    const query = 'SELECT * FROM posts WHERE tag = $1 ORDER BY post_id DESC;';
     const values = [tag];
     const result = await this.client.query(query,values);
     return result;
