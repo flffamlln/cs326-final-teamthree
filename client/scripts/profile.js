@@ -10,7 +10,7 @@ let num_posts_displayed = 0;
 
 window.onload = async function () {
   // Temporary
-  if (window.localStorage.getItem("user_id") !== null) {  window.localStorage.getItem("user_id"); }
+  if (window.localStorage.getItem("user_id") !== null) { session_info.user_id = window.localStorage.getItem("user_id"); }
 
   await loadUserInfo();
   await loadPostCount();
