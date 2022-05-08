@@ -9,9 +9,9 @@ let path_to_pp = '';
 let num_posts_displayed = 0;
 
 window.onload = async function () {
-  loadUserInfo();
-  loadPostCount();
-  loadPosts();
+  await loadUserInfo();
+  await loadPostCount();
+  await loadPosts();
   await new Promise(r => setTimeout(r, 200));
   resizeElements();
 }

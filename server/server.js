@@ -2,7 +2,6 @@ import express from 'express';
 import fileUpload from 'express-fileupload';
 import auth from './auth.js'
 import users from './users.js';
-import { fileURLToPath } from 'url';
 import path from 'path';
 import DatabaseConnection from './database.js';
 import 'path';
@@ -15,9 +14,6 @@ import passport from 'passport';
 import passportLocal from 'passport-local';
 import flash from 'express-flash';
 import session from 'express-session';
-
-const __filename = fileURLToPath(
-    import.meta.url);
 
 // Session configuration
 const sessionConfig = {
