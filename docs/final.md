@@ -78,9 +78,9 @@ Likes table
 | user_id | integer | The user id of the person who liked the post |
 
 **URL Routes/Mappings:** <br>
-<img src="..\URLroutes\get.png" width="350"><br>
-<img src="..\URLroutes\post.png" width="350"><br>
-<img src="..\URLroutes\put.png" width="350"><br>
+<img src="..\URLroutes\get.PNG" width="350"><br>
+<img src="..\URLroutes\post.PNG" width="350"><br>
+<img src="..\URLroutes\put.PNG" width="350"><br>
 
 **Authentication/Authorization:** <br>
 *A final up-to-date description of how users are authenticated and any permissions for specific users (if any) that you used in your application. You should mention how they relate to which UI views are accessible.*
