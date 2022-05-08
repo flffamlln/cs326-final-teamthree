@@ -1,4 +1,4 @@
-import { createPost, getNumPosts, uploadPhoto, downloadPhoto } from './crud.js';
+import { createPost, uploadPhoto, downloadPhoto } from './crud.js';
 
 const session_info = {
     user_id: 1
