@@ -1,7 +1,7 @@
-import { createPost, getNumPosts, uploadPhoto, downloadPhoto } from './crud.js';
+import { createPost, uploadPhoto, downloadPhoto } from './crud.js';
 
 const session_info = {
-    user_id: 1
+  user_id: 1
 };
 
 let submit = document.getElementById("submit");
@@ -15,14 +15,14 @@ submit.addEventListener("click", async () => {
   const res = await createPost(user_id, picture_path, description, tag);
   if (res === 200) {
     alert("Post successfully created");
-    location.reload();
+    location.href = "./home.html";
   } else {
     alert("There was an error creating your post");
     location.reload();
   }
 });
 
-async function savePhoto(){
+async function savePhoto() {
   const newpp = document.getElementById("formFileLg").files[0];
   if (newpp) {
     const upload_res = await uploadPhoto(newpp); // check
