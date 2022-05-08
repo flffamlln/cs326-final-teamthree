@@ -97,7 +97,7 @@ save_profile.addEventListener("click", async () => {
   const last_name       = document.getElementById("last-name").value;
   const username        = document.getElementById("username").value;
   const email           = document.getElementById("email").value;
-  const profile_picture = path_to_pp;
+  const profile_picture = path_to_pp === '' ? (await crud.getUserInfo(session_info.user_id)).pp_path : '';
   const res = await crud.updateUser(session_info.user_id, first_name, last_name, username, email, profile_picture);
   if (res === 200) {
     alert("Profile Successfully Updated");
