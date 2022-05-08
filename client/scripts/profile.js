@@ -65,7 +65,7 @@ Array.from(back_to_profile_buttons).forEach(button => {
     post_picture.src = "";
     post_comments_container.innerHTML = "";
     post_likes.innerHTML = "";
-    document.getElementById("profile-picture-editable").src = (await crud.getUserInfo(session_info.user_id)).pp_path;
+    document.getElementById("profile-picture-editable").src = "/client/img/profile_pictures/" + path_to_pp;
   });
 });
 
