@@ -8,7 +8,6 @@ import 'path';
 import nodemailer from 'nodemailer'
 import 'dotenv/config';
 import bcrypt from 'bcrypt';
-
 import expressSession from 'express-session';
 import passport from 'passport';
 import passportLocal from 'passport-local';
