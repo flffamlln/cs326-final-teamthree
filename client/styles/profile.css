@@ -192,3 +192,13 @@ span b {
   padding-left: 5px;
   padding-right: 5px;
 }
+
+#switch-profiles {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+#switch-profiles:hover {
+  color: black !important;
+}

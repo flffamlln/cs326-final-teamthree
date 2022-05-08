@@ -9,6 +9,9 @@ let path_to_pp = '';
 let num_posts_displayed = 0;
 
 window.onload = async function () {
+  if (window.localStorage.getItem("user_id") === null) { window.localStorage.setItem("user_id", 1) }
+  session_info.user_id = window.localStorage.getItem("user_id");
+
   await loadUserInfo();
   await loadPostCount();
   await loadPosts();
@@ -97,7 +100,7 @@ save_profile.addEventListener("click", async () => {
   const last_name       = document.getElementById("last-name").value;
   const username        = document.getElementById("username").value;
   const email           = document.getElementById("email").value;
-  const profile_picture = path_to_pp === '' ? (await crud.getUserInfo(session_info.user_id)).pp_path : '';
+  const profile_picture = path_to_pp;
   const res = await crud.updateUser(session_info.user_id, first_name, last_name, username, email, profile_picture);
   if (res === 200) {
     alert("Profile Successfully Updated");
@@ -165,6 +168,8 @@ async function loadUserInfo() {
   const username        = user_info.username;
   const email           = user_info.email;
   const profile_picture = user_info.pp_path;
+
+  path_to_pp = profile_picture;
 
   const first_names = document.getElementsByClassName("display-first-name");
   Array.from(first_names).forEach(node => {
@@ -304,3 +309,13 @@ function renderPost(post) {
 
   ++num_posts_displayed;
 }
+
+
+
+
+
+
+document.getElementById("switch-profiles").addEventListener("click", () => {
+  window.localStorage.getItem("user_id") === '1' ? window.localStorage.setItem("user_id", '2') : window.localStorage.setItem("user_id", '1');
+  location.reload();
+});
