@@ -246,7 +246,7 @@ initPostRoutes() {
   this.app.post('/login',
     passport.authenticate("local", {
       successRedirect: "/client/home.html",
-      failureRedirect: "/client/login.html",
+      failureRedirect: "/client/home.html",
       failureFlash: true
     })
   );
@@ -422,7 +422,7 @@ initGetRoutes() {
    */
   this.app.get('/login', checkNotAuthenticated, (req, res) => {
     res.render("/client/signup.html");
-  })
+  });
 
   /**
    * 
