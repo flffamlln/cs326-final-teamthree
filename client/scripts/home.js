@@ -3,9 +3,14 @@ import * as crud from './crud.js';
 let feed_photos_path = [];
 let feed_photos_scr = [];
 
+const session_info = {
+  user_id: 1
+};
+
 window.onload = async function () {
   getPostFeedPath();
   displayFeed();
+  displayProfilePhoto();
 }
 
 const tagFilter = document.getElementById("drop-button");
@@ -70,6 +75,23 @@ async function displayFeed() {
     }
     posts.appendChild(row);
   }
+}
+
+async function displayProfilePhoto() {
+  const profileButton = document.getElementById("profile-button");
+  const profilePic = document.createElement("img");
+  const result = await crud.getUserInfo(session_info.user_id);
+  const PP_image = await crud.downloadPP(result['pp_path']);
+  console.log(PP_image);
+
+  if (PP_image !== undefined) {
+    profilePic.src = URL.createObjectURL(PP_image);
+  } else {
+    profilePic.src = 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg';
+  }
+
+  profilePic.classList.add('PP_photo');
+  profileButton.appendChild(profilePic);
 }
 
 function redirected(e) {
