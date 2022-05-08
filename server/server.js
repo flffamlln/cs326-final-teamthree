@@ -239,7 +239,6 @@ initPostRoutes() {
         // THIS DOESN'T WORK
         return res.render("signup.html", { message: "Email already registered" });
       } else {
-        console.log("hi");
         const r2 = await this.db.createUser(username, firstname, lastname, email, hashedPassword);
         console.log(r2.rows);
         req.flash("success_msg", "You are now registered. Please log in");
