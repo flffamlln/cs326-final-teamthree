@@ -196,7 +196,7 @@ span b {
 #switch-profiles {
   position: absolute;
   top: 20px;
-  left: 20px;
+  right: 20px;
 }
 
 #switch-profiles:hover {
