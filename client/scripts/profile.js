@@ -9,8 +9,8 @@ let path_to_pp = '';
 let num_posts_displayed = 0;
 
 window.onload = async function () {
-  if (window.localStorage.getItem("user_id") === null) { window.localStorage.setItem("user_id", 1) }
-  session_info.user_id = window.localStorage.getItem("user_id");
+  // Temporary
+  if (window.localStorage.getItem("user_id") !== null) {  window.localStorage.getItem("user_id"); }
 
   await loadUserInfo();
   await loadPostCount();
@@ -314,7 +314,7 @@ function renderPost(post) {
 
 
 
-
+// Temporary
 document.getElementById("switch-profiles").addEventListener("click", () => {
   const curr_user = window.localStorage.getItem("user_id");
   if (curr_user === '1') {
@@ -328,5 +328,6 @@ document.getElementById("switch-profiles").addEventListener("click", () => {
   } else {
     window.localStorage.setItem("user_id", '1');
   }
+
   location.reload();
 });
