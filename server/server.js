@@ -429,8 +429,9 @@ initGetRoutes() {
    */
   this.app.get('/home', checkNotAuthenticated, (req, res) => {
     console.log(req.isAuthenticated());
-    res.render("home.html", { user: req.user.name });
+    res.render("home.html");
   });
+
 
   /**
    * *****************************************
