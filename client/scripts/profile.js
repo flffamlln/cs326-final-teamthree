@@ -321,9 +321,9 @@ document.getElementById("switch-profiles").addEventListener("click", () => {
     window.localStorage.setItem("user_id", '2');
   } else if (curr_user === '2') {
     window.localStorage.setItem("user_id", '3');
-  } else if (curr_user === 3) {
+  } else if (curr_user === '3') {
     window.localStorage.setItem("user_id", '4');
-  } else if (curr_user === 4) {
+  } else if (curr_user === '4') {
     window.localStorage.setItem("user_id", '1');
   } else {
     window.localStorage.setItem("user_id", '1');
