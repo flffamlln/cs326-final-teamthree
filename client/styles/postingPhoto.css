@@ -61,3 +61,7 @@ img{
     margin-right: 12%;
     margin-bottom: 1%;
 }
+
+#switch-profiles:hover {
+    color: black !important;
+}

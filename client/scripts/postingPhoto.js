@@ -6,8 +6,11 @@ let session_info = {
 };
 
 window.onload = async function () {
+    if (window.localStorage.getItem("user_id") === null) { window.localStorage.setItem("user_id", 1) }
+    session_info.user_id = window.localStorage.getItem("user_id");  
+
     getPostID();
-    loadPhoto();
+    await loadPhoto();
 }
 
 function getPostID(){
@@ -117,3 +120,19 @@ like.addEventListener("click", async () => {
         location.reload();
     }
 });
+
+document.getElementById("switch-profiles").addEventListener("click", () => {
+    const curr_user = window.localStorage.getItem("user_id");
+    if (curr_user === '1') {
+      window.localStorage.setItem("user_id", '2');
+    } else if (curr_user === '2') {
+      window.localStorage.setItem("user_id", '3');
+    } else if (curr_user === '3') {
+      window.localStorage.setItem("user_id", '4');
+    } else if (curr_user === '4') {
+      window.localStorage.setItem("user_id", '1');
+    } else {
+      window.localStorage.setItem("user_id", '1');
+    }
+    location.reload();
+  });
